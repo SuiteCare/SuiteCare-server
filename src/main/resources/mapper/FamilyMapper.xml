@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suitecare.suitecare.api.repository.FamilyMapper">
+
+    <!-- 회원가입 -->
+    <insert id="createFamily" parameterType="CreateFamilyDTO">
+        insert into suitefamily
+        values (#{id}, #{password}, #{name}, null, null, null, #{tel},
+        null, null, null, null, sysdate(), null)
+    </insert>
+
+    <!--아이디 중복체크-->
+    <select id="checkDuplicateID">
+        select count(*) from suitefamily where suite_family_id = #{id}
+    </select>
+
+    <!-- 로그인 -->
+    <select id="login" parameterType="LoginDTO">
+        select * from suitefamily where suite_family_id = #{suite_family_id} and password = #{password}
+    </select>
+
+</mapper>
