@@ -18,7 +18,8 @@
 
     <!-- 로그인 -->
     <select id="login" parameterType="LoginDTO">
-        select * from suitefamily where suite_family_id = #{suite_family_id} and password = #{password}
+        select * from suitefamily
+        where suite_family_id = #{suite_family_id} and password = #{password} and role in (#{role}, 'A');
     </select>
 
 </mapper>
