@@ -8,7 +8,7 @@
     <insert id="createFamily" parameterType="CreateFamilyDTO">
         insert into suitefamily
         values (#{id}, #{password}, #{name}, null, null, null, #{tel},
-        null, null, null, null, sysdate(), null)
+        null, null, null, null, sysdate(), #{role})
     </insert>
 
     <!--아이디 중복체크-->

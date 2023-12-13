@@ -8,6 +8,7 @@ public class CreateFamilyDTO {
     private String password;
     private String name;
     private String tel;
+    private String role;
     /*@JsonFormat(pattern = "yyyy.MM.dd'T'hh:mm", timezone = "Asia/Seoul")
     private Timestamp signup_date;*/
 }

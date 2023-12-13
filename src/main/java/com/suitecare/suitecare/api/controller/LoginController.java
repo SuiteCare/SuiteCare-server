@@ -20,7 +20,6 @@ public class LoginController {
 
     @PostMapping("/login")
     public void login(HttpServletResponse response, @RequestBody LoginDTO loginDTO) {
-        System.out.println(loginService.loginFamily(loginDTO));
         if(loginService.loginFamily(loginDTO) != null) {
             response.setStatus(200);
             response.addHeader("msg", "success");
