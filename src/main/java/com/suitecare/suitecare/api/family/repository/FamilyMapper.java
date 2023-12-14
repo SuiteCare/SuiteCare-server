@@ -1,4 +1,4 @@
-package com.suitecare.suitecare.api.repository;
+package com.suitecare.suitecare.api.family.repository;
 
 import com.suitecare.suitecare.domain.CreateFamilyDTO;
 import com.suitecare.suitecare.domain.FamilyDTO;
