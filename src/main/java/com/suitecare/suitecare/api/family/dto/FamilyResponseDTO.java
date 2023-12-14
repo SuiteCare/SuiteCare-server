@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Data
 public class FamilyResponseDTO {
     @NonNull
-    private String suite_family_id;
+    private String login_id;
     private String password;
     private String family_name;
     private String family_gender;
@@ -20,10 +20,9 @@ public class FamilyResponseDTO {
     private String tel;
     private String address;
     private String address_detail;
-    private String sms_opt_in;
-    private String email_opt_in;
-    @JsonFormat(pattern = "yyyy.MM.dd'T'hh:mm", timezone = "Asia/Seoul")
-    private Timestamp signup_date;
     private String role;
-
+    @JsonFormat(pattern = "yyyy.MM.dd'T'hh:mm", timezone = "Asia/Seoul")
+    private Timestamp create_at;
+    @JsonFormat(pattern = "yyyy.MM.dd'T'hh:mm", timezone = "Asia/Seoul")
+    private Timestamp update_at;
 }
