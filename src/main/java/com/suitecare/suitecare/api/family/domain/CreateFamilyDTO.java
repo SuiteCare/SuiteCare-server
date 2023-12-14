@@ -1,4 +1,4 @@
-package com.suitecare.suitecare.domain;
+package com.suitecare.suitecare.api.family.domain;
 
 import lombok.Data;
 
