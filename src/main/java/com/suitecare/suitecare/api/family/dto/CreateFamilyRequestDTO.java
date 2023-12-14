@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class CreateFamilyRequestDTO {
-    private String id;
+    private String login_id;
     private String password;
     private String name;
     private String tel;

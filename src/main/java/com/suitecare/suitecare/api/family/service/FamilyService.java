@@ -18,11 +18,11 @@ public class FamilyService {
         return familyMapper.createFamily(createFamilyRequestDTO);
     }
 
-    public int checkDuplicateID(String id){
-        return familyMapper.checkDuplicateID(id);
+    public int checkDuplicateID(String login_id){
+        return familyMapper.checkDuplicateID(login_id);
     }
 
-    public FamilyResponseDTO loginFamily(LoginRequestDTO login){
-        return familyMapper.login(login);
+    public FamilyResponseDTO loginFamily(LoginRequestDTO loginRequestDTO){
+        return familyMapper.login(loginRequestDTO);
     }
 }
