@@ -1,4 +1,4 @@
-package com.suitecare.suitecare.api.family.domain;
+package com.suitecare.suitecare.api.family.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

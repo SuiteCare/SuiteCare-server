@@ -1,8 +1,8 @@
 package com.suitecare.suitecare.api.family.repository;
 
-import com.suitecare.suitecare.api.family.domain.CreateFamilyDTO;
-import com.suitecare.suitecare.api.family.domain.FamilyDTO;
-import com.suitecare.suitecare.api.family.domain.LoginDTO;
+import com.suitecare.suitecare.api.family.dto.CreateFamilyDTO;
+import com.suitecare.suitecare.api.family.dto.FamilyDTO;
+import com.suitecare.suitecare.api.family.dto.LoginDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
