@@ -8,7 +8,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data
-public class FamilyDTO {
+public class FamilyResponseDTO {
     @NonNull
     private String suite_family_id;
     private String password;

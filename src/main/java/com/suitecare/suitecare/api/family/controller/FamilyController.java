@@ -1,8 +1,8 @@
 package com.suitecare.suitecare.api.family.controller;
 
 import com.suitecare.suitecare.api.family.service.FamilyService;
-import com.suitecare.suitecare.api.family.dto.CreateFamilyDTO;
-import com.suitecare.suitecare.api.family.dto.LoginDTO;
+import com.suitecare.suitecare.api.family.dto.CreateFamilyRequestDTO;
+import com.suitecare.suitecare.api.family.dto.LoginRequestDTO;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +15,8 @@ public class FamilyController {
     FamilyService familyService;
 
     @PostMapping("/family")
-    public int createFamily(@RequestBody CreateFamilyDTO createFamilyDTO){
-        return familyService.createFamily(createFamilyDTO);
+    public int createFamily(@RequestBody CreateFamilyRequestDTO createFamilyRequestDTO){
+        return familyService.createFamily(createFamilyRequestDTO);
     }
 
     @GetMapping("/family")
@@ -25,7 +25,7 @@ public class FamilyController {
     }
 
     @PostMapping("/login")
-    public void login(HttpServletResponse response, @RequestBody LoginDTO loginDTO) {
+    public void login(HttpServletResponse response, @RequestBody LoginRequestDTO loginDTO) {
         System.out.println(familyService.loginFamily(loginDTO));
         if(familyService.loginFamily(loginDTO) != null) {
             response.setStatus(200);
