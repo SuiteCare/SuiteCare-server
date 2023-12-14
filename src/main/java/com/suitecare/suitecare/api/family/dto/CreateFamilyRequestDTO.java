@@ -8,4 +8,5 @@ public class CreateFamilyRequestDTO {
     private String password;
     private String name;
     private String tel;
+    private String role;
 }
