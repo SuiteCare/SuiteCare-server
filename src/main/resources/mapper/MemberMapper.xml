@@ -6,18 +6,18 @@
 
     <!-- 회원가입 -->
     <insert id="create" parameterType="CreateMemberRequestDTO">
-        insert into suitemember (login_id, password, name, tel, role, create_at, update_at)
+        insert into SuiteMember (login_id, password, name, tel, role, create_at, update_at)
         values (#{login_id}, #{password}, #{name}, #{tel}, #{role}, sysdate(), sysdate())
     </insert>
 
     <!--아이디 중복체크-->
     <select id="checkDuplicateID">
-        select count(*) from suitemember where login_id = #{login_id}
+        select count(*) from SuiteMember where login_id = #{login_id}
     </select>
 
     <!-- 로그인 -->
     <select id="login" parameterType="LoginRequestDTO">
-        select * from suitemember
+        select * from SuiteMember
         where login_id = #{login_id} and password = #{password} and role in (#{role}, 'A');
     </select>
 
