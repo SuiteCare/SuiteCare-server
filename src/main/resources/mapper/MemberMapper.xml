@@ -5,7 +5,7 @@
 <mapper namespace="com.suitecare.suitecare.api.member.mapper.MemberMapper">
 
     <!-- 회원가입 -->
-    <insert id="createFamily" parameterType="CreateMemberRequestDTO">
+    <insert id="create" parameterType="CreateMemberRequestDTO">
         insert into suitemember (login_id, password, name, tel, role, create_at, update_at)
         values (#{login_id}, #{password}, #{name}, #{tel}, #{role}, sysdate(), sysdate())
     </insert>
