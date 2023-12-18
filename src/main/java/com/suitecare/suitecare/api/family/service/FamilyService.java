@@ -22,7 +22,7 @@ public class FamilyService {
         return familyMapper.checkDuplicateID(login_id);
     }
 
-    public FamilyResponseDTO loginFamily(LoginRequestDTO loginRequestDTO){
+    public FamilyResponseDTO login(LoginRequestDTO loginRequestDTO){
         return familyMapper.login(loginRequestDTO);
     }
 }

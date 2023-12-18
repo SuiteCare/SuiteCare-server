@@ -26,7 +26,7 @@ public class FamilyController {
 
     @PostMapping("/login")
     public void login(HttpServletResponse response, @RequestBody LoginRequestDTO loginDTO) {
-        if(familyService.loginFamily(loginDTO) != null) {
+        if(familyService.login(loginDTO) != null) {
             response.setStatus(200);
             response.addHeader("msg", "success");
         } else {
