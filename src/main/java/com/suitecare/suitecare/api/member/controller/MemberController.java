@@ -15,7 +15,7 @@ public class MemberController {
     MemberService memberService;
 
     @PostMapping("/member")
-    public int createFamily(@RequestBody CreateMemberRequestDTO createMemberRequestDTO){
+    public int create(@RequestBody CreateMemberRequestDTO createMemberRequestDTO){
         return memberService.create(createMemberRequestDTO);
     }
 

@@ -10,12 +10,13 @@ import java.sql.Timestamp;
 @Data
 public class MemberResponseDTO {
     @NonNull
+    private Long id;
     private String login_id;
     private String password;
-    private String family_name;
-    private String family_gender;
+    private String name;
+    private String gender;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    private Date family_birthday;
+    private Date birthday;
     private String email;
     private String tel;
     private String address;
