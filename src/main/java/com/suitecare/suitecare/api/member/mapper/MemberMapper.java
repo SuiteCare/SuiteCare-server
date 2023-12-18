@@ -1,4 +1,4 @@
-package com.suitecare.suitecare.api.member.repository;
+package com.suitecare.suitecare.api.member.mapper;
 
 import com.suitecare.suitecare.api.member.dto.CreateMemberRequestDTO;
 import com.suitecare.suitecare.api.member.dto.MemberResponseDTO;

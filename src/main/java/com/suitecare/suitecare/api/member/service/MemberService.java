@@ -1,6 +1,6 @@
 package com.suitecare.suitecare.api.member.service;
 
-import com.suitecare.suitecare.api.member.repository.MemberMapper;
+import com.suitecare.suitecare.api.member.mapper.MemberMapper;
 import com.suitecare.suitecare.api.member.dto.CreateMemberRequestDTO;
 import com.suitecare.suitecare.api.member.dto.MemberResponseDTO;
 import com.suitecare.suitecare.api.member.dto.LoginRequestDTO;
