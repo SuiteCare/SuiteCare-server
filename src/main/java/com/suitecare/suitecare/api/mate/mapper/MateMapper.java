@@ -1,4 +1,4 @@
-package com.suitecare.suitecare.api.mate.repository;
+package com.suitecare.suitecare.api.mate.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
