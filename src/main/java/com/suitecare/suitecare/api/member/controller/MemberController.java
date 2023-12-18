@@ -1,8 +1,8 @@
-package com.suitecare.suitecare.api.family.controller;
+package com.suitecare.suitecare.api.member.controller;
 
-import com.suitecare.suitecare.api.family.service.FamilyService;
-import com.suitecare.suitecare.api.family.dto.CreateFamilyRequestDTO;
-import com.suitecare.suitecare.api.family.dto.LoginRequestDTO;
+import com.suitecare.suitecare.api.member.service.MemberService;
+import com.suitecare.suitecare.api.member.dto.CreateMemberRequestDTO;
+import com.suitecare.suitecare.api.member.dto.LoginRequestDTO;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,24 +10,23 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "/api/v1")
 @CrossOrigin()
-public class FamilyController {
+public class MemberController {
     @Autowired
-    FamilyService familyService;
+    MemberService memberService;
 
     @PostMapping("/family")
-    public int createFamily(@RequestBody CreateFamilyRequestDTO createFamilyRequestDTO){
-        return familyService.createFamily(createFamilyRequestDTO);
+    public int createFamily(@RequestBody CreateMemberRequestDTO createMemberRequestDTO){
+        return memberService.create(createMemberRequestDTO);
     }
 
     @GetMapping("/family")
     public int checkDuplicateID(@RequestParam String id){
-        return familyService.checkDuplicateID(id);
+        return memberService.checkDuplicateID(id);
     }
 
     @PostMapping("/login")
     public void login(HttpServletResponse response, @RequestBody LoginRequestDTO loginDTO) {
-        System.out.println(familyService.loginFamily(loginDTO));
-        if(familyService.loginFamily(loginDTO) != null) {
+        if(memberService.login(loginDTO) != null) {
             response.setStatus(200);
             response.addHeader("msg", "success");
         } else {

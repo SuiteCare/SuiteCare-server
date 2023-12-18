@@ -2,22 +2,22 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.suitecare.suitecare.api.family.repository.FamilyMapper">
+<mapper namespace="com.suitecare.suitecare.api.member.repository.MemberMapper">
 
     <!-- 회원가입 -->
-    <insert id="createFamily" parameterType="CreateFamilyRequestDTO">
-        insert into suitefamily (login_id, password, name, tel, role, create_at, update_at)
+    <insert id="createFamily" parameterType="CreateMemberRequestDTO">
+        insert into suitemember (login_id, password, name, tel, role, create_at, update_at)
         values (#{login_id}, #{password}, #{name}, #{tel}, #{role}, sysdate(), sysdate())
     </insert>
 
     <!--아이디 중복체크-->
     <select id="checkDuplicateID">
-        select count(*) from suitefamily where login_id = #{login_id}
+        select count(*) from suitemember where login_id = #{login_id}
     </select>
 
     <!-- 로그인 -->
     <select id="login" parameterType="LoginRequestDTO">
-        select * from suitefamily
+        select * from suitemember
         where login_id = #{login_id} and password = #{password} and role in (#{role}, 'A');
     </select>
 

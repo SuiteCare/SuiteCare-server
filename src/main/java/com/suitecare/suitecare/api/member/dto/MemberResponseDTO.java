@@ -1,4 +1,4 @@
-package com.suitecare.suitecare.api.family.dto;
+package com.suitecare.suitecare.api.member.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -8,7 +8,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data
-public class FamilyResponseDTO {
+public class MemberResponseDTO {
     @NonNull
     private String login_id;
     private String password;

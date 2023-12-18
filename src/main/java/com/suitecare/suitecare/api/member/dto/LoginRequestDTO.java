@@ -1,4 +1,4 @@
-package com.suitecare.suitecare.api.family.dto;
+package com.suitecare.suitecare.api.member.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
