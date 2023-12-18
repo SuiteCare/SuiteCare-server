@@ -14,12 +14,12 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-    @PostMapping("/family")
+    @PostMapping("/member")
     public int createFamily(@RequestBody CreateMemberRequestDTO createMemberRequestDTO){
         return memberService.create(createMemberRequestDTO);
     }
 
-    @GetMapping("/family")
+    @GetMapping("/member")
     public int checkDuplicateID(@RequestParam String id){
         return memberService.checkDuplicateID(id);
     }
