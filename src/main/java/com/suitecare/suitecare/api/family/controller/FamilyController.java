@@ -16,7 +16,7 @@ public class FamilyController {
 
     @PostMapping("/family")
     public int createFamily(@RequestBody CreateFamilyRequestDTO createFamilyRequestDTO){
-        return familyService.createFamily(createFamilyRequestDTO);
+        return familyService.create(createFamilyRequestDTO);
     }
 
     @GetMapping("/family")

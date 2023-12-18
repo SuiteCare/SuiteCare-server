@@ -14,7 +14,7 @@ public class FamilyService {
     FamilyMapper familyMapper;
 
     @Transactional
-    public int createFamily(CreateFamilyRequestDTO createFamilyRequestDTO){
+    public int create(CreateFamilyRequestDTO createFamilyRequestDTO){
         return familyMapper.createFamily(createFamilyRequestDTO);
     }
 
