@@ -1,9 +1,9 @@
-package com.suitecare.suitecare.api.family.dto;
+package com.suitecare.suitecare.api.member.dto;
 
 import lombok.Data;
 
 @Data
-public class CreateFamilyRequestDTO {
+public class CreateMemberRequestDTO {
     private String login_id;
     private String password;
     private String name;
