@@ -16,7 +16,7 @@ public class MemberService {
 
     @Transactional
     public int create(CreateMemberRequestDTO createMemberRequestDTO){
-        return memberMapper.createFamily(createMemberRequestDTO);
+        return memberMapper.create(createMemberRequestDTO);
     }
 
     public int checkDuplicateID(String login_id){
