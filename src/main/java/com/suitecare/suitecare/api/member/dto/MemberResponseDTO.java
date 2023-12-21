@@ -2,8 +2,10 @@ package com.suitecare.suitecare.api.member.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.NonNull;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 public class MemberResponseDTO {
