@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.member.controller;
 
+import com.suitecare.suitecare.api.member.dto.MypageResponseDTO;
 import com.suitecare.suitecare.api.member.service.MemberService;
 import com.suitecare.suitecare.api.member.dto.CreateMemberRequestDTO;
 import com.suitecare.suitecare.api.member.dto.LoginRequestDTO;
@@ -33,4 +34,10 @@ public class MemberController {
             response.addHeader("msg", "fail");
         }
     }
+
+    @GetMapping("/mypage")
+    public MypageResponseDTO findInfoById(@RequestParam int id){
+        return memberService.findMypageById(id);
+    }
+
 }

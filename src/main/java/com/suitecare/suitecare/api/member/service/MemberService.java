@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.member.service;
 
+import com.suitecare.suitecare.api.member.dto.MypageResponseDTO;
 import com.suitecare.suitecare.api.member.mapper.MemberMapper;
 import com.suitecare.suitecare.api.member.dto.CreateMemberRequestDTO;
 import com.suitecare.suitecare.api.member.dto.MemberResponseDTO;
@@ -24,5 +25,9 @@ public class MemberService {
 
     public MemberResponseDTO login(LoginRequestDTO loginRequestDTO){
         return memberMapper.login(loginRequestDTO);
+    }
+
+    public MypageResponseDTO findMypageById(int id){
+        return memberMapper.findMypageById(id);
     }
 }
