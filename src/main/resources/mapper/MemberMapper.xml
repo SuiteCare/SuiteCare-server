@@ -21,4 +21,8 @@
         where login_id = #{login_id} and password = #{password} and role in (#{role}, 'A');
     </select>
 
+    <select id="findMypageById" parameterType="MypageResponseDTO">
+        select * from suitemember where id = #{id};
+    </select>
+
 </mapper>
