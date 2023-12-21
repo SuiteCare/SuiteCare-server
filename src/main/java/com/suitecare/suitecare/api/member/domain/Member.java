@@ -1,4 +1,4 @@
-package com.suitecare.suitecare.api.member.dto;
+package com.suitecare.suitecare.api.member.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -8,7 +8,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data
-public class MemberResponseDTO {
+public class Member {
     @NonNull
     private Long id;
     private String login_id;

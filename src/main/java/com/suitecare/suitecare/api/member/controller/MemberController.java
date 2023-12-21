@@ -27,7 +27,7 @@ public class MemberController {
 
     @PostMapping("/login")
     public void login(HttpServletResponse response, @RequestBody LoginRequestDTO loginDTO) {
-        if(memberService.login(loginDTO) != null) {
+        if(memberService.login(loginDTO) != 0) {
             response.setStatus(200);
             response.addHeader("msg", "success");
         } else {
