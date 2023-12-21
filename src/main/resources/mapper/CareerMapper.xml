@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suitecare.suitecare.api.mate.mapper.CareerMapper">
+
+    <select id="findCareerById" resultType="CareerDTO">
+        SELECT career.id, title, date_start, date_end
+        FROM career JOIN suitemate AS mate ON career.mate_id = mate.id
+        WHERE mate.family_id = #{id};
+    </select>
+
+
+</mapper>
