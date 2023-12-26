@@ -17,7 +17,7 @@
 
     <!-- 로그인 -->
     <select id="login" parameterType="LoginRequestDTO">
-        select count(*) from SuiteMember
+        select id from SuiteMember
         where login_id = #{login_id} and password = #{password} and role in (#{role}, 'A');
     </select>
 
