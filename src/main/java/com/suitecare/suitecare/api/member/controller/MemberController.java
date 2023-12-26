@@ -4,7 +4,6 @@ import com.suitecare.suitecare.api.member.dto.MypageResponseDTO;
 import com.suitecare.suitecare.api.member.service.MemberService;
 import com.suitecare.suitecare.api.member.dto.CreateMemberRequestDTO;
 import com.suitecare.suitecare.api.member.dto.LoginRequestDTO;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,13 +25,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public Integer login(HttpServletResponse response, @RequestBody LoginRequestDTO loginDTO) {
-//        if() {
-//            response.setStatus(200);
-//            response.addHeader("msg", "success");
-//        } else {
-//            response.addHeader("msg", "fail");
-//        }
+    public Integer login(@RequestBody LoginRequestDTO loginDTO) {
         return memberService.login(loginDTO);
     }
 
