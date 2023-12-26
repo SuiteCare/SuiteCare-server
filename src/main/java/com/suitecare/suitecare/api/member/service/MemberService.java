@@ -3,7 +3,6 @@ package com.suitecare.suitecare.api.member.service;
 import com.suitecare.suitecare.api.member.dto.MypageResponseDTO;
 import com.suitecare.suitecare.api.member.mapper.MemberMapper;
 import com.suitecare.suitecare.api.member.dto.CreateMemberRequestDTO;
-import com.suitecare.suitecare.api.member.dto.MemberResponseDTO;
 import com.suitecare.suitecare.api.member.dto.LoginRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
