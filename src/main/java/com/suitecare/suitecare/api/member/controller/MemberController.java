@@ -26,13 +26,14 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public void login(HttpServletResponse response, @RequestBody LoginRequestDTO loginDTO) {
-        if(memberService.login(loginDTO) != null) {
-            response.setStatus(200);
-            response.addHeader("msg", "success");
-        } else {
-            response.addHeader("msg", "fail");
-        }
+    public Integer login(HttpServletResponse response, @RequestBody LoginRequestDTO loginDTO) {
+//        if() {
+//            response.setStatus(200);
+//            response.addHeader("msg", "success");
+//        } else {
+//            response.addHeader("msg", "fail");
+//        }
+        return memberService.login(loginDTO);
     }
 
     @GetMapping("/mypage")

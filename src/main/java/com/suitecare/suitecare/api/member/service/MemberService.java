@@ -23,7 +23,7 @@ public class MemberService {
         return memberMapper.checkDuplicateID(login_id);
     }
 
-    public MemberResponseDTO login(LoginRequestDTO loginRequestDTO){
+    public Integer login(LoginRequestDTO loginRequestDTO){
         return memberMapper.login(loginRequestDTO);
     }
 
