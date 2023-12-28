@@ -1,9 +1,7 @@
 package com.suitecare.suitecare.api.member.controller;
 
-import com.suitecare.suitecare.api.member.dto.MypageResponseDTO;
+import com.suitecare.suitecare.api.member.dto.*;
 import com.suitecare.suitecare.api.member.service.MemberService;
-import com.suitecare.suitecare.api.member.dto.CreateMemberRequestDTO;
-import com.suitecare.suitecare.api.member.dto.LoginRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,5 +31,16 @@ public class MemberController {
     public MypageResponseDTO findInfoById(@RequestParam int id){
         return memberService.findMypageById(id);
     }
+
+    @PostMapping("/changepw")
+    public int changePw(@RequestBody ChangePwRequestDTO changePwRequestDTO){
+        return memberService.changePw(changePwRequestDTO);
+    }
+
+    @PostMapping("/modify")
+    public int modify(@RequestBody ModifyRequestDTO modifyRequestDTO){
+        return memberService.modify(modifyRequestDTO);
+    }
+
 
 }

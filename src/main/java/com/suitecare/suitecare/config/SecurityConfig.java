@@ -20,6 +20,9 @@ public class SecurityConfig {
                         auth -> auth
                                 .requestMatchers("/api/v1/login").permitAll()
                                 .requestMatchers("/api/v1/member").permitAll()
+                                .requestMatchers("/api/v1/mypage").permitAll()
+                                .requestMatchers("/api/v1/changepw").permitAll()
+                                .requestMatchers("/api/v1/modify").permitAll()
                                 .requestMatchers("/api/v1/patient").permitAll()
                                 .anyRequest().authenticated()
                 );
