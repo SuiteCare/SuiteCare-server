@@ -18,8 +18,8 @@ public class MemberController {
     }
 
     @GetMapping("/member")
-    public int checkDuplicateID(@RequestParam String id){
-        return memberService.checkDuplicateID(id);
+    public int checkDuplicateID(@RequestParam String login_id){
+        return memberService.checkDuplicateID(login_id);
     }
 
     @PostMapping("/login")
