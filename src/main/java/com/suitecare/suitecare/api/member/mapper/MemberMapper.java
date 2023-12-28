@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.member.mapper;
 
+import com.suitecare.suitecare.api.member.dto.ChangePwResponseDTO;
 import com.suitecare.suitecare.api.member.dto.CreateMemberRequestDTO;
 import com.suitecare.suitecare.api.member.dto.LoginRequestDTO;
 import com.suitecare.suitecare.api.member.dto.MypageResponseDTO;
@@ -11,4 +12,5 @@ public interface MemberMapper {
     Integer login(LoginRequestDTO loginDTO);
     int checkDuplicateID(String id);
     MypageResponseDTO findMypageById(int id);
+    ChangePwResponseDTO changePw(int id);
 }

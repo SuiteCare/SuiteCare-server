@@ -25,4 +25,13 @@
         select * from suitemember where id = #{id};
     </select>
 
+    <!--회원 정보 수정-->
+
+    <!--비밀번호 변경-->
+    <update id="changePw" parameterType="ChangePwResponseDTO">
+        update SuiteMember
+        set password = #{password}
+        where login_id = #{login_id}
+    </update>
+
 </mapper>

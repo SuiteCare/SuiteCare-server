@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.member.controller;
 
+import com.suitecare.suitecare.api.member.dto.ChangePwResponseDTO;
 import com.suitecare.suitecare.api.member.dto.MypageResponseDTO;
 import com.suitecare.suitecare.api.member.service.MemberService;
 import com.suitecare.suitecare.api.member.dto.CreateMemberRequestDTO;
@@ -32,6 +33,11 @@ public class MemberController {
     @GetMapping("/mypage")
     public MypageResponseDTO findInfoById(@RequestParam int id){
         return memberService.findMypageById(id);
+    }
+
+    @GetMapping("/changepw")
+    public ChangePwResponseDTO changePw(@RequestParam int id){
+        return memberService.ChangePw(id);
     }
 
 }
