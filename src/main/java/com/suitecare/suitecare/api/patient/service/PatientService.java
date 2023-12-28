@@ -13,6 +13,19 @@ public class PatientService {
 
     @Transactional
     public int addPatient(AddPatientRequestDTO addPatientRequestDTO){
-        return patientMapper.addPatient(addPatientRequestDTO) + patientMapper.addPatientDetail(addPatientRequestDTO);
+        int addPatient = patientMapper.addPatient(addPatientRequestDTO);
+        String patientID = patientMapper.getPatientID(addPatientRequestDTO);
+
+        System.out.println(patientID);
+
+        if (addPatient == 1) {
+            addPatientRequestDTO.setId(patientID);
+            System.out.println(addPatientRequestDTO.getId());
+            int addPatientDetail = patientMapper.addPatientDetail(addPatientRequestDTO);
+            return addPatientDetail > 0 ? 2 : 1;
+        }
+
+        return 0;
     }
+
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class AddPatientRequestDTO {
+    private String id;
     private String family_id;
     private String name;
     private String gender;
@@ -14,8 +15,8 @@ public class AddPatientRequestDTO {
     private String consciousness_state;
     private String paralysis_state;
     private String behavioral_state;
-    private String need_meal_care;
-    private String need_toilet_care;
+    private String meal_care_state;
+    private String toilet_care_state;
     private String is_bedsore;
     private String need_suction;
     private String need_outpatient;
