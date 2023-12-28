@@ -16,4 +16,9 @@ public class PatientController {
     public int addPatient(@RequestBody AddPatientRequestDTO addPatientRequestDTO){
         return patientService.addPatient(addPatientRequestDTO);
     }
+
+    @GetMapping("/patient")
+    public AddPatientRequestDTO[] getPatientList(@RequestParam String id){
+        return patientService.getPatientList(id);
+    }
 }

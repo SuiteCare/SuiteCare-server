@@ -25,4 +25,9 @@ public class PatientService {
         return 0;
     }
 
+    @Transactional
+    public AddPatientRequestDTO[] getPatientList(String id){
+        return patientMapper.getPatientList(id);
+    }
+
 }

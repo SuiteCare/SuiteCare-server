@@ -8,4 +8,5 @@ public interface PatientMapper {
     int addPatient(AddPatientRequestDTO addPatientRequestDTO);
     int addPatientDetail(AddPatientRequestDTO addPatientRequestDTO);
     String getPatientID(AddPatientRequestDTO addPatientRequestDTO);
+    AddPatientRequestDTO[] getPatientList(String id);
 }

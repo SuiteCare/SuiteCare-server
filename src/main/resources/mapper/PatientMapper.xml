@@ -22,4 +22,10 @@
         where (family_id = #{family_id} and name = #{name} and gender = #{gender} and birthday = #{birthday} and height = #{height} and weight = #{weight})
     </select>
 
+    <!-- family ID로 환자 목록 검색 -->
+    <select id="getPatientList" parameterType="String">
+        select * from Patient
+        where (family_id = #{family_id})
+    </select>
+
 </mapper>
