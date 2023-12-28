@@ -1,10 +1,7 @@
 package com.suitecare.suitecare.api.member.service;
 
-import com.suitecare.suitecare.api.member.dto.ChangePwResponseDTO;
-import com.suitecare.suitecare.api.member.dto.MypageResponseDTO;
+import com.suitecare.suitecare.api.member.dto.*;
 import com.suitecare.suitecare.api.member.mapper.MemberMapper;
-import com.suitecare.suitecare.api.member.dto.CreateMemberRequestDTO;
-import com.suitecare.suitecare.api.member.dto.LoginRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +28,10 @@ public class MemberService {
         return memberMapper.findMypageById(id);
     }
 
-    public ChangePwResponseDTO ChangePw(int id) {
-        return memberMapper.changePw(id); }
+    public int changePw(ChangePwRequestDTO changePwRequest) {
+        return memberMapper.changePw(changePwRequest); }
+
+    public int modify(ModifyRequestDTO modifyRequestDTO) {
+        return memberMapper.modify(modifyRequestDTO);
+    }
 }
