@@ -1,3 +1,2 @@
 # SuiteCare-server
-SuiteCare API Server
-
+SuiteCare 의 Backend API Server 입니다.
