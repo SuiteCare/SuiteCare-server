@@ -1,7 +1,7 @@
 package com.suitecare.suitecare.api.patient.controller;
 
 import com.suitecare.suitecare.api.patient.service.PatientService;
-import com.suitecare.suitecare.api.patient.dto.AddPatientRequestDTO;
+import com.suitecare.suitecare.api.patient.dto.PatientRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +13,17 @@ public class PatientController {
     PatientService patientService;
 
     @PostMapping("/patient")
-    public int addPatient(@RequestBody AddPatientRequestDTO addPatientRequestDTO){
-        return patientService.addPatient(addPatientRequestDTO);
+    public int addPatient(@RequestBody PatientRequestDTO patientRequestDTO){
+        return patientService.addPatient(patientRequestDTO);
     }
 
     @GetMapping("/patient")
-    public AddPatientRequestDTO[] getPatientList(@RequestParam String id){
+    public PatientRequestDTO[] getPatientList(@RequestParam String id){
         return patientService.getPatientList(id);
+    }
+
+    @GetMapping("/patient/{id}")
+    public PatientRequestDTO getPatientDetail(@PathVariable String id){
+        return patientService.getPatientDetail(id);
     }
 }

@@ -3,7 +3,7 @@ package com.suitecare.suitecare.api.patient.dto;
 import lombok.Data;
 
 @Data
-public class AddPatientRequestDTO {
+public class PatientRequestDTO {
     private String id;
     private String family_id;
     private String name;

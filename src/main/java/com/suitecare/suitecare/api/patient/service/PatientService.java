@@ -1,6 +1,6 @@
 package com.suitecare.suitecare.api.patient.service;
 
-import com.suitecare.suitecare.api.patient.dto.AddPatientRequestDTO;
+import com.suitecare.suitecare.api.patient.dto.PatientRequestDTO;
 import com.suitecare.suitecare.api.patient.mapper.PatientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,13 +12,13 @@ public class PatientService {
     PatientMapper patientMapper;
 
     @Transactional
-    public int addPatient(AddPatientRequestDTO addPatientRequestDTO){
-        int addPatient = patientMapper.addPatient(addPatientRequestDTO);
-        String patientID = patientMapper.getPatientID(addPatientRequestDTO);
+    public int addPatient(PatientRequestDTO patientRequestDTO){
+        int addPatient = patientMapper.addPatient(patientRequestDTO);
+        String patientID = patientMapper.getPatientID(patientRequestDTO);
 
         if (addPatient == 1) {
-            addPatientRequestDTO.setId(patientID);
-            int addPatientDetail = patientMapper.addPatientDetail(addPatientRequestDTO);
+            patientRequestDTO.setId(patientID);
+            int addPatientDetail = patientMapper.addPatientDetail(patientRequestDTO);
             return addPatientDetail > 0 ? 2 : 1;
         }
 
@@ -26,8 +26,13 @@ public class PatientService {
     }
 
     @Transactional
-    public AddPatientRequestDTO[] getPatientList(String id){
+    public PatientRequestDTO[] getPatientList(String id){
         return patientMapper.getPatientList(id);
+    }
+
+    @Transactional
+    public PatientRequestDTO getPatientDetail(String id){
+        return patientMapper.getPatientDetail(id);
     }
 
 }
