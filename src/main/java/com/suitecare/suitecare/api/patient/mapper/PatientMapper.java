@@ -10,5 +10,6 @@ public interface PatientMapper {
     Integer addPatient(PatientRequestDTO patientRequestDTO);
     Integer addPatientDetail(PatientRequestDTO patientRequestDTO);
     List<PatientRequestDTO> getPatientList(String id);
+    PatientRequestDTO getPatientBasic(String id);
     PatientRequestDTO getPatientDetail(String id);
 }
