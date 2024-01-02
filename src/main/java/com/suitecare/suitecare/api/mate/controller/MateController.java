@@ -22,6 +22,8 @@ public class MateController {
 
     @GetMapping("/profile")
     public ProfileResponseDTO profile(@RequestParam int id) {
+        System.err.println("!!!!!!!!!!!");
+        System.out.println(id);
         return mateService.findProfileById(id);
     }
 }

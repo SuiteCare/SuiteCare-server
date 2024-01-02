@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class LocationDTO {
     private Long id;
-    private String loction_name;
+    private String location_name;
 }

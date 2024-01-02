@@ -26,7 +26,7 @@ public class MateService {
     public ProfileResponseDTO findProfileById(int id) {
         ProfileResponseDTO result = new ProfileResponseDTO();
 
-        List<MateDTO> mate = mateMapper.findMateById(id);
+        MateDTO mate = mateMapper.findMateById(id);
         List<CareerDTO> career = careerMapper.findCareerById(id);
         List<CertificateDTO> certificate = certificateMapper.findCertificateById(id);
         List<LocationDTO> location = locationMapper.findLocationById(id);
