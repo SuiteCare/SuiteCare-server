@@ -1,6 +1,8 @@
 package com.suitecare.suitecare.api.patient.service;
 
+import com.suitecare.suitecare.api.patient.dto.PatientDetailResponseDTO;
 import com.suitecare.suitecare.api.patient.dto.PatientRequestDTO;
+import com.suitecare.suitecare.api.patient.dto.PatientResponseDTO;
 import com.suitecare.suitecare.api.patient.mapper.PatientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,18 @@ public class PatientService {
         return patientMapper.getPatientList(id);
     }
 
+    /* 환자 조회 */
+    @Transactional
+    public PatientResponseDTO getPatient(String id){
+        return patientMapper.getPatient(id);
+    }
+
+    /* 환자 상세 조회 */
+    @Transactional
+    public PatientDetailResponseDTO getPatientDetail(String id){
+        return patientMapper.getPatientDetail(id);
+    }
+
     /* 환자 추가 */
     @Transactional
     public int addPatient(PatientRequestDTO patientRequestDTO){
@@ -33,12 +47,6 @@ public class PatientService {
         }
 
         return 0;
-    }
-
-    /* 환자 상세 조회 */
-    @Transactional
-    public PatientRequestDTO getPatientDetail(String id){
-        return patientMapper.getPatientDetail(id);
     }
 
 }
