@@ -6,14 +6,14 @@
 
     <!-- 새로운 환자 등록 (/family/addPatient) - 기본정보 -->
     <insert id="addPatient" parameterType="PatientRequestDTO">
-        insert into Patient (family_id, name, gender, birthday, height, weight, create_at, update_at)
-        values (#{family_id}, #{name}, #{gender}, #{birthday}, #{height}, #{weight}, sysdate(), sysdate())
+        insert into Patient (family_id, name, gender, birthday, height, weight, diagnosis_name, create_at, update_at)
+        values (#{family_id}, #{name}, #{gender}, #{birthday}, #{height}, #{weight}, #{diagnosis_name}, sysdate(), sysdate())
     </insert>
 
     <!-- 새로운 환자 등록 (/family/addPatient) - 상세정보 -->
-    <insert id="addPatientDetail" parameterType="PatientRequestDTO">
-        insert into PatientDetail (id, diagnosis_name, consciousness_state, meal_care_state, toilet_care_state, paralysis_state, behavioral_state, is_bedsore, need_suction, need_outpatient, need_night_care, notice)
-        values (#{id}, #{diagnosis_name}, #{consciousness_state}, #{meal_care_state}, #{toilet_care_state}, #{paralysis_state}, #{behavioral_state}, #{is_bedsore}, #{need_suction}, #{need_outpatient}, #{need_night_care}, #{notice})
+    <insert id="addPatientDetail" parameterType="PatientDetailRequestDTO">
+        insert into PatientDetail (id, consciousness_state, meal_care_state, toilet_care_state, paralysis_state, behavioral_state, is_bedsore, need_suction, need_outpatient, need_night_care, notice)
+        values (#{id}, #{consciousness_state}, #{meal_care_state}, #{toilet_care_state}, #{paralysis_state}, #{behavioral_state}, #{is_bedsore}, #{need_suction}, #{need_outpatient}, #{need_night_care}, #{notice})
     </insert>
 
     <!-- 환자 고유 ID 검색 -->

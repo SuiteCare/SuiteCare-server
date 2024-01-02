@@ -13,9 +13,9 @@ public class PatientService {
     PatientMapper patientMapper;
 
     @Transactional
-    public int addPatient(PatientRequestDTO patientRequestDTO){
+    public int addPatient(PatientRequestDTO patientRequestDTO, PatientDetailRequestDTO patientDetailRequestDTO){
         int addPatient = patientMapper.addPatient(patientRequestDTO);
-        String patientID = patientMapper.getPatientID(patientRequestDTO);
+        String patientID = patientMapper.getPatientID(patientRequestDTO); //detail추가해야됨
 
         if (addPatient == 1) {
             patientRequestDTO.setId(patientID);
