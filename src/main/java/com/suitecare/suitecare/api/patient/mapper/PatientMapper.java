@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.patient.mapper;
 
+import com.suitecare.suitecare.api.patient.dto.PatientDetailRequestDTO;
 import com.suitecare.suitecare.api.patient.dto.PatientRequestDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,5 +10,6 @@ public interface PatientMapper {
     int addPatientDetail(PatientRequestDTO patientRequestDTO);
     String getPatientID(PatientRequestDTO patientRequestDTO);
     PatientRequestDTO[] getPatientList(String id);
-    PatientRequestDTO getPatientDetail(String id);
+    PatientRequestDTO getPatientBasic(String id);
+    PatientDetailRequestDTO getPatientDetail(String id);
 }

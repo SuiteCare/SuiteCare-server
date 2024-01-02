@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.patient.service;
 
+import com.suitecare.suitecare.api.patient.dto.PatientDetailRequestDTO;
 import com.suitecare.suitecare.api.patient.dto.PatientRequestDTO;
 import com.suitecare.suitecare.api.patient.mapper.PatientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,12 @@ public class PatientService {
     }
 
     @Transactional
-    public PatientRequestDTO getPatientDetail(String id){
+    public PatientRequestDTO getPatientBasic(String id){
+        return patientMapper.getPatientBasic(id);
+    }
+
+    @Transactional
+    public PatientDetailRequestDTO getPatientDetail(String id){
         return patientMapper.getPatientDetail(id);
     }
 
