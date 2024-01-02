@@ -5,6 +5,8 @@ import com.suitecare.suitecare.api.patient.dto.PatientRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/api/v1")
 @CrossOrigin
@@ -12,14 +14,14 @@ public class PatientController {
     @Autowired
     PatientService patientService;
 
+    @GetMapping("/patient")
+    public List<PatientRequestDTO> getPatientList(@RequestParam String id){
+        return patientService.getPatientList(id);
+    }
+
     @PostMapping("/patient")
     public int addPatient(@RequestBody PatientRequestDTO patientRequestDTO){
         return patientService.addPatient(patientRequestDTO);
-    }
-
-    @GetMapping("/patient")
-    public PatientRequestDTO[] getPatientList(@RequestParam String id){
-        return patientService.getPatientList(id);
     }
 
     @GetMapping("/patient/{id}")
