@@ -24,6 +24,9 @@ public class SecurityConfig {
                                 .requestMatchers("/api/v1/changepw").permitAll()
                                 .requestMatchers("/api/v1/modify").permitAll()
                                 .requestMatchers("/api/v1/patient").permitAll()
+                                .requestMatchers("/api/v1/patient/**").permitAll()
+                                .requestMatchers("/swagger-ui/**").permitAll()
+                                .requestMatchers("/v3/api-docs/**").permitAll()
                                 .anyRequest().authenticated()
                 );
         return http.build();
