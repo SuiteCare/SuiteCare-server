@@ -28,7 +28,7 @@ public class PatientTest {
 
     @DisplayName("환자 생성 테스트")
     @Test
-    void addPatient() throws Exception {
+    void createPatient() throws Exception {
 
         // given
         PatientRequestDTO patientRequestDTO = PatientRequestDTO.builder()
