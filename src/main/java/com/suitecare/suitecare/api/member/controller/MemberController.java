@@ -22,11 +22,6 @@ public class MemberController {
         return memberService.checkDuplicateID(login_id);
     }
 
-    @PostMapping("/login")
-    public Integer login(@RequestBody LoginRequestDTO loginDTO) {
-        return memberService.login(loginDTO);
-    }
-
     @GetMapping("/mypage")
     public MypageResponseDTO findInfoById(@RequestParam int id){
         return memberService.findMypageById(id);
