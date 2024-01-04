@@ -6,8 +6,8 @@
 
     <!-- 예약 등록 프론트url=(/family/reservation) -->
     <insert id="createReservation" parameterType="ReservationRequestDTO" useGeneratedKeys="true" keyProperty="id">
-        insert into Reservation (patient_id, location, address, address_detail, status, start_date, end_date, start_time, end_time, wage, create_at, update_at)
-        values (#{patient_id}, #{location}, #{address}, #{address_detail}, "P", #{start_date}, #{end_date}, #{start_time}, #{end_time}, #{wage}, sysdate(), sysdate())
+        insert into Reservation (patient_id, location, postcode, road_address, jibun_address, address_detail, status, start_date, end_date, start_time, end_time, wage, create_at, update_at)
+        values (#{patient_id}, #{location}, #{postcode}, #{road_address}, #{jibun_address}, #{address_detail}, "P", #{start_date}, #{end_date}, #{start_time}, #{end_time}, #{wage}, sysdate(), sysdate())
     </insert>
 
     <!-- 예약 등록(요일) 프론트url=(/family/reservation) -->

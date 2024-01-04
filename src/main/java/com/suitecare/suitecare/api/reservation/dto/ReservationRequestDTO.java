@@ -21,9 +21,13 @@ public class ReservationRequestDTO {
     private String status;
     // 간병 지역
     private String location;
-    // 간병 주소
-    private String address;
-    // 간병 상세주소
+    // 간병 지역 우편번호
+    private String postcode;
+    // 간병 지역 도로명주소
+    private String road_address;
+    // 간병 지역 지번주소
+    private String jibun_address;
+    // 간병 지역 상세주소
     private String address_detail;
     // 간병 시작일
     private LocalDate start_date;

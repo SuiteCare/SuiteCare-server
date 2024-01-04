@@ -33,7 +33,7 @@ public class PatientTest {
         // given
         PatientRequestDTO patientRequestDTO = PatientRequestDTO.builder()
                                                 .family_id(1L)
-                                                .name("Hwang")
+                                                .name("Jisung Hwang")
                                                 .gender("F")
                                                 .birthday(LocalDate.of(1993, 2, 3))
                                                 .height("170")
