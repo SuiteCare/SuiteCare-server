@@ -35,15 +35,15 @@ public class PatientService {
 
     /* 환자 추가 */
     @Transactional
-    public int addPatient(PatientRequestDTO patientRequestDTO){
+    public int createPatient(PatientRequestDTO patientRequestDTO){
         // Patient 를 생성하려는 회원이 family 회원이 맞는지 검증 필요
 
         // Patient 레코드 생성
-        Integer addPatientCount = patientMapper.addPatient(patientRequestDTO);
+        Integer addPatientCount = patientMapper.createPatient(patientRequestDTO);
 
         // Patient 레코드가 정상적으로 생성되었다면, PatientDetail 레코드 생성
         if (addPatientCount == 1) {
-            return patientMapper.addPatientDetail(patientRequestDTO);
+            return patientMapper.createPatientDetail(patientRequestDTO);
         }
 
         return 0;

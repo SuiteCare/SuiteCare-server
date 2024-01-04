@@ -9,8 +9,8 @@ import java.util.List;
 
 @Mapper
 public interface PatientMapper {
-    Integer addPatient(PatientRequestDTO patientRequestDTO);
-    Integer addPatientDetail(PatientRequestDTO patientRequestDTO);
+    Integer createPatient(PatientRequestDTO patientRequestDTO);
+    Integer createPatientDetail(PatientRequestDTO patientRequestDTO);
     List<PatientRequestDTO> getPatientList(String id);
     PatientResponseDTO getPatient(String id);
     PatientDetailResponseDTO getPatientDetail(String id);

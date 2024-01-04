@@ -36,9 +36,9 @@ public class PatientController {
 
     /* 환자 등록 */
     @PostMapping("/patient")
-    public int addPatient(@RequestBody PatientRequestDTO patientRequestDTO){
+    public int createPatient(@RequestBody PatientRequestDTO patientRequestDTO){
 
-        return patientService.addPatient(patientRequestDTO);
+        return patientService.createPatient(patientRequestDTO);
     }
 
 }

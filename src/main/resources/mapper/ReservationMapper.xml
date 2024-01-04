@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suitecare.suitecare.api.reservation.mapper.ReservationMapper">
+
+    <!-- 예약 등록 프론트url=(/family/reservation) -->
+    <insert id="createReservation" parameterType="ReservationRequestDTO" useGeneratedKeys="true" keyProperty="id">
+        insert into Reservation (patient_id, location, postcode, road_address, jibun_address, address_detail, status, start_date, end_date, start_time, end_time, wage, create_at, update_at)
+        values (#{patient_id}, #{location}, #{postcode}, #{road_address}, #{jibun_address}, #{address_detail}, "P", #{start_date}, #{end_date}, #{start_time}, #{end_time}, #{wage}, sysdate(), sysdate())
+    </insert>
+
+    <!-- 예약 등록(요일) 프론트url=(/family/reservation) -->
+    <insert id="createDayOfReservation" parameterType="com.suitecare.suitecare.api.reservation.domain.DayOfReservation">
+        insert into DayOfReservation (reservation_id, day)
+        values (#{reservation_id}, #{day})
+    </insert>
+
+</mapper>

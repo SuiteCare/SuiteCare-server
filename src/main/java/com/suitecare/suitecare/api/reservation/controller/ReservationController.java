@@ -1,17 +1,20 @@
 package com.suitecare.suitecare.api.reservation.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.suitecare.suitecare.api.reservation.dto.ReservationRequestDTO;
+import com.suitecare.suitecare.api.reservation.service.ReservationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api/v1")
 @CrossOrigin
 public class ReservationController {
-/*
 
-    @GetMapping("reservation")
-    public List<>
-*/
+    @Autowired
+    ReservationService reservationService;
+
+    @PostMapping("/reservation")
+    public Integer createReservation(@RequestBody ReservationRequestDTO reservationRequestDTO) {
+        return reservationService.create(reservationRequestDTO);
+    }
 }

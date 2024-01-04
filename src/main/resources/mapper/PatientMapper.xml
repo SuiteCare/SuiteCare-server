@@ -5,13 +5,13 @@
 <mapper namespace="com.suitecare.suitecare.api.patient.mapper.PatientMapper">
 
     <!-- 새로운 환자 등록 프론트url=(/family/addpatient) - 기본정보 -->
-    <insert id="addPatient" parameterType="PatientRequestDTO" useGeneratedKeys="true" keyProperty="id">
+    <insert id="createPatient" parameterType="PatientRequestDTO" useGeneratedKeys="true" keyProperty="id">
         insert into Patient (family_id, name, gender, birthday, diagnosis_name, height, weight, create_at, update_at)
         values (#{family_id}, #{name}, #{gender}, #{birthday}, #{diagnosis_name}, #{height}, #{weight}, sysdate(), sysdate())
     </insert>
 
     <!-- 새로운 환자 등록 프론트url=(/family/addpatient) - 상세정보 -->
-    <insert id="addPatientDetail" parameterType="PatientRequestDTO">
+    <insert id="createPatientDetail" parameterType="PatientRequestDTO">
         insert into PatientDetail (id, consciousness_state, meal_care_state, toilet_care_state, paralysis_state, behavioral_state, is_bedsore, need_suction, need_outpatient, need_night_care, notice)
         values (#{id}, #{consciousness_state}, #{meal_care_state}, #{toilet_care_state}, #{paralysis_state}, #{behavioral_state}, #{is_bedsore}, #{need_suction}, #{need_outpatient}, #{need_night_care}, #{notice})
     </insert>
