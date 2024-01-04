@@ -5,7 +5,7 @@ import java.util.List;
 
 @Data
 public class ProfileResponseDTO {
-    private List<MateDTO> mate;
+    private MateDTO mate;
     private List<CareerDTO> career;
     private List<CertificateDTO> certificate;
     private List<LocationDTO> location;

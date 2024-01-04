@@ -13,13 +13,6 @@ public class MateController {
     @Autowired
     MateService mateService;
 
-/*
-    @PostMapping("/mate")
-    public int createMate(@RequestBody CreateMemberRequestDTO createMemberRequestDTO){
-        return mateService.create(createMemberRequestDTO);
-    }
-*/
-
     @GetMapping("/profile")
     public ProfileResponseDTO profile(@RequestParam int id) {
         return mateService.findProfileById(id);

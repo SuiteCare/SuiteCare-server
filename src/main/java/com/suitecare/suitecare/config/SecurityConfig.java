@@ -24,6 +24,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/v1/changepw").permitAll()
                                 .requestMatchers("/api/v1/modify").permitAll()
                                 .requestMatchers("/api/v1/patient").permitAll()
+                                .requestMatchers("/api/v1/mate/profile").permitAll()
                                 .requestMatchers("/api/v1/patient/**").permitAll()
                                 .requestMatchers("/api/v1/patientDetail/**").permitAll()
                                 .requestMatchers("/swagger-ui/**").permitAll()
