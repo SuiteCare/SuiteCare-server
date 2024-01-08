@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MemberMapper {
     int create(CreateMemberRequestDTO createMemberRequestDTO);
-    Integer login(LoginRequestDTO loginDTO);
+    LoginResponseDTO login(LoginRequestDTO loginDTO);
     int checkDuplicateID(String id);
     MypageResponseDTO findMypageById(int id);
     int changePw(ChangePwRequestDTO changePwRequestDTO);
