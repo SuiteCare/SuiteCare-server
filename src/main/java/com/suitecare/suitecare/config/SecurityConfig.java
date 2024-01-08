@@ -34,6 +34,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/v1/mate/profile").permitAll()
                                 .requestMatchers("/api/v1/patient/**").permitAll()
                                 .requestMatchers("/api/v1/patientDetail/**").permitAll()
+                                .requestMatchers("/api/v1/search-reservation").permitAll()
                                 .requestMatchers("/swagger-ui/**").permitAll()
                                 .requestMatchers("/v3/api-docs/**").permitAll()
                                 .anyRequest().authenticated()
