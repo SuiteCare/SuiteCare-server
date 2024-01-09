@@ -14,7 +14,7 @@
         <foreach collection="wage" item="it" separator="and">
             #{it}
         </foreach>
-        <if test="search_input != null">
+        <if test="search_input neq ''">
             AND diagnosis_name like '%${search_input}%'
         </if>
         <if test="location != null">
@@ -23,7 +23,7 @@
                 #{it}
             </foreach>
         </if>
-        <if test="gender.length == 1">
+        <if test="gender != null and gender.length == 1">
             AND gender =
             <foreach collection="gender" item="it">
                 #{it}

@@ -16,8 +16,7 @@ public class ReservationSearchController {
     SearchService searchService;
 
     @GetMapping("/search-reservation")
-    public void search(@RequestBody ReservationSearchRequestDTO searchReservationDTO) {
-        List<ReservationSearchResponseDTO> reservation= searchService.getReservationSearch(searchReservationDTO);
-        System.err.println(reservation);
+    public List<ReservationSearchResponseDTO> search(ReservationSearchRequestDTO requestDTO) {
+        return searchService.getReservationSearch(requestDTO);
     }
 }
