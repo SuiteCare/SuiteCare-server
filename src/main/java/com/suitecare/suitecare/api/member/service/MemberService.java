@@ -3,6 +3,7 @@ package com.suitecare.suitecare.api.member.service;
 import com.suitecare.suitecare.api.member.dto.*;
 import com.suitecare.suitecare.api.member.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,8 +12,14 @@ public class MemberService {
     @Autowired
     MemberMapper memberMapper;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Transactional
     public int create(CreateMemberRequestDTO createMemberRequestDTO) {
+        String encoderPwd = passwordEncoder.encode(createMemberRequestDTO.getPassword());
+        createMemberRequestDTO.setPassword(encoderPwd);
+
         return memberMapper.create(createMemberRequestDTO);
     }
 
@@ -21,7 +28,12 @@ public class MemberService {
     }
 
     public Integer login(LoginRequestDTO loginRequestDTO) {
-        return memberMapper.login(loginRequestDTO);
+        LoginResponseDTO loginResponseDTO = memberMapper.login(loginRequestDTO);
+
+        if(passwordEncoder.matches(loginRequestDTO.getPassword(), loginResponseDTO.getPassword())) {
+            return loginResponseDTO.getId();
+        }
+        return 0;
     }
 
     public MypageResponseDTO findMypageById(int id) {
