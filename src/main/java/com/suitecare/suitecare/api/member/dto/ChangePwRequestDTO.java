@@ -5,5 +5,7 @@ import lombok.Data;
 @Data
 public class ChangePwRequestDTO {
     private int login_id;
-    private String password;
+    private String originPw;
+    private String newPw;
+    private String newPwCheck;
 }

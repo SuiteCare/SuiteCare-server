@@ -41,7 +41,16 @@ public class MemberService {
     }
 
     public Integer changePw(ChangePwRequestDTO changePwRequest) {
-        return memberMapper.changePw(changePwRequest); }
+        String dbPassword = memberMapper.getPasswordById(changePwRequest.getLogin_id());
+        if(passwordEncoder.matches(changePwRequest.getOriginPw(), dbPassword)) {
+            if(changePwRequest.getNewPw().equals(changePwRequest.getNewPwCheck())) {
+                changePwRequest.setNewPw(passwordEncoder.encode(changePwRequest.getNewPw()));
+                return memberMapper.changePw(changePwRequest);
+            }
+        }
+
+        return 0;
+    }
 
     public Integer modify(ModifyRequestDTO modifyRequestDTO) {
         return memberMapper.modify(modifyRequestDTO);
