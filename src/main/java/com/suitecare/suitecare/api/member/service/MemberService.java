@@ -27,13 +27,14 @@ public class MemberService {
         return memberMapper.checkDuplicateID(login_id);
     }
 
-    public Integer login(LoginRequestDTO loginRequestDTO) {
+    public LoginDTO login(LoginRequestDTO loginRequestDTO) throws IllegalArgumentException{
         LoginDTO loginDTO = memberMapper.getLoginInfoByLoginId(loginRequestDTO);
 
-        if(passwordEncoder.matches(loginRequestDTO.getPassword(), loginDTO.getPassword())) {
-            return loginDTO.getId();
+
+        if(!passwordEncoder.matches(loginRequestDTO.getPassword(), loginDTO.getPassword())) {
+            throw new IllegalArgumentException("로그인 에러");
         }
-        return 0;
+        return loginDTO;
     }
 
     public MypageResponseDTO findMypageById(int id) {

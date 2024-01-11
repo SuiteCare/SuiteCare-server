@@ -16,7 +16,7 @@
     </select>
 
     <select id="getLoginInfoByLoginId" parameterType="LoginRequestDTO">
-        select id, password from SuiteMember
+        select id, login_id, password from SuiteMember
         where login_id = #{login_id} and role in (#{role}, 'A');
     </select>
 
