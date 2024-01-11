@@ -5,10 +5,10 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MemberMapper {
-    int create(CreateMemberRequestDTO createMemberRequestDTO);
-    int checkDuplicateID(String id);
+    Integer create(CreateMemberRequestDTO createMemberRequestDTO);
+    Integer checkDuplicateID(String id);
     MypageResponseDTO findMypageById(int id);
-    int changePw(ChangePwRequestDTO changePwRequestDTO);
-    int modify(ModifyRequestDTO modifyRequestDTO);
+    Integer changePw(ChangePwRequestDTO changePwRequestDTO);
+    Integer modify(ModifyRequestDTO modifyRequestDTO);
     LoginDTO getLoginInfoByLoginId(LoginRequestDTO loginDTO);
 }

@@ -13,12 +13,13 @@ public class MemberController {
     MemberService memberService;
 
     @PostMapping("/member")
-    public int create(@RequestBody CreateMemberRequestDTO createMemberRequestDTO){
+    public Integer create(@RequestBody CreateMemberRequestDTO createMemberRequestDTO){
+        System.out.println(createMemberRequestDTO);
         return memberService.create(createMemberRequestDTO);
     }
 
     @GetMapping("/member")
-    public int checkDuplicateID(@RequestParam String login_id){
+    public Integer checkDuplicateID(@RequestParam String login_id){
         return memberService.checkDuplicateID(login_id);
     }
 
@@ -28,12 +29,12 @@ public class MemberController {
     }
 
     @PostMapping("/changepw")
-    public int changePw(@RequestBody ChangePwRequestDTO changePwRequestDTO){
+    public Integer changePw(@RequestBody ChangePwRequestDTO changePwRequestDTO){
         return memberService.changePw(changePwRequestDTO);
     }
 
     @PostMapping("/modify")
-    public int modify(@RequestBody ModifyRequestDTO modifyRequestDTO){
+    public Integer modify(@RequestBody ModifyRequestDTO modifyRequestDTO){
         return memberService.modify(modifyRequestDTO);
     }
 
