@@ -12,12 +12,6 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-    @PostMapping("/member")
-    public Integer create(@RequestBody CreateMemberRequestDTO createMemberRequestDTO){
-        System.out.println(createMemberRequestDTO);
-        return memberService.create(createMemberRequestDTO);
-    }
-
     @GetMapping("/member")
     public Integer checkDuplicateID(@RequestParam String login_id){
         return memberService.checkDuplicateID(login_id);
