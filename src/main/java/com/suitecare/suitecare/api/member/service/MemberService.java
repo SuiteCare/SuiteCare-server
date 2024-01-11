@@ -17,8 +17,8 @@ public class MemberService {
 
     @Transactional
     public int create(CreateMemberRequestDTO createMemberRequestDTO) {
-        String encoderPwd = passwordEncoder.encode(createMemberRequestDTO.getPassword());
-        createMemberRequestDTO.setPassword(encoderPwd);
+        String encodedPasswd = passwordEncoder.encode(createMemberRequestDTO.getPassword());
+        createMemberRequestDTO.setPassword(encodedPasswd);
 
         return memberMapper.create(createMemberRequestDTO);
     }
@@ -28,10 +28,10 @@ public class MemberService {
     }
 
     public Integer login(LoginRequestDTO loginRequestDTO) {
-        LoginResponseDTO loginResponseDTO = memberMapper.login(loginRequestDTO);
+        LoginDTO loginDTO = memberMapper.getLoginInfoByLoginId(loginRequestDTO);
 
-        if(passwordEncoder.matches(loginRequestDTO.getPassword(), loginResponseDTO.getPassword())) {
-            return loginResponseDTO.getId();
+        if(passwordEncoder.matches(loginRequestDTO.getPassword(), loginDTO.getPassword())) {
+            return loginDTO.getId();
         }
         return 0;
     }
