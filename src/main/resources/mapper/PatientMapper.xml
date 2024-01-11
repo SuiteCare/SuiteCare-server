@@ -28,8 +28,12 @@
         where (family_id = #{family_id})
     </select>
 
+    <select id="getPatient">
+        select * from patient where patient.id = #{id};
+    </select>
+
     <!-- 환자 고유 ID로 환자 상세정보 검색 -->
-    <select id="getPatientDetail" parameterType="PatientRequestDTO">
+    <select id="getPatientDetail">
         select * from PatientDetail
         where (id = #{id})
     </select>
