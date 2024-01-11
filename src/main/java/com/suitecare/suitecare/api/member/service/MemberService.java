@@ -16,14 +16,14 @@ public class MemberService {
     PasswordEncoder passwordEncoder;
 
     @Transactional
-    public int create(CreateMemberRequestDTO createMemberRequestDTO) {
+    public Integer create(CreateMemberRequestDTO createMemberRequestDTO) {
         String encodedPasswd = passwordEncoder.encode(createMemberRequestDTO.getPassword());
         createMemberRequestDTO.setPassword(encodedPasswd);
 
         return memberMapper.create(createMemberRequestDTO);
     }
 
-    public int checkDuplicateID(String login_id) {
+    public Integer checkDuplicateID(String login_id) {
         return memberMapper.checkDuplicateID(login_id);
     }
 
@@ -40,10 +40,10 @@ public class MemberService {
         return memberMapper.findMypageById(id);
     }
 
-    public int changePw(ChangePwRequestDTO changePwRequest) {
+    public Integer changePw(ChangePwRequestDTO changePwRequest) {
         return memberMapper.changePw(changePwRequest); }
 
-    public int modify(ModifyRequestDTO modifyRequestDTO) {
+    public Integer modify(ModifyRequestDTO modifyRequestDTO) {
         return memberMapper.modify(modifyRequestDTO);
     }
 }
