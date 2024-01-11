@@ -14,8 +14,8 @@ public class AuthController {
     MemberService memberService;
 
     @PostMapping("/login")
-    public Integer login(@RequestBody LoginRequestDTO loginDTO) {
-        return memberService.login(loginDTO);
+    public Integer login(@RequestBody LoginRequestDTO loginRequestDTO) {
+        return memberService.login(loginRequestDTO);
     }
 
 }

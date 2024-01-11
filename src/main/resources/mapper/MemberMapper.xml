@@ -15,10 +15,9 @@
         select count(*) from SuiteMember where login_id = #{login_id}
     </select>
 
-    <!-- 로그인 -->
-    <select id="login" parameterType="LoginRequestDTO">
-        select id from SuiteMember
-        where login_id = #{login_id} and password = #{password} and role in (#{role}, 'A');
+    <select id="getLoginInfoByLoginId" parameterType="LoginRequestDTO">
+        select id, password from SuiteMember
+        where login_id = #{login_id} and role in (#{role}, 'A');
     </select>
 
     <select id="findMypageById" parameterType="MypageResponseDTO">
