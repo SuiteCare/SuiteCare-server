@@ -1,13 +1,12 @@
-package com.suitecare.suitecare.api.search.dto;
+package com.suitecare.suitecare.api.reservation.dto;
 
 import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 
 @Data
-public class ReservationSearchResponseDTO {
+public class SearchedReservationResponseDTO {
     private Integer id;
     private Integer patient_id;
     private String gender;
