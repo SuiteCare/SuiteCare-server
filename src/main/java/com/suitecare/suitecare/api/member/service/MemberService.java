@@ -40,12 +40,12 @@ public class MemberService {
         return memberMapper.findMypageById(id);
     }
 
-    public Integer changePw(ChangePwRequestDTO changePwRequest) {
-        String dbPassword = memberMapper.getPasswordById(changePwRequest.getLogin_id());
-        if(passwordEncoder.matches(changePwRequest.getOriginPassword(), dbPassword)) {
-            if(changePwRequest.getNewPassword().equals(changePwRequest.getNewPasswordCheck())) {
-                changePwRequest.setNewPassword(passwordEncoder.encode(changePwRequest.getNewPassword()));
-                return memberMapper.changePw(changePwRequest);
+    public Integer changePassword(ChangePasswordRequestDTO changePasswordRequestDTO) {
+        String dbPassword = memberMapper.getPasswordById(changePasswordRequestDTO.getLogin_id());
+        if(passwordEncoder.matches(changePasswordRequestDTO.getOriginPassword(), dbPassword)) {
+            if(changePasswordRequestDTO.getNewPassword().equals(changePasswordRequestDTO.getNewPasswordCheck())) {
+                changePasswordRequestDTO.setNewPassword(passwordEncoder.encode(changePasswordRequestDTO.getNewPassword()));
+                return memberMapper.changePassword(changePasswordRequestDTO);
             }
         }
 

@@ -29,8 +29,8 @@ public class MemberController {
     }
 
     @PostMapping("/changepw")
-    public Integer changePw(@RequestBody ChangePwRequestDTO changePwRequestDTO){
-        return memberService.changePw(changePwRequestDTO);
+    public Integer changePassword(@RequestBody ChangePasswordRequestDTO changePasswordRequestDTO){
+        return memberService.changePassword(changePasswordRequestDTO);
     }
 
     @PostMapping("/modify")
