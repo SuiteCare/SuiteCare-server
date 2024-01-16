@@ -1,6 +1,7 @@
 package com.suitecare.suitecare.api.reservation.service;
 
 import com.suitecare.suitecare.api.reservation.domain.DayOfReservation;
+import com.suitecare.suitecare.api.reservation.dto.ApplyReservationRequestDTO;
 import com.suitecare.suitecare.api.reservation.dto.ReservationRequestDTO;
 import com.suitecare.suitecare.api.reservation.dto.SearchedReservationRequestDTO;
 import com.suitecare.suitecare.api.reservation.dto.SearchedReservationResponseDTO;
@@ -35,5 +36,9 @@ public class ReservationService {
 
     public List<SearchedReservationResponseDTO> getSearchedReservation(SearchedReservationRequestDTO requestDTO) {
         return reservationMapper.getSearchedReservation(requestDTO);
+    }
+
+    public Integer applyReservation(ApplyReservationRequestDTO applyReservationRequestDTO) {
+        return reservationMapper.applyReservation(applyReservationRequestDTO);
     }
 }

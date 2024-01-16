@@ -43,4 +43,9 @@
         </if>
         GROUP BY reservation.id;
     </select>
+
+    <insert id="applyReservation" parameterType="ApplyReservationRequestDTO">
+        insert into matesofreservation (reservation_id, mate_id)
+        values(#{reservation_id}, #{mate_id});
+    </insert>
 </mapper>

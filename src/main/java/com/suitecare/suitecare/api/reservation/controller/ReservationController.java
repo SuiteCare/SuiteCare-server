@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.reservation.controller;
 
+import com.suitecare.suitecare.api.reservation.dto.ApplyReservationRequestDTO;
 import com.suitecare.suitecare.api.reservation.dto.ReservationRequestDTO;
 import com.suitecare.suitecare.api.reservation.dto.SearchedReservationRequestDTO;
 import com.suitecare.suitecare.api.reservation.dto.SearchedReservationResponseDTO;
@@ -22,8 +23,13 @@ public class ReservationController {
         return reservationService.create(reservationRequestDTO);
     }
 
-    @GetMapping("/search")
+    @GetMapping("/mate/search")
     public List<SearchedReservationResponseDTO> searchReservation(SearchedReservationRequestDTO requestDTO) {
             return reservationService.getSearchedReservation(requestDTO);
+    }
+
+    @PostMapping("/apply")
+    public Integer applyReservation(@RequestBody ApplyReservationRequestDTO applyReservationRequestDTO) {
+        return  reservationService.applyReservation(applyReservationRequestDTO);
     }
 }
