@@ -42,9 +42,9 @@ public class MemberService {
 
     public Integer changePw(ChangePwRequestDTO changePwRequest) {
         String dbPassword = memberMapper.getPasswordById(changePwRequest.getLogin_id());
-        if(passwordEncoder.matches(changePwRequest.getOriginPw(), dbPassword)) {
-            if(changePwRequest.getNewPw().equals(changePwRequest.getNewPwCheck())) {
-                changePwRequest.setNewPw(passwordEncoder.encode(changePwRequest.getNewPw()));
+        if(passwordEncoder.matches(changePwRequest.getOriginPassword(), dbPassword)) {
+            if(changePwRequest.getNewPassword().equals(changePwRequest.getNewPasswordCheck())) {
+                changePwRequest.setNewPassword(passwordEncoder.encode(changePwRequest.getNewPassword()));
                 return memberMapper.changePw(changePwRequest);
             }
         }
