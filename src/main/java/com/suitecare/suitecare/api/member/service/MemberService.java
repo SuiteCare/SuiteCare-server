@@ -40,8 +40,17 @@ public class MemberService {
         return memberMapper.findMypageById(id);
     }
 
-    public Integer changePw(ChangePwRequestDTO changePwRequest) {
-        return memberMapper.changePw(changePwRequest); }
+    public Integer changePassword(ChangePasswordRequestDTO changePasswordRequestDTO) {
+        String dbPassword = memberMapper.getPasswordById(changePasswordRequestDTO.getLogin_id());
+        if(passwordEncoder.matches(changePasswordRequestDTO.getOriginPassword(), dbPassword)) {
+            if(changePasswordRequestDTO.getNewPassword().equals(changePasswordRequestDTO.getNewPasswordCheck())) {
+                changePasswordRequestDTO.setNewPassword(passwordEncoder.encode(changePasswordRequestDTO.getNewPassword()));
+                return memberMapper.changePassword(changePasswordRequestDTO);
+            }
+        }
+
+        return 0;
+    }
 
     public Integer modify(ModifyRequestDTO modifyRequestDTO) {
         return memberMapper.modify(modifyRequestDTO);

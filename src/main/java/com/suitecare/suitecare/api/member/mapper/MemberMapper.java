@@ -8,7 +8,8 @@ public interface MemberMapper {
     Integer create(CreateMemberRequestDTO createMemberRequestDTO);
     Integer checkDuplicateID(String id);
     MypageResponseDTO findMypageById(int id);
-    Integer changePw(ChangePwRequestDTO changePwRequestDTO);
+    String getPasswordById(Integer id);
+    Integer changePassword(ChangePasswordRequestDTO changePasswordRequestDTO);
     Integer modify(ModifyRequestDTO modifyRequestDTO);
     LoginDTO getLoginInfoByLoginId(LoginRequestDTO loginDTO);
 }

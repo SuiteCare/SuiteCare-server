@@ -5,27 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class PatientDetailResponseDTO {
-    // 진단명
-    private String diagnosis_name;
-    // 보호자 이메일
-    private String family_email;
-    // 보호자 전화번호
-    private String family_tel;
-    // 생년월일
-    private LocalDate birthday;
-    // 성별
-    private String gender;
-    // 키
-    private String height;
-    // 무게
-    private String weight;
     // 의식 상태
     private String consciousness_state;
     // 식사 보조
@@ -46,11 +30,4 @@ public class PatientDetailResponseDTO {
     private String need_night_care;
     // 비고
     private String notice;
-
-    // 간병지 주소
-    // 간병 기간
-    // 간병 요일
-    // 출퇴근 시간
-    // 제시 시급
-    private int wage;
 }
