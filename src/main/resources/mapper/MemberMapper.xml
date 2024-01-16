@@ -38,7 +38,7 @@
     <!--비밀번호 변경-->
     <update id="changePw" parameterType="ChangePwRequestDTO">
         update SuiteMember
-        set password = #{newPw}
+        set password = #{newPassword}
         where  id = #{login_id};
     </update>
 
