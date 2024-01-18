@@ -1,9 +1,7 @@
 package com.suitecare.suitecare.api.reservation.service;
 
 import com.suitecare.suitecare.api.reservation.domain.DayOfReservation;
-import com.suitecare.suitecare.api.reservation.dto.ReservationRequestDTO;
-import com.suitecare.suitecare.api.reservation.dto.SearchedReservationRequestDTO;
-import com.suitecare.suitecare.api.reservation.dto.SearchedReservationResponseDTO;
+import com.suitecare.suitecare.api.reservation.dto.*;
 import com.suitecare.suitecare.api.reservation.mapper.ReservationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +33,17 @@ public class ReservationService {
 
     public List<SearchedReservationResponseDTO> getSearchedReservation(SearchedReservationRequestDTO requestDTO) {
         return reservationMapper.getSearchedReservation(requestDTO);
+    }
+
+    public List<PendingReservationResponseDTO> getReservationListById(int id) {
+        return reservationMapper.getReservationListById(id);
+    }
+
+    public ReservationInfoResponseDTO getReservationInfoById(int reservation_id) {
+        return reservationMapper.getReservationInfoById(reservation_id);
+    }
+
+    public List<ApplicantInfoResponseDTO> getApplicantList(int reservation_id) {
+        return reservationMapper.getApplicantList(reservation_id);
     }
 }

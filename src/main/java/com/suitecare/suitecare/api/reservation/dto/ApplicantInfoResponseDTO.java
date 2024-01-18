@@ -1,0 +1,15 @@
+package com.suitecare.suitecare.api.reservation.dto;
+
+import lombok.Data;
+
+@Data
+public class ApplicantInfoResponseDTO {
+    private String name;
+    private String profile_picture_filename;
+    private String introduction;
+    private String contact_time_start;
+    private String contact_time_end;
+    private int desired_wage;
+    private String mainservice;
+    private String location;
+}
