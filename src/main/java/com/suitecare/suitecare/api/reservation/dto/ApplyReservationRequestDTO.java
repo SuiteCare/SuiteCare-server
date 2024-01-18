@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class ApplyReservationRequestDTO {
-    private Integer reservation_id;
-    private Integer mate_id;
+    private Long reservation_id;
+    private Long member_id;
 }

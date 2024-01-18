@@ -45,7 +45,11 @@
     </select>
 
     <insert id="applyReservation" parameterType="ApplyReservationRequestDTO">
-        insert into matesofreservation (reservation_id, mate_id)
-        values(#{reservation_id}, #{mate_id});
+        insert into applicantofreservation (reservation_id, member_id)
+        values(#{reservation_id}, #{member_id});
     </insert>
+
+    <select id="getReservationIdById" parameterType="ApplyReservationRequestDTO">
+        SELECT count(*) FROM applicantofreservation WHERE reservation_id = #{reservation_id} AND member_id = #{member_id}
+    </select>
 </mapper>

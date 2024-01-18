@@ -10,5 +10,8 @@
         WHERE mem.id = #{id};
     </select>
 
+    <select id="getMateprofileById">
+        SELECT id FROM suitemateprofile WHERE family_id = #{id}
+    </select>
 
 </mapper>

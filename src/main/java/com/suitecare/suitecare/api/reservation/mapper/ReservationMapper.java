@@ -15,4 +15,5 @@ public interface ReservationMapper {
     void createDayOfReservation(DayOfReservation dayOfReservation);
     List<SearchedReservationResponseDTO> getSearchedReservation(SearchedReservationRequestDTO requestDTO);
     Integer applyReservation(ApplyReservationRequestDTO applyReservationRequestDTO);
+    Integer getReservationIdById(ApplyReservationRequestDTO applyReservationRequestDTO);
 }

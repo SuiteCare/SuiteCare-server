@@ -1,6 +1,7 @@
 package com.suitecare.suitecare.api.member.mapper;
 
 import com.suitecare.suitecare.api.member.dto.*;
+import com.suitecare.suitecare.api.reservation.dto.ApplyReservationRequestDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

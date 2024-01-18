@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.reservation.service;
 
+import com.suitecare.suitecare.api.mate.mapper.MateMapper;
 import com.suitecare.suitecare.api.reservation.domain.DayOfReservation;
 import com.suitecare.suitecare.api.reservation.dto.ApplyReservationRequestDTO;
 import com.suitecare.suitecare.api.reservation.dto.ReservationRequestDTO;
@@ -16,6 +17,9 @@ import java.util.List;
 public class ReservationService {
     @Autowired
     ReservationMapper reservationMapper;
+
+    @Autowired
+    MateMapper mateMapper;
 
     @Transactional
     public Integer create(ReservationRequestDTO reservationRequestDTO) {
@@ -39,6 +43,12 @@ public class ReservationService {
     }
 
     public Integer applyReservation(ApplyReservationRequestDTO applyReservationRequestDTO) {
-        return reservationMapper.applyReservation(applyReservationRequestDTO);
+//        if(mateMapper.getMateprofileById(applyReservationRequestDTO.getMember_id()) != null) {
+            if(reservationMapper.getReservationIdById(applyReservationRequestDTO) == null) {
+                return reservationMapper.applyReservation(applyReservationRequestDTO);
+            }
+            return 2;
+//        }
+//        return 0;
     }
 }

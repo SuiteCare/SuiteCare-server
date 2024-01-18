@@ -23,8 +23,8 @@ public class ReservationController {
         return reservationService.create(reservationRequestDTO);
     }
 
-    @GetMapping("/mate/search")
-    public List<SearchedReservationResponseDTO> searchReservation(SearchedReservationRequestDTO requestDTO) {
+    @GetMapping("/search/reservation")
+    public List<SearchedReservationResponseDTO> getSearchedReservation(SearchedReservationRequestDTO requestDTO) {
             return reservationService.getSearchedReservation(requestDTO);
     }
 
