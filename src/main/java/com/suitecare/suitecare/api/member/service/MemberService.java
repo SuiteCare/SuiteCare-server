@@ -30,7 +30,7 @@ public class MemberService {
     public Integer login(LoginRequestDTO loginRequestDTO) {
         LoginDTO loginDTO = memberMapper.getLoginInfoByLoginId(loginRequestDTO);
 
-        if(passwordEncoder.matches(loginRequestDTO.getPassword(), loginDTO.getPassword())) {
+        if(loginDTO != null && passwordEncoder.matches(loginRequestDTO.getPassword(), loginDTO.getPassword())) {
             return loginDTO.getId();
         }
         return 0;
