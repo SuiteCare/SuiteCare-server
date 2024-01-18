@@ -43,12 +43,12 @@ public class ReservationService {
     }
 
     public Integer applyReservation(ApplyReservationRequestDTO applyReservationRequestDTO) {
-//        if(mateMapper.getMateprofileById(applyReservationRequestDTO.getMember_id()) != null) {
+        if(mateMapper.getMateprofileById(applyReservationRequestDTO.getMember_id()) != null) {
             if(reservationMapper.getReservationIdById(applyReservationRequestDTO) == null) {
                 return reservationMapper.applyReservation(applyReservationRequestDTO);
             }
             return 2;
-//        }
-//        return 0;
+        }
+        return 0;
     }
 }
