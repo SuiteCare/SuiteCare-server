@@ -5,6 +5,5 @@ import lombok.Data;
 @Data
 public class LoginDTO {
     private Integer id;
-    private String login_id;
     private String password;
 }

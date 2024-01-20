@@ -24,18 +24,19 @@ public class AuthController {
         try {
             LoginDTO loginDTO = memberService.login(loginRequestDTO);
             loginResponseDTO = new LoginResponseDTO(
-                    loginDTO.getId(),
-                    loginDTO.getLogin_id(),
-                    new JwtUtils().createAccessToken(loginDTO.getLogin_id(), loginRequestDTO.getRole()));
+                loginDTO.getId(),
+                loginRequestDTO.getLogin_id(),
+                new JwtUtils().createAccessToken(loginRequestDTO.getLogin_id(), loginRequestDTO.getRole()));
         } catch (IllegalArgumentException e) {
-            System.out.println("로그인 에러가 발생했습니다. null을 return 합니다.");
+            System.out.println(e.getMessage());
+            System.out.println("로그인 중 에러가 발생했습니다. null 을 return 합니다.");
         }
 
         return loginResponseDTO;
     }
 
     @PostMapping("/signup")
-    public Integer create(@RequestBody CreateMemberRequestDTO createMemberRequestDTO){
+    public java.lang.Integer create(@RequestBody CreateMemberRequestDTO createMemberRequestDTO){
         System.out.println(createMemberRequestDTO);
         return memberService.create(createMemberRequestDTO);
     }

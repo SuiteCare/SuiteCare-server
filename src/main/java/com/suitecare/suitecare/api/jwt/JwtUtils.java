@@ -10,11 +10,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.NoArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.List;
 
 @Component
 @NoArgsConstructor
@@ -30,16 +32,15 @@ public class JwtUtils {
 
     // Access Token 생성 메서드
     public String createAccessToken(String login_id, String role){
-        // Token 만료 시간
+        // 현재 시점 Date 객체 생성
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + ACCESS_TOKEN_VALIDATION_SECOND);
 
-        // JWT 생성. AccessToken 생성하여 반환, member_id 로 구분
+        // JWT 생성. AccessToken 생성하여 반환, login_id 로 구분, 'role' claim 설정
         return Jwts.builder()
                 .setSubject(login_id)
                 .claim("role", role)
                 .setIssuedAt(now)
-                .setExpiration(expiration)
+                .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_VALIDATION_SECOND))
                 .signWith(secretKey)
                 .compact();
     }
@@ -101,9 +102,10 @@ public class JwtUtils {
         return null;
     }
 
-    public Authentication getAuthentication(String token) {
+    public Authentication getAuthenticationToken(String token) {
         String loginId = getLoginId(token);
+        String role = getRole(token);
 
-        return new UsernamePasswordAuthenticationToken(loginId, token);
+        return new UsernamePasswordAuthenticationToken(loginId, null, List.of(new SimpleGrantedAuthority(role)));
     }
 }
