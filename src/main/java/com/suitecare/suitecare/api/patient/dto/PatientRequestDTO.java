@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Builder
 public class PatientRequestDTO {
     private Long id;
-    private Long family_id;
+    private Long member_id;
     private String name;
     private String gender;
     private LocalDate birthday;

@@ -5,9 +5,9 @@
 <mapper namespace="com.suitecare.suitecare.api.mate.mapper.MainServiceMapper">
 
     <select id="findMainServiceById" resultType="MainServiceDTO">
-        SELECT mainservice.id, main_service_name
-        FROM mainservice JOIN suitemate ON mainservice.mate_id = suitemate.id
-        WHERE suitemate.family_id = #{id};
+        SELECT mainservice.id, name
+        FROM mainservice JOIN materesume ON mainservice.mate_resume_id = materesume.id
+        WHERE materesume.member_id = #{id};
     </select>
 
 

@@ -39,6 +39,9 @@ public class SecurityConfig {
                                 .requestMatchers("/v3/api-docs/**").permitAll()
                                 .requestMatchers("/api/v1/reservation/**").permitAll()
                                 .requestMatchers("/api/v1/apply").permitAll()
+                                .requestMatchers("/api/v1/pendingReservation").permitAll()
+                                .requestMatchers("/api/v1/applicant-list").permitAll()
+                                .requestMatchers("/api/v1/reservationInfo").permitAll()
                                 .anyRequest().authenticated()
                 );
         return http.build();

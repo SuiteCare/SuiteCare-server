@@ -6,12 +6,12 @@
 
     <select id="findMateById" resultType="MateDTO">
         SELECT mem.name, mem.gender, mem.birthday, mate.profile_picture_filename, mate.introduction, mate.contact_time_start, mate.contact_time_end
-        FROM suitemember AS mem JOIN suitemateprofile AS mate ON mem.id = mate.family_id
+        FROM suitemember AS mem JOIN materesume AS mate ON mem.id = mate.member_id
         WHERE mem.id = #{id};
     </select>
 
     <select id="getMateprofileById">
-        SELECT id FROM suitemateprofile WHERE family_id = #{id}
+        SELECT id FROM materesume WHERE member_id = #{id}
     </select>
 
 </mapper>
