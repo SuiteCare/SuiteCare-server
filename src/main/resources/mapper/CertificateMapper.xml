@@ -7,7 +7,7 @@
     <select id="findCertificateById" resultType="CertificateDTO">
         SELECT certificate.id, certificate_name, certificate_code, qualification_date, expired_date
         FROM certificate join suitemate AS mate ON certificate.mate_id = mate.id
-        WHERE mate.family_id = #{id};
+        WHERE mate.member_id = #{id};
     </select>
 
 

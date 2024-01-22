@@ -7,7 +7,7 @@
     <select id="findMainServiceById" resultType="MainServiceDTO">
         SELECT mainservice.id, main_service_name
         FROM mainservice JOIN suitemate ON mainservice.mate_id = suitemate.id
-        WHERE suitemate.family_id = #{id};
+        WHERE suitemate.member_id = #{id};
     </select>
 
 
