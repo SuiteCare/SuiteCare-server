@@ -60,7 +60,7 @@
     <select id="getApplicantList" resultType="ApplicantInfoResponseDTO">
         select name, birthday, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage, group_concat(distinct main_service_name) mainservice, group_concat(distinct location_name) location
         from suitemember s, suitemateprofile p, mainservice m, location l
-        where p.family_id in (select member_id from applicantofreservation where reservation_id = 1)
+        where p.family_id in (select member_id from applicantofreservation where reservation_id = #{reservation_id})
         and s.id = p.family_id and p.id = m.mate_id and p.id = l.mate_id
         group by m.mate_id;
     </select>
