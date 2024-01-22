@@ -6,7 +6,7 @@
 
     <!-- 새로운 환자 등록 프론트url=(/family/addpatient) - 기본정보 -->
     <insert id="createPatient" parameterType="PatientRequestDTO" useGeneratedKeys="true" keyProperty="id">
-        insert into Patient (family_id, name, gender, birthday, diagnosis_name, height, weight, create_at, update_at)
+        insert into Patient (member_id, name, gender, birthday, diagnosis_name, height, weight, create_at, update_at)
         values (#{family_id}, #{name}, #{gender}, #{birthday}, #{diagnosis_name}, #{height}, #{weight}, sysdate(), sysdate())
     </insert>
 
@@ -19,13 +19,13 @@
     <!-- 환자 고유 ID 검색 -->
     <select id="getPatientID" parameterType="PatientRequestDTO">
         select id from Patient
-        where (family_id = #{family_id} and name = #{name} and gender = #{gender} and birthday = #{birthday} and height = #{height} and weight = #{weight})
+        where (member_id = #{family_id} and name = #{name} and gender = #{gender} and birthday = #{birthday} and height = #{height} and weight = #{weight})
     </select>
 
     <!-- family ID로 환자 목록 검색 -->
     <select id="getPatientList" parameterType="String">
         select * from Patient
-        where (family_id = #{family_id})
+        where (member_id = #{family_id})
     </select>
 
     <select id="getPatient">
