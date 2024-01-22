@@ -6,7 +6,7 @@
 
     <select id="findMateById" resultType="MateDTO">
         SELECT mem.name, mem.gender, mem.birthday, mate.profile_picture_filename, mate.introduction, mate.contact_time_start, mate.contact_time_end
-        FROM suitemember AS mem JOIN suitemate AS mate ON mem.id = mate.family_id
+        FROM suitemember AS mem JOIN suitemateprofile AS mate ON mem.id = mate.family_id
         WHERE mem.id = #{id};
     </select>
 
