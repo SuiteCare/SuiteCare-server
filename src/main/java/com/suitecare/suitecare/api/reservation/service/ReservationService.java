@@ -59,6 +59,6 @@ public class ReservationService {
     }
 
     public boolean alreadyApplid(ApplyReservationRequestDTO applyReservationRequestDTO) { // 지원 여부
-        return reservationMapper.getReservationIdById(applyReservationRequestDTO) != null;
+        return reservationMapper.getReservationIdById(applyReservationRequestDTO) != 0;
     }
 }
