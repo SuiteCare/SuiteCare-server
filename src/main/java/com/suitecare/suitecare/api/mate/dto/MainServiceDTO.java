@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class MainServiceDTO {
     private Long id;
-    private String main_service_name;
+    private String name;
 }
