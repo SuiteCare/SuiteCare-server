@@ -20,11 +20,16 @@ public class ReservationController {
         return reservationService.create(reservationRequestDTO);
     }
 
-    @GetMapping("/search")
-    public List<SearchedReservationResponseDTO> searchReservation(SearchedReservationRequestDTO requestDTO) {
+    @GetMapping("/search/reservation")
+    public List<SearchedReservationResponseDTO> getSearchedReservation(SearchedReservationRequestDTO requestDTO) {
             return reservationService.getSearchedReservation(requestDTO);
     }
 
+    @PostMapping("/apply")
+    public Integer applyReservation(@RequestBody ApplyReservationRequestDTO applyReservationRequestDTO) {
+        return  reservationService.applyReservation(applyReservationRequestDTO);
+    }
+  
     @GetMapping("/pendingReservation")
     public List<PendingReservationResponseDTO> getReservationListById(@RequestParam int id) {
         return reservationService.getReservationListById(id);
@@ -39,5 +44,4 @@ public class ReservationController {
     public List<ApplicantInfoResponseDTO> getApplicantList(@RequestParam int reservation_id) {
         return reservationService.getApplicantList(reservation_id);
     }
-
 }
