@@ -43,12 +43,22 @@ public class ReservationService {
     }
 
     public Integer applyReservation(ApplyReservationRequestDTO applyReservationRequestDTO) {
-        if(mateMapper.getMateprofileById(applyReservationRequestDTO.getMember_id()) != null) {
-            if(reservationMapper.getReservationIdById(applyReservationRequestDTO) == null) {
-                return reservationMapper.applyReservation(applyReservationRequestDTO);
-            }
-            return 2;
+        if(!presentResume(applyReservationRequestDTO)) {
+            return 0;
         }
-        return 0;
+
+        if(!alreadyApplid(applyReservationRequestDTO)) {
+            return reservationMapper.applyReservation(applyReservationRequestDTO);
+        }
+
+        return 2;
+    }
+
+    public boolean presentResume(ApplyReservationRequestDTO applyReservationRequestDTO) { // 간병인 이력서 여부
+        return mateMapper.getMateprofileById(applyReservationRequestDTO.getMember_id()) != null;
+    }
+
+    public boolean alreadyApplid(ApplyReservationRequestDTO applyReservationRequestDTO) { // 지원 여부
+        return reservationMapper.getReservationIdById(applyReservationRequestDTO) != null;
     }
 }
