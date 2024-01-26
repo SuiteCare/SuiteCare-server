@@ -20,8 +20,8 @@
         where login_id = #{login_id} and role in (#{role}, 'A');
     </select>
 
-    <select id="findMypageById" parameterType="MypageResponseDTO">
-        select * from suitemember where id = #{id};
+    <select id="findMypageByLoginId">
+        select * from suitemember where login_id = #{login_id};
     </select>
 
     <!--회원 정보 수정-->

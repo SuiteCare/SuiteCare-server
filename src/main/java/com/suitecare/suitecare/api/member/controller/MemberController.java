@@ -2,6 +2,7 @@ package com.suitecare.suitecare.api.member.controller;
 
 import com.suitecare.suitecare.api.member.dto.*;
 import com.suitecare.suitecare.api.member.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,10 @@ public class MemberController {
     }
 
     @GetMapping("/mypage")
-    public MypageResponseDTO findInfoById(@RequestParam Long id){
-        return memberService.findMypageById(id);
+    public MypageResponseDTO findMypageByLoginId(HttpServletRequest request){
+        String login_id = (String) request.getAttribute("login_id");
+        System.out.println(login_id);
+        return memberService.findMypageByLoginId(login_id);
     }
 
     @PostMapping("/changepw")

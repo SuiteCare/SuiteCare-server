@@ -49,8 +49,8 @@ public class MemberService {
         return loginDTO;
     }
 
-    public MypageResponseDTO findMypageById(Long id) {
-        return memberMapper.findMypageById(id);
+    public MypageResponseDTO findMypageByLoginId(String login_id) {
+        return memberMapper.findMypageByLoginId(login_id);
     }
 
     public Integer changePassword(ChangePasswordRequestDTO changePasswordRequestDTO) {
