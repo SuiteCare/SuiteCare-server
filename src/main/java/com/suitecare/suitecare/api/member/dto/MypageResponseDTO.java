@@ -2,14 +2,13 @@ package com.suitecare.suitecare.api.member.dto;
 
 import lombok.Data;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Data
 public class MypageResponseDTO {
     private String login_id;
-    private String password;
     private String name;
     private String gender;
-    private Date birthday;
+    private LocalDate birthday;
     private String tel;
 }
