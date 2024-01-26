@@ -16,14 +16,14 @@ public class MemberService {
     PasswordEncoder passwordEncoder;
 
     @Transactional
-    public java.lang.Integer create(CreateMemberRequestDTO createMemberRequestDTO) {
+    public Integer create(CreateMemberRequestDTO createMemberRequestDTO) {
         String encodedPasswd = passwordEncoder.encode(createMemberRequestDTO.getPassword());
         createMemberRequestDTO.setPassword(encodedPasswd);
 
         return memberMapper.create(createMemberRequestDTO);
     }
 
-    public java.lang.Integer checkDuplicateID(String login_id) {
+    public Integer checkDuplicateID(String login_id) {
         return memberMapper.checkDuplicateID(login_id);
     }
 
@@ -65,7 +65,7 @@ public class MemberService {
         return 0;
     }
 
-    public java.lang.Integer modify(ModifyRequestDTO modifyRequestDTO) {
+    public Integer modify(ModifyRequestDTO modifyRequestDTO) {
         return memberMapper.modify(modifyRequestDTO);
     }
 }

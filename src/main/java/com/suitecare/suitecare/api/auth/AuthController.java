@@ -36,7 +36,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public java.lang.Integer create(@RequestBody CreateMemberRequestDTO createMemberRequestDTO){
+    public Integer create(@RequestBody CreateMemberRequestDTO createMemberRequestDTO){
         System.out.println(createMemberRequestDTO);
         return memberService.create(createMemberRequestDTO);
     }
