@@ -7,5 +7,5 @@ import java.util.List;
 
 @Mapper
 public interface CareerMapper {
-    List<CareerDTO> findCareerById(int id);
+    List<CareerDTO> findCareerById(Long id);
 }

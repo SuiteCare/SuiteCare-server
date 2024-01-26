@@ -13,8 +13,8 @@ public class MateController {
     @Autowired
     MateService mateService;
 
-    @GetMapping("/profile")
-    public ProfileResponseDTO profile(@RequestParam int id) {
-        return mateService.findProfileById(id);
+    @GetMapping("/resume")
+    public ProfileResponseDTO profile(@RequestParam Long id) {
+        return mateService.findResumeById(id);
     }
 }
