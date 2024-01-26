@@ -12,14 +12,9 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-    @PostMapping("/member")
-    public Integer create(@RequestBody CreateMemberRequestDTO createMemberRequestDTO){
-        System.out.println(createMemberRequestDTO);
-        return memberService.create(createMemberRequestDTO);
-    }
-
-    @GetMapping("/member")
+    @GetMapping("/check/id")
     public Integer checkDuplicateID(@RequestParam String login_id){
+        System.out.println("checkdupid method started");
         return memberService.checkDuplicateID(login_id);
     }
 

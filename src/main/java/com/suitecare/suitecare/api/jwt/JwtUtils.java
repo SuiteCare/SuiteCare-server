@@ -7,13 +7,19 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.NoArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.List;
 
 @Component
+@NoArgsConstructor
 public class JwtUtils {
     // JJWT 제공 API 활용하여 HS256(HMAC SHA-256) 해싱된 시크릿 키 생성
     private static final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
@@ -25,17 +31,16 @@ public class JwtUtils {
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
     // Access Token 생성 메서드
-    public String createAccessToken(String id, String name){
-        // Token 만료 시간
+    public String createAccessToken(String login_id, String role){
+        // 현재 시점 Date 객체 생성
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + ACCESS_TOKEN_VALIDATION_SECOND);
 
-        // JWT 생성. AccessToken 생성하여 반환, member_id 로 구분
+        // JWT 생성. AccessToken 생성하여 반환, login_id 로 구분, 'role' claim 설정
         return Jwts.builder()
-                .setSubject(id)
-                .claim("name", name)
+                .setSubject(login_id)
+                .claim("role", role)
                 .setIssuedAt(now)
-                .setExpiration(expiration)
+                .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_VALIDATION_SECOND))
                 .signWith(secretKey)
                 .compact();
     }
@@ -66,7 +71,7 @@ public class JwtUtils {
     }
 
     // Token 에서 id 추출하여 반환하는 메서드
-    public String getId(String token) {
+    public String getLoginId(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
                 .build()
@@ -75,14 +80,14 @@ public class JwtUtils {
                 .getSubject();
     }
 
-    // Token 에서 name 추출하여 반환하는 메서드
-    public String getName(String token) {
+    // Token 에서 role 추출하여 반환하는 메서드
+    public String getRole(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
                 .build()
                 .parseClaimsJws(token)
                 .getBody()
-                .get("name")
+                .get("role")
                 .toString();
     }
 
@@ -97,17 +102,10 @@ public class JwtUtils {
         return null;
     }
 
-/*
-    public String determineRedirectURI(HttpServletRequest request, String memberURI, String nonMemberURI) {
-        String token = getAccessToken(request);
+    public Authentication getAuthenticationToken(String token) {
+        String loginId = getLoginId(token);
+        String role = getRole(token);
 
-        if(token == null) {
-            return nonMemberURI;
-        } else {
-            return memberURI;
-        }
-
+        return new UsernamePasswordAuthenticationToken(loginId, null, List.of(new SimpleGrantedAuthority(role)));
     }
-*/
-
 }

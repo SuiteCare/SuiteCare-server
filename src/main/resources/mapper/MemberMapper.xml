@@ -15,8 +15,8 @@
         select count(*) from SuiteMember where login_id = #{login_id}
     </select>
 
-    <select id="getLoginInfoByLoginId" parameterType="LoginRequestDTO">
-        select id, password from SuiteMember
+    <select id="getAccountInfoForLogin">
+        select id, password, role from SuiteMember
         where login_id = #{login_id} and role in (#{role}, 'A');
     </select>
 
