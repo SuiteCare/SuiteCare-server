@@ -12,13 +12,15 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-    @GetMapping("/member")
+    @GetMapping("/check/id")
     public Integer checkDuplicateID(@RequestParam String login_id){
+        System.out.println("checkdupid method started");
         return memberService.checkDuplicateID(login_id);
     }
 
     @GetMapping("/mypage")
     public MypageResponseDTO findInfoById(@RequestParam int id){
+        System.out.println("mypage method started");
         return memberService.findMypageById(id);
     }
 
