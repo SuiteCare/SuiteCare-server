@@ -26,7 +26,7 @@ public class AuthController {
             loginResponseDTO = new LoginResponseDTO(
                 loginDTO.getId(),
                 loginRequestDTO.getLogin_id(),
-                new JwtUtils().createAccessToken(loginRequestDTO.getLogin_id(), loginRequestDTO.getRole()));
+                new JwtUtils().createAccessToken(loginRequestDTO.getLogin_id(), loginDTO.getRole()));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             System.out.println("로그인 중 에러가 발생했습니다. null 을 return 합니다.");

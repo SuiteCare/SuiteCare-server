@@ -11,7 +11,7 @@ public interface MemberMapper {
     Integer checkDuplicateID(String id);
 
     /* 로그인 관련 로직 */
-    LoginDTO getPasswordForLogin(String login_id);
+    LoginDTO getAccountInfoForLogin(LoginRequestDTO loginRequestDTO);
 
     MypageResponseDTO findMypageById(int id);
     Integer changePw(ChangePwRequestDTO changePwRequestDTO);

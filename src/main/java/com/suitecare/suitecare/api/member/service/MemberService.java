@@ -32,13 +32,18 @@ public class MemberService {
         LoginDTO loginDTO;
 
         // 계정 정보 존재 확인
-        if((loginDTO = memberMapper.getPasswordForLogin(loginRequestDTO.getLogin_id())) == null) {
+        if((loginDTO = memberMapper.getAccountInfoForLogin(loginRequestDTO)) == null) {
             throw new IllegalArgumentException("No Account Info matches login_id");
         }
 
         // 패스워드 일치 여부 확인
         if(!passwordEncoder.matches(loginRequestDTO.getPassword(), loginDTO.getPassword())) {
             throw new IllegalArgumentException("Password mismatched.");
+        }
+
+        // 권한 일치 여부 확인
+        if(!(loginRequestDTO.getRole().equals(loginDTO.getRole()) || loginDTO.getRole().equals("A"))) {
+            throw new IllegalArgumentException("Role mismatched.");
         }
 
         return loginDTO;
