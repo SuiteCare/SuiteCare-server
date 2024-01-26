@@ -16,7 +16,7 @@ public interface MemberMapper {
     /* 패스워드 변경 관련 로직 */
     String getPasswordById(Long login_id);
 
-    MypageResponseDTO findMypageById(Long id);
+    MypageResponseDTO findMypageByLoginId(String login_id);
     Integer changePassword(ChangePasswordRequestDTO changePasswordRequestDTO);
     Integer modify(ModifyRequestDTO modifyRequestDTO);
 

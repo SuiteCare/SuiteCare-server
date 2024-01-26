@@ -35,6 +35,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             Authentication authentication = jwtUtils.getAuthenticationToken(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
+            String login_id = jwtUtils.getLoginId(token);
+            request.setAttribute("login_id", login_id);
+
             // 인증 성공 로깅
             logger.info("Authentication successful for request: {}", request.getRequestURI());
         } else {
