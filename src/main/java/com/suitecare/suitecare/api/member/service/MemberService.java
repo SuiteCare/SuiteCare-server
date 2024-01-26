@@ -36,7 +36,7 @@ public class MemberService {
         return 0;
     }
 
-    public MypageResponseDTO findMypageById(int id) {
+    public MypageResponseDTO findMypageById(Long id) {
         return memberMapper.findMypageById(id);
     }
 

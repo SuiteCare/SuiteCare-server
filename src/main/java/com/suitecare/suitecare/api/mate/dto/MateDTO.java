@@ -8,5 +8,5 @@ public class MateDTO {
     private String introduction;
     private String contact_time_start;
     private String contact_time_end;
-    private Integer desired_wage;
+    private String desired_wage;
 }

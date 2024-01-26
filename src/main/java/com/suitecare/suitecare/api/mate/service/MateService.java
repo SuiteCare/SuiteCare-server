@@ -23,10 +23,10 @@ public class MateService {
     public int create(CreateMemberRequestDTO createMemberRequestDTO) {
     }
 */
-    public ProfileResponseDTO findResumeById(Long id) {
-        ProfileResponseDTO result = new ProfileResponseDTO();
+    public ResumeResponseDTO findResumeById(Long id) {
+        ResumeResponseDTO result = new ResumeResponseDTO();
 
-        MateDTO mate = mateMapper.findProfileById(id);
+        MateDTO mate = mateMapper.findResumeById(id);
         List<CareerDTO> career = careerMapper.findCareerById(id);
         List<CertificateDTO> certificate = certificateMapper.findCertificateById(id);
         List<LocationDTO> location = locationMapper.findLocationById(id);

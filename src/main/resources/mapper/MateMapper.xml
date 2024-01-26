@@ -10,7 +10,7 @@
         WHERE member_id = #{id};
     </select>
 
-    <select id="getMateprofileById">
+    <select id="isPresentResume">
         SELECT id FROM materesume WHERE member_id = #{id}
     </select>
 

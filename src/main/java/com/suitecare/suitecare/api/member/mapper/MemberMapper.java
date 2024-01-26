@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MemberMapper {
     Integer create(CreateMemberRequestDTO createMemberRequestDTO);
     Integer checkDuplicateID(String id);
-    MypageResponseDTO findMypageById(int id);
-    String getPasswordById(Integer id);
+    MypageResponseDTO findMypageById(Long id);
+    String getPasswordById(Long id);
     Integer changePassword(ChangePasswordRequestDTO changePasswordRequestDTO);
     Integer modify(ModifyRequestDTO modifyRequestDTO);
     LoginDTO getLoginInfoByLoginId(LoginRequestDTO loginDTO);
