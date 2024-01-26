@@ -17,7 +17,7 @@
 
     <select id="getPasswordForLogin">
         select id, password from SuiteMember
-        where login_id = #{login_id});
+        where login_id = #{login_id};
     </select>
 
     <select id="getLoginInfoByLoginId" parameterType="LoginRequestDTO">
