@@ -13,7 +13,12 @@ public interface MemberMapper {
     /* 로그인 관련 로직 */
     LoginDTO getAccountInfoForLogin(LoginRequestDTO loginRequestDTO);
 
+    /* 패스워드 변경 관련 로직 */
+    String getPasswordById(Long login_id);
+
     MypageResponseDTO findMypageById(Long id);
     Integer changePassword(ChangePasswordRequestDTO changePasswordRequestDTO);
     Integer modify(ModifyRequestDTO modifyRequestDTO);
+
+
 }
