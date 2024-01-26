@@ -4,6 +4,8 @@ import com.suitecare.suitecare.api.member.dto.*;
 import com.suitecare.suitecare.api.member.dto.LoginDTO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Map;
+
 @Mapper
 public interface MemberMapper {
     /* 회원가입 관련 로직 */
@@ -16,9 +18,7 @@ public interface MemberMapper {
     /* 패스워드 변경 관련 로직 */
     String getPasswordById(Long login_id);
 
-    MypageResponseDTO findMypageByLoginId(String login_id);
+    MypageResponseDTO getMypageByLoginId(String login_id);
     Integer changePassword(ChangePasswordRequestDTO changePasswordRequestDTO);
-    Integer modify(ModifyRequestDTO modifyRequestDTO);
-
-
+    Integer updateMember(Map<String, Object> parameterMap);
 }

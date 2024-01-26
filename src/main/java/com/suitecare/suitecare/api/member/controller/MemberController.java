@@ -20,9 +20,8 @@ public class MemberController {
     }
 
     @GetMapping("/mypage")
-    public MypageResponseDTO findMypageByLoginId(HttpServletRequest request){
+    public MypageResponseDTO getMypageByLoginId(HttpServletRequest request){
         String login_id = (String) request.getAttribute("login_id");
-        System.out.println(login_id);
         return memberService.findMypageByLoginId(login_id);
     }
 
@@ -31,9 +30,10 @@ public class MemberController {
         return memberService.changePassword(changePasswordRequestDTO);
     }
 
-    @PostMapping("/modify")
-    public Integer modify(@RequestBody ModifyRequestDTO modifyRequestDTO){
-        return memberService.modify(modifyRequestDTO);
+    @PatchMapping("/member")
+    public Integer updateMember(@RequestBody UpdateMemberRequestDTO updateMemberRequestDTO, HttpServletRequest request) {
+        String login_id = (String) request.getAttribute("login_id");
+        return memberService.updateMember(login_id, updateMemberRequestDTO);
     }
 
 
