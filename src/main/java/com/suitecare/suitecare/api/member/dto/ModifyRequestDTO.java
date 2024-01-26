@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class ModifyRequestDTO {
-    private int login_id;
+    private Long login_id;
     private String tel;
 }

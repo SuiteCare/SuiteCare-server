@@ -24,7 +24,7 @@ public class MemberController {
     }
 
     @GetMapping("/mypage")
-    public MypageResponseDTO findInfoById(@RequestParam int id){
+    public MypageResponseDTO findInfoById(@RequestParam Long id){
         return memberService.findMypageById(id);
     }
 

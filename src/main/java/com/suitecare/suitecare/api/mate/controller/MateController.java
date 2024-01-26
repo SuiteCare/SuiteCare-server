@@ -1,6 +1,6 @@
 package com.suitecare.suitecare.api.mate.controller;
 
-import com.suitecare.suitecare.api.mate.dto.ProfileResponseDTO;
+import com.suitecare.suitecare.api.mate.dto.ResumeResponseDTO;
 import com.suitecare.suitecare.api.mate.service.MateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +13,8 @@ public class MateController {
     @Autowired
     MateService mateService;
 
-    @GetMapping("/profile")
-    public ProfileResponseDTO profile(@RequestParam int id) {
-        return mateService.findProfileById(id);
+    @GetMapping("/resume")
+    public ResumeResponseDTO resume(@RequestParam Long id) {
+        return mateService.findResumeById(id);
     }
 }

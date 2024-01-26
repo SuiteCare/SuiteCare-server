@@ -4,13 +4,13 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.suitecare.suitecare.api.mate.mapper.MateMapper">
 
-    <select id="findMateById" resultType="MateDTO">
-        SELECT mem.name, mem.gender, mem.birthday, mate.profile_picture_filename, mate.introduction, mate.contact_time_start, mate.contact_time_end
-        FROM suitemember AS mem JOIN materesume AS mate ON mem.id = mate.member_id
-        WHERE mem.id = #{id};
+    <select id="findResumeById" resultType="MateDTO">
+        SELECT profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage
+        FROM materesume
+        WHERE member_id = #{id};
     </select>
 
-    <select id="getMateprofileById">
+    <select id="isPresentResume">
         SELECT id FROM materesume WHERE member_id = #{id}
     </select>
 

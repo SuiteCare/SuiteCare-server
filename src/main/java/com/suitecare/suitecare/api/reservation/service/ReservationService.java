@@ -40,34 +40,34 @@ public class ReservationService {
     }
     
     public Integer applyReservation(ApplyReservationRequestDTO applyReservationRequestDTO) {
-        if(!presentResume(applyReservationRequestDTO)) {
+        if(!isPresentResume(applyReservationRequestDTO)) {
             return 0;
         }
 
-        if(!alreadyApplid(applyReservationRequestDTO)) {
+        if(!isPresentApplicant(applyReservationRequestDTO)) {
             return reservationMapper.applyReservation(applyReservationRequestDTO);
         }
 
         return 2;
     }
 
-    public boolean presentResume(ApplyReservationRequestDTO applyReservationRequestDTO) { // 간병인 이력서 여부
-        return mateMapper.getMateprofileById(applyReservationRequestDTO.getMember_id()) != null;
+    public boolean isPresentResume(ApplyReservationRequestDTO applyReservationRequestDTO) { // 간병인 이력서 여부
+        return mateMapper.isPresentResume(applyReservationRequestDTO.getMember_id()) != null;
     }
 
-    public boolean alreadyApplid(ApplyReservationRequestDTO applyReservationRequestDTO) { // 지원 여부
-        return reservationMapper.getReservationIdById(applyReservationRequestDTO) != 0;
+    public boolean isPresentApplicant(ApplyReservationRequestDTO applyReservationRequestDTO) { // 지원 여부
+        return reservationMapper.isPresentApplicant(applyReservationRequestDTO) != 0;
     }
   
-    public List<PendingReservationResponseDTO> getReservationListById(int id) {
+    public List<PendingReservationResponseDTO> getReservationListById(Long id) {
         return reservationMapper.getReservationListById(id);
     }
 
-    public ReservationInfoResponseDTO getReservationInfoById(int reservation_id) {
+    public ReservationInfoResponseDTO getReservationInfoById(Long reservation_id) {
         return reservationMapper.getReservationInfoById(reservation_id);
     }
 
-    public List<ApplicantInfoResponseDTO> getApplicantList(int reservation_id) {
+    public List<ApplicantInfoResponseDTO> getApplicantList(Long reservation_id) {
         return reservationMapper.getApplicantList(reservation_id);
     }
 }

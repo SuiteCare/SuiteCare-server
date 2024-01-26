@@ -12,7 +12,7 @@ public class ApplicantInfoResponseDTO {
     private String introduction;
     private String contact_time_start;
     private String contact_time_end;
-    private int desired_wage;
+    private String desired_wage;
     private String mainservice;
     private String location;
 }

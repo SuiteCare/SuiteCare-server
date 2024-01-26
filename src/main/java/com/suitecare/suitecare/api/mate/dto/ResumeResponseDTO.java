@@ -4,7 +4,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ProfileResponseDTO {
+public class ResumeResponseDTO {
     private MateDTO mate;
     private List<CareerDTO> career;
     private List<CertificateDTO> certificate;

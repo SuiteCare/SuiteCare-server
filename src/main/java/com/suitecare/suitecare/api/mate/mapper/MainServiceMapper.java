@@ -7,5 +7,5 @@ import java.util.List;
 
 @Mapper
 public interface MainServiceMapper {
-    List<MainServiceDTO> findMainServiceById(int id);
+    List<MainServiceDTO> findMainServiceById(Long id);
 }

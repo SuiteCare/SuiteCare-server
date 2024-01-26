@@ -31,17 +31,17 @@ public class ReservationController {
     }
   
     @GetMapping("/pendingReservation")
-    public List<PendingReservationResponseDTO> getReservationListById(@RequestParam int id) {
+    public List<PendingReservationResponseDTO> getReservationListById(@RequestParam Long id) {
         return reservationService.getReservationListById(id);
     }
 
     @GetMapping("/reservationInfo")
-    public ReservationInfoResponseDTO getReservationInfoById(@RequestParam int reservation_id) {
+    public ReservationInfoResponseDTO getReservationInfoById(@RequestParam Long reservation_id) {
         return reservationService.getReservationInfoById(reservation_id);
     }
 
     @GetMapping("/applicant-list")
-    public List<ApplicantInfoResponseDTO> getApplicantList(@RequestParam int reservation_id) {
+    public List<ApplicantInfoResponseDTO> getApplicantList(@RequestParam Long reservation_id) {
         return reservationService.getApplicantList(reservation_id);
     }
 }

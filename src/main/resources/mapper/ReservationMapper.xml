@@ -49,7 +49,7 @@
         values(#{reservation_id}, #{member_id});
     </insert>
 
-    <select id="getReservationIdById" parameterType="ApplyReservationRequestDTO">
+    <select id="isPresentApplicant" parameterType="ApplyReservationRequestDTO">
         SELECT count(*) FROM applicantofreservation WHERE reservation_id = #{reservation_id} AND member_id = #{member_id}
     </select>
   
