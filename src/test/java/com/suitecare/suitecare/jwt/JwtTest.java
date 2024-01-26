@@ -37,7 +37,7 @@ public class JwtTest {
         // then
         assertThat(jwt.validateToken(token)).isTrue();
         assertThat(jwt.getLoginId(token)).isEqualTo(login_id);
-        assertThat(jwt.getRole(token)).isEqualTo(name);
+        assertThat(jwt.getRole(token)).isEqualTo(role);
 
 
     }
