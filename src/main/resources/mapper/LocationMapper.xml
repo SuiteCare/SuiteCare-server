@@ -5,9 +5,9 @@
 <mapper namespace="com.suitecare.suitecare.api.mate.mapper.LocationMapper">
 
     <select id="findLocationById" resultType="LocationDTO">
-        SELECT location.id, location_name
-        FROM location JOIN suitemate AS mate ON location.mate_id = mate.id
-        WHERE mate.family_id = #{id};
+        SELECT location.id, name
+        FROM location JOIN materesume AS mate ON location.mate_resume_id = mate.id
+        WHERE mate.member_id = #{id};
     </select>
 
 

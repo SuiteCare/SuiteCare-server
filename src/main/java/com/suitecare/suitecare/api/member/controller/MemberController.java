@@ -19,14 +19,13 @@ public class MemberController {
     }
 
     @GetMapping("/mypage")
-    public MypageResponseDTO findInfoById(@RequestParam int id){
-        System.out.println("mypage method started");
+    public MypageResponseDTO findInfoById(@RequestParam Long id){
         return memberService.findMypageById(id);
     }
 
     @PostMapping("/changepw")
-    public Integer changePw(@RequestBody ChangePwRequestDTO changePwRequestDTO){
-        return memberService.changePw(changePwRequestDTO);
+    public Integer changePassword(@RequestBody ChangePasswordRequestDTO changePasswordRequestDTO){
+        return memberService.changePassword(changePasswordRequestDTO);
     }
 
     @PostMapping("/modify")

@@ -31,10 +31,14 @@
         where  id = #{login_id};
     </update>
 
+    <select id="getPasswordById">
+        select password from suitemember where id=#{id};
+    </select>
+
     <!--비밀번호 변경-->
-    <update id="changePw" parameterType="ChangePwRequestDTO">
+    <update id="changePassword" parameterType="ChangePasswordRequestDTO">
         update SuiteMember
-        set password = #{password}
+        set password = #{newPassword}
         where  id = #{login_id};
     </update>
 
