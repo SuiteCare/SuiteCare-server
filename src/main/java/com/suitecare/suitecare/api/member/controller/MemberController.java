@@ -20,21 +20,20 @@ public class MemberController {
     }
 
     @GetMapping("/mypage")
-    public MypageResponseDTO getMypageByLoginId(HttpServletRequest request){
+    public MypageResponseDTO findMypageByLoginId(HttpServletRequest request){
         String login_id = (String) request.getAttribute("login_id");
+        System.out.println(login_id);
         return memberService.findMypageByLoginId(login_id);
     }
 
-    @PostMapping("/changepassword")
-    public Integer changePassword(@RequestBody ChangePasswordRequestDTO changePasswordRequestDTO, HttpServletRequest request){
-        String login_id = (String) request.getAttribute("login_id");
-        return memberService.changePassword(login_id, changePasswordRequestDTO);
+    @PostMapping("/changepw")
+    public Integer changePassword(@RequestBody ChangePasswordRequestDTO changePasswordRequestDTO){
+        return memberService.changePassword(changePasswordRequestDTO);
     }
 
-    @PatchMapping("/member")
-    public Integer updateMember(@RequestBody UpdateMemberRequestDTO updateMemberRequestDTO, HttpServletRequest request) {
-        String login_id = (String) request.getAttribute("login_id");
-        return memberService.updateMember(login_id, updateMemberRequestDTO);
+    @PostMapping("/modify")
+    public Integer modify(@RequestBody ModifyRequestDTO modifyRequestDTO){
+        return memberService.modify(modifyRequestDTO);
     }
 
 
