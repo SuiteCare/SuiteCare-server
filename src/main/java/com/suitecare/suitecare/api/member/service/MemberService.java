@@ -56,12 +56,12 @@ public class MemberService {
         return memberMapper.getMypageByLoginId(login_id);
     }
 
-    public Integer changePassword(ChangePasswordRequestDTO changePasswordRequestDTO) {
-        String dbPassword = memberMapper.getPasswordById(changePasswordRequestDTO.getLogin_id());
+    public Integer changePassword(String login_id, ChangePasswordRequestDTO changePasswordRequestDTO) {
+        String dbPassword = memberMapper.getPasswordById(login_id);
         if(passwordEncoder.matches(changePasswordRequestDTO.getOriginPassword(), dbPassword)) {
             if(changePasswordRequestDTO.getNewPassword().equals(changePasswordRequestDTO.getNewPasswordCheck())) {
-                changePasswordRequestDTO.setNewPassword(passwordEncoder.encode(changePasswordRequestDTO.getNewPassword()));
-                return memberMapper.changePassword(changePasswordRequestDTO);
+                String newPassword = passwordEncoder.encode(changePasswordRequestDTO.getNewPassword());
+                return memberMapper.changePassword(login_id, newPassword);
             }
         }
 

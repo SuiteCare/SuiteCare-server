@@ -32,14 +32,14 @@
     </update>
 
     <select id="getPasswordById">
-        select password from suitemember where id=#{id};
+        select password from suitemember where login_id=#{login_id};
     </select>
 
     <!--비밀번호 변경-->
-    <update id="changePassword" parameterType="ChangePasswordRequestDTO">
+    <update id="changePassword">
         update SuiteMember
         set password = #{newPassword}
-        where  id = #{login_id};
+        where login_id = #{login_id};
     </update>
 
 </mapper>

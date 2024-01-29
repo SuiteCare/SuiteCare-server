@@ -25,9 +25,10 @@ public class MemberController {
         return memberService.findMypageByLoginId(login_id);
     }
 
-    @PostMapping("/changepw")
-    public Integer changePassword(@RequestBody ChangePasswordRequestDTO changePasswordRequestDTO){
-        return memberService.changePassword(changePasswordRequestDTO);
+    @PostMapping("/changepassword")
+    public Integer changePassword(@RequestBody ChangePasswordRequestDTO changePasswordRequestDTO, HttpServletRequest request){
+        String login_id = (String) request.getAttribute("login_id");
+        return memberService.changePassword(login_id, changePasswordRequestDTO);
     }
 
     @PatchMapping("/member")
