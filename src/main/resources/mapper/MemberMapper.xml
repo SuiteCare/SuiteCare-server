@@ -20,26 +20,26 @@
         where login_id = #{login_id} and role in (#{role}, 'A');
     </select>
 
-    <select id="findMypageByLoginId">
+    <select id="getMypageByLoginId">
         select * from suitemember where login_id = #{login_id};
     </select>
 
     <!--회원 정보 수정-->
-    <update id="modify" parameterType="ModifyRequestDTO">
+    <update id="updateMember" parameterType="Map">
         update SuiteMember
-        set tel = #{tel}
-        where  id = #{login_id};
+        set tel = #{updateMemberRequestDTO.tel}
+        where login_id = #{login_id};
     </update>
 
     <select id="getPasswordById">
-        select password from suitemember where id=#{id};
+        select password from suitemember where login_id=#{login_id};
     </select>
 
     <!--비밀번호 변경-->
-    <update id="changePassword" parameterType="ChangePasswordRequestDTO">
+    <update id="changePassword">
         update SuiteMember
         set password = #{newPassword}
-        where  id = #{login_id};
+        where login_id = #{login_id};
     </update>
 
 </mapper>
