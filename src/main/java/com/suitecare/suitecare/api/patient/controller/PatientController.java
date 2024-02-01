@@ -4,6 +4,7 @@ import com.suitecare.suitecare.api.patient.dto.PatientDetailResponseDTO;
 import com.suitecare.suitecare.api.patient.dto.PatientRequestDTO;
 import com.suitecare.suitecare.api.patient.dto.PatientResponseDTO;
 import com.suitecare.suitecare.api.patient.service.PatientService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,9 +37,9 @@ public class PatientController {
 
     /* 환자 등록 */
     @PostMapping("/patient")
-    public int createPatient(@RequestBody PatientRequestDTO patientRequestDTO){
-
-        return patientService.createPatient(patientRequestDTO);
+    public int createPatient(@RequestBody PatientRequestDTO patientRequestDTO, HttpServletRequest request){
+        String login_id = (String)request.getAttribute("login_id");
+        return patientService.createPatient(login_id, patientRequestDTO);
     }
 
 }
