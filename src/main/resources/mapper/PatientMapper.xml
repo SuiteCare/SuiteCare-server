@@ -38,4 +38,16 @@
         where (id = #{id})
     </select>
 
+    <!-- 환자 고유 ID로 환자 정보 수정 -->
+    <update id="updatePatient" parameterType="PatientRequestDTO">
+        update patient
+        set name = #{name}, gender = #{gender}, birthday=#{birthday}, diagnosis_name=#{diagnosis_name}, height=#{height}, weight=#{weight}, update_at=sysdate()
+        where id = #{id}
+    </update>
+
+    <update id="updatePatientDetail" parameterType="PatientRequestDTO">
+        update patientdetail
+        set consciousness_state=#{consciousness_state}, meal_care_state=#{meal_care_state}, toilet_care_state=#{toilet_care_state}, paralysis_state=#{paralysis_state}, behavioral_state=#{behavioral_state}, is_bedsore=#{is_bedsore}, need_suction=#{need_suction}, need_outpatient=#{need_outpatient}, need_night_care=#{need_night_care}, notice=#{notice}
+        where id = #{id}
+    </update>
 </mapper>
