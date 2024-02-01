@@ -73,4 +73,11 @@
         and s.id = r.member_id and r.id = m.mate_resume_id and r.id = l.mate_resume_id
         group by m.mate_resume_id;
     </select>
+
+    <!-- family ID로 예약 내역 검색 -->
+    <select id="getReservationList" parameterType="String">
+        select * from reservation
+        where patient_id in (select id from patient where member_id = #{member_id})
+    </select>
+
 </mapper>

@@ -16,4 +16,5 @@ public interface ReservationMapper {
     List<PendingReservationResponseDTO> getReservationListById(Long id);
     ReservationInfoResponseDTO getReservationInfoById(Long reservation_id);
     List<ApplicantInfoResponseDTO> getApplicantList(Long reservation_id);
+    List<ReservationRequestDTO>getReservationList(String member_id);
 }
