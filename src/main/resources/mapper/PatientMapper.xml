@@ -5,15 +5,15 @@
 <mapper namespace="com.suitecare.suitecare.api.patient.mapper.PatientMapper">
 
     <!-- 새로운 환자 등록 프론트url=(/family/addpatient) - 기본정보 -->
-    <insert id="createPatient" parameterType="PatientRequestDTO" useGeneratedKeys="true" keyProperty="id">
+    <insert id="createPatient" parameterType="Map" useGeneratedKeys="true" keyProperty="id">
         insert into Patient (member_id, name, gender, birthday, diagnosis_name, height, weight, create_at, update_at)
-        values (#{member_id}, #{name}, #{gender}, #{birthday}, #{diagnosis_name}, #{height}, #{weight}, sysdate(), sysdate())
+        values (#{login_id}, #{patient.name}, #{patient.gender}, #{patient.birthday}, #{patient.diagnosis_name}, #{patient.height}, #{patient.weight}, sysdate(), sysdate())
     </insert>
 
     <!-- 새로운 환자 등록 프론트url=(/family/addpatient) - 상세정보 -->
     <insert id="createPatientDetail" parameterType="PatientRequestDTO">
-        insert into PatientDetail (id, consciousness_state, meal_care_state, toilet_care_state, paralysis_state, behavioral_state, is_bedsore, need_suction, need_outpatient, need_night_care, notice)
-        values (#{id}, #{consciousness_state}, #{meal_care_state}, #{toilet_care_state}, #{paralysis_state}, #{behavioral_state}, #{is_bedsore}, #{need_suction}, #{need_outpatient}, #{need_night_care}, #{notice})
+        insert into PatientDetail (consciousness_state, meal_care_state, toilet_care_state, paralysis_state, behavioral_state, is_bedsore, need_suction, need_outpatient, need_night_care, notice)
+        values (#{patient.consciousness_state}, #{patient.meal_care_state}, #{patient.toilet_care_state}, #{patient.paralysis_state}, #{patient.behavioral_state}, #{patient.is_bedsore}, #{patient.need_suction}, #{patient.need_outpatient}, #{patient.need_night_care}, #{patient.notice})
     </insert>
 
     <!-- 환자 고유 ID 검색 -->
@@ -37,4 +37,5 @@
         select * from PatientDetail
         where (id = #{id})
     </select>
+
 </mapper>
