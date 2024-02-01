@@ -19,8 +19,8 @@ public class PatientService {
 
     /* 환자 목록 조회 */
     @Transactional
-    public List<PatientRequestDTO> getPatientList(String id){
-        return patientMapper.getPatientList(id);
+    public List<PatientRequestDTO> getPatientList(String login_id){
+        return patientMapper.getPatientList(login_id);
     }
 
     /* 환자 조회 */
