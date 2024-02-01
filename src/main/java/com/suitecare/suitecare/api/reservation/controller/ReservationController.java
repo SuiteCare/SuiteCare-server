@@ -2,8 +2,10 @@ package com.suitecare.suitecare.api.reservation.controller;
 
 import com.suitecare.suitecare.api.reservation.dto.*;
 import com.suitecare.suitecare.api.reservation.service.ReservationService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.suitecare.suitecare.api.patient.dto.PatientRequestDTO;
 
 import java.util.List;
 
@@ -43,5 +45,12 @@ public class ReservationController {
     @GetMapping("/applicant-list")
     public List<ApplicantInfoResponseDTO> getApplicantList(@RequestParam Long reservation_id) {
         return reservationService.getApplicantList(reservation_id);
+    }
+    /* 예약 내역 조회 */
+    @GetMapping("/history")
+    public List<ReservationRequestDTO> getReservationList(HttpServletRequest request) {
+        System.err.println("!!!!!!!!!!!");
+        String login_id= (String)request.getAttribute("login_id");
+        return reservationService.getReservationList(login_id);
     }
 }

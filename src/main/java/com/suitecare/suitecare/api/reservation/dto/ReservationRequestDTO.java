@@ -15,8 +15,9 @@ import java.util.List;
 @Builder
 public class ReservationRequestDTO {
     private Long id;
-    private Long member_id;
+    private String mate_id;
     private Long patient_id;
+    private String create_at;
     // 예약 상태
     private String status;
     // 간병 지역

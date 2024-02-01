@@ -70,4 +70,9 @@ public class ReservationService {
     public List<ApplicantInfoResponseDTO> getApplicantList(Long reservation_id) {
         return reservationMapper.getApplicantList(reservation_id);
     }
+
+
+    public List<ReservationRequestDTO> getReservationList(String id) {
+        return reservationMapper.getReservationList(id);}
 }
+
