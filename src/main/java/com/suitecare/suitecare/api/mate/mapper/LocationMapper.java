@@ -7,5 +7,5 @@ import java.util.List;
 
 @Mapper
 public interface LocationMapper {
-    List<LocationDTO> findLocationById(Long id);
+    List<LocationDTO> findLocationById(String login_id);
 }

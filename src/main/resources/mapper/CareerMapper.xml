@@ -5,9 +5,9 @@
 <mapper namespace="com.suitecare.suitecare.api.mate.mapper.CareerMapper">
 
     <select id="findCareerById" resultType="CareerDTO">
-        SELECT career.id, name, job_name, date_start, date_end
-        FROM career JOIN materesume AS mate ON career.mate_resume_id = mate.id
-        WHERE mate.member_id = #{id};
+        SELECT id, name, job_name, date_start, date_end
+        FROM career
+        WHERE member_id = #{login_id};
     </select>
 
 

@@ -5,6 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MateMapper {
-    MateDTO findResumeById(Long id);
+    MateDTO findResumeById(String login_id);
     Integer isPresentResume(Long id);
 }

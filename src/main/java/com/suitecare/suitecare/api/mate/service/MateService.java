@@ -23,19 +23,18 @@ public class MateService {
     public int create(CreateMemberRequestDTO createMemberRequestDTO) {
     }
 */
-    public ResumeResponseDTO findResumeById(Long id) {
+    public ResumeResponseDTO findResumeById(String login_id) {
         ResumeResponseDTO result = new ResumeResponseDTO();
 
-        MateDTO mate = mateMapper.findResumeById(id);
-        List<CareerDTO> career = careerMapper.findCareerById(id);
-        List<CertificateDTO> certificate = certificateMapper.findCertificateById(id);
-        List<LocationDTO> location = locationMapper.findLocationById(id);
-        List<MainServiceDTO> mainService = mainSeviceMapper.findMainServiceById(id);
+        MateDTO mate = mateMapper.findResumeById(login_id);
+        List<CareerDTO> career = careerMapper.findCareerById(login_id);
+        List<CertificateDTO> certificate = certificateMapper.findCertificateById(login_id);
+        List<LocationDTO> location = locationMapper.findLocationById(login_id);
+        List<MainServiceDTO> mainService = mainSeviceMapper.findMainServiceById(login_id);
 
         result.setMate(mate);
         result.setCareer(career);
         result.setCertificate(certificate);
-        result.setLocation(location);
         result.setLocation(location);
         result.setMainService(mainService);
         return result;

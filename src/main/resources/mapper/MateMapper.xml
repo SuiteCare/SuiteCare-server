@@ -7,7 +7,7 @@
     <select id="findResumeById" resultType="MateDTO">
         SELECT profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage
         FROM materesume
-        WHERE member_id = #{id};
+        WHERE member_id = #{login_id};
     </select>
 
     <select id="isPresentResume">
