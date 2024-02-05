@@ -5,9 +5,9 @@
 <mapper namespace="com.suitecare.suitecare.api.mate.mapper.CertificateMapper">
 
     <select id="findCertificateById" resultType="CertificateDTO">
-        SELECT certificate.id, certificate_name, certificate_code, qualification_date, expired_date
-        FROM certificate join materesume AS mate ON certificate.mate_resume_id = mate.id
-        WHERE mate.member_id = #{id};
+        SELECT id, certificate_name, certificate_code, qualification_date, expired_date
+        FROM certificate
+        WHERE member_id = #{login_id};
     </select>
 
 
