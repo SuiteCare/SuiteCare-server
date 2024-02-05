@@ -43,4 +43,10 @@ public class PatientController {
         return patientService.createPatient(login_id, patientRequestDTO);
     }
 
+    /* 환자 정보 수정 */
+    @PatchMapping("/patient/{id}")
+    public int updatePatient(@PathVariable Long id, @RequestBody PatientRequestDTO patientRequestDTO) {
+        patientRequestDTO.setId(id);
+        return patientService.updatePatient(patientRequestDTO);
+    }
 }

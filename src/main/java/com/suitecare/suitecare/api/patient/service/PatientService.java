@@ -55,4 +55,12 @@ public class PatientService {
         return 0;
     }
 
+    /* 환자 정보 수정 */
+    public int updatePatient(PatientRequestDTO patientRequestDTO) {
+        if(patientMapper.updatePatient(patientRequestDTO) == 1) {
+            return patientMapper.updatePatientDetail(patientRequestDTO);
+        }
+
+        return 0;
+    }
 }
