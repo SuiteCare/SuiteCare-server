@@ -75,7 +75,7 @@
     </select>
 
     <!-- family ID로 예약 내역 검색 -->
-    <select id="getReservationList" parameterType="String">
+    <select id="getReservationList">
         select * from reservation
         where patient_id in (select id from patient where member_id = #{member_id})
     </select>

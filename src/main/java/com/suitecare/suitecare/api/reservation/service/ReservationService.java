@@ -72,7 +72,7 @@ public class ReservationService {
     }
 
 
-    public List<ReservationRequestDTO> getReservationList(String id) {
-        return reservationMapper.getReservationList(id);}
+    public List<ReservationRequestDTO> getReservationList(String login_id) {
+        return reservationMapper.getReservationList(login_id);}
 }
 

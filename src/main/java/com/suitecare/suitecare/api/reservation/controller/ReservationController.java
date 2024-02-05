@@ -47,9 +47,8 @@ public class ReservationController {
         return reservationService.getApplicantList(reservation_id);
     }
     /* 예약 내역 조회 */
-    @GetMapping("/history")
+    @GetMapping("/reservationHistory")
     public List<ReservationRequestDTO> getReservationList(HttpServletRequest request) {
-        System.err.println("!!!!!!!!!!!");
         String login_id= (String)request.getAttribute("login_id");
         return reservationService.getReservationList(login_id);
     }
