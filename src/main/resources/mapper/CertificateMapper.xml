@@ -10,5 +10,12 @@
         WHERE member_id = #{login_id};
     </select>
 
+    <insert id="createCertificate">
+        INSERT INTO certificate(member_id, certificate_name, certificate_code, qualification_date, expired_date)
+        VALUES
+        <foreach collection="certificate" item="item" separator=", ">
+            (#{login_id}, #{item.certificate_name}, #{item.certificate_code}, #{item.qualification_date}, #{item.expired_date})
+        </foreach>
+    </insert>
 
 </mapper>

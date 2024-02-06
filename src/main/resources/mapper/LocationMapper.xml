@@ -10,5 +10,11 @@
         WHERE member_id = #{login_id};
     </select>
 
-
+    <insert id="createLocation">
+        INSERT INTO location(member_id, name)
+        VALUES
+        <foreach collection="location" index="idx" item="loc" separator=", ">
+            (#{login_id}, #{loc})
+        </foreach>
+    </insert>
 </mapper>

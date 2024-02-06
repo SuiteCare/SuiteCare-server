@@ -19,10 +19,7 @@ public class MateService {
     LocationMapper locationMapper;
     @Autowired
     MainServiceMapper mainSeviceMapper;
-/*
-    public int create(CreateMemberRequestDTO createMemberRequestDTO) {
-    }
-*/
+
     public ResumeResponseDTO findResumeById(String login_id) {
         ResumeResponseDTO result = new ResumeResponseDTO();
 
@@ -38,5 +35,28 @@ public class MateService {
         result.setLocation(location);
         result.setMainService(mainService);
         return result;
+    }
+
+    /* 간병인 이력서 등록 */
+    public int createResume(String login_id, ResumeRequestDTO resumeRequestDTO) {
+        int resume = mateMapper.createResume(login_id, resumeRequestDTO); // 기본 이력서 등록
+
+        if(resumeRequestDTO.getCheckedLoc().length != 0) { // 활동 지역
+            locationMapper.createLocation(login_id, resumeRequestDTO.getCheckedLoc());
+        }
+
+        if(resumeRequestDTO.getMainServiceData().length != 0) { // 대표서비스
+            mainSeviceMapper.createMainService(login_id, resumeRequestDTO.getMainServiceData());
+        }
+
+        if(!resumeRequestDTO.getCareer().isEmpty()) { // 경력
+            careerMapper.createCareer(login_id, resumeRequestDTO.getCareer());
+        }
+
+        if(!resumeRequestDTO.getCertificate().isEmpty()) { // 자격증
+            certificateMapper.createCertificate(login_id, resumeRequestDTO.getCertificate());
+        }
+
+        return resume;
     }
 }

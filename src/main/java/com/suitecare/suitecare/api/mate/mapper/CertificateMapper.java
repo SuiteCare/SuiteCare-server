@@ -8,4 +8,5 @@ import java.util.List;
 @Mapper
 public interface CertificateMapper {
     List<CertificateDTO> findCertificateById(String login_id);
+    void createCertificate(String login_id, List<CertificateDTO> certificate);
 }

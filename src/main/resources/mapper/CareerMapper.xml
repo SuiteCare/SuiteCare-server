@@ -10,5 +10,13 @@
         WHERE member_id = #{login_id};
     </select>
 
+    <insert id="createCareer">
+        INSERT INTO career(member_id, name, job_name, date_start, date_end)
+        VALUES
+        <foreach collection="career" item="item" separator=", ">
+            (#{login_id}, #{item.name}, #{item.job_name}, #{item.date_start}, #{item.date_end})
+        </foreach>
+    </insert>
+
 
 </mapper>

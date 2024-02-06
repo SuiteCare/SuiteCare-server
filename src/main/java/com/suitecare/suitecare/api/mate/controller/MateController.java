@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.mate.controller;
 
+import com.suitecare.suitecare.api.mate.dto.ResumeRequestDTO;
 import com.suitecare.suitecare.api.mate.dto.ResumeResponseDTO;
 import com.suitecare.suitecare.api.mate.service.MateService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,5 +19,12 @@ public class MateController {
     public ResumeResponseDTO resume(HttpServletRequest request) {
         String login_id = (String) request.getAttribute("login_id");
         return mateService.findResumeById(login_id);
+    }
+
+    /* 간병인 이력서 등록 */
+    @PostMapping("/resume")
+    public int createResume(HttpServletRequest request, @RequestBody ResumeRequestDTO resumeRequestDTO) {
+        String login_id = (String) request.getAttribute("login_id");
+        return mateService.createResume(login_id, resumeRequestDTO);
     }
 }
