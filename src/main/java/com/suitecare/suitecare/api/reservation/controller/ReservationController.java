@@ -5,7 +5,6 @@ import com.suitecare.suitecare.api.reservation.service.ReservationService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.suitecare.suitecare.api.patient.dto.PatientRequestDTO;
 
 import java.util.List;
 
@@ -24,17 +23,19 @@ public class ReservationController {
 
     @GetMapping("/search/reservation")
     public List<SearchedReservationResponseDTO> getSearchedReservation(SearchedReservationRequestDTO requestDTO) {
-            return reservationService.getSearchedReservation(requestDTO);
+        return reservationService.getSearchedReservation(requestDTO);
     }
 
     @PostMapping("/apply")
-    public Integer applyReservation(@RequestBody ApplyReservationRequestDTO applyReservationRequestDTO) {
-        return  reservationService.applyReservation(applyReservationRequestDTO);
+    public Integer applyReservation(HttpServletRequest request, @RequestBody ApplyReservationRequestDTO applyReservationRequestDTO) {
+        String login_id = (String) request.getAttribute("login_id");
+        return  reservationService.applyReservation(login_id, applyReservationRequestDTO);
     }
   
     @GetMapping("/pendingReservation")
-    public List<PendingReservationResponseDTO> getReservationListById(@RequestParam Long id) {
-        return reservationService.getReservationListById(id);
+    public List<PendingReservationResponseDTO> getReservationListById(HttpServletRequest request) {
+        String login_id= (String)request.getAttribute("login_id");
+        return reservationService.getReservationListById(login_id);
     }
 
     @GetMapping("/reservationInfo")

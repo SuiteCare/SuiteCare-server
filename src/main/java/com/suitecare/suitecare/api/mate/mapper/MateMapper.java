@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MateMapper {
     MateDTO findResumeById(String login_id);
-    Integer isPresentResume(Long id);
+    Integer isPresentResume(String login_id);
     Integer createResume(String login_id, ResumeRequestDTO resumeRequestDTO);
+    void updateResume(String login_id, ResumeRequestDTO resumeRequestDTO);
 }

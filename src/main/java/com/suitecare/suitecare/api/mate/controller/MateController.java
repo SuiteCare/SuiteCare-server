@@ -34,4 +34,10 @@ public class MateController {
             return 0;
         }
     }
+
+    @PatchMapping("/resume")
+    public void updateResume(HttpServletRequest request, @RequestBody ResumeRequestDTO resumeRequestDTO) {
+        String login_id = (String) request.getAttribute("login_id");
+        mateService.updateResume(login_id, resumeRequestDTO);
+    }
 }

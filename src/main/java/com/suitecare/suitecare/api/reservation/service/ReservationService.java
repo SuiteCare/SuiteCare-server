@@ -39,28 +39,30 @@ public class ReservationService {
         return reservationMapper.getSearchedReservation(requestDTO);
     }
     
-    public Integer applyReservation(ApplyReservationRequestDTO applyReservationRequestDTO) {
-        if(!isPresentResume(applyReservationRequestDTO)) {
+    public Integer applyReservation(String login_id, ApplyReservationRequestDTO applyReservationRequestDTO) {
+        if(!isPresentResume(login_id)) {
             return 0;
         }
 
-        if(!isPresentApplicant(applyReservationRequestDTO)) {
-            return reservationMapper.applyReservation(applyReservationRequestDTO);
+        Long reservation_id = applyReservationRequestDTO.getReservation_id();
+
+        if(!isPresentApplicant(login_id, reservation_id)) {
+            return reservationMapper.applyReservation(login_id, reservation_id);
         }
 
         return 2;
     }
 
-    public boolean isPresentResume(ApplyReservationRequestDTO applyReservationRequestDTO) { // 간병인 이력서 여부
-        return mateMapper.isPresentResume(applyReservationRequestDTO.getMember_id()) != null;
+    public boolean isPresentResume(String login_id) { // 간병인 이력서 여부
+        return mateMapper.isPresentResume(login_id) != null;
     }
 
-    public boolean isPresentApplicant(ApplyReservationRequestDTO applyReservationRequestDTO) { // 지원 여부
-        return reservationMapper.isPresentApplicant(applyReservationRequestDTO) != 0;
+    public boolean isPresentApplicant(String login_id, Long reservation_id) { // 지원 여부
+        return reservationMapper.isPresentApplicant(login_id, reservation_id) != 0;
     }
   
-    public List<PendingReservationResponseDTO> getReservationListById(Long id) {
-        return reservationMapper.getReservationListById(id);
+    public List<PendingReservationResponseDTO> getReservationListById(String login_id) {
+        return reservationMapper.getReservationListById(login_id);
     }
 
     public ReservationInfoResponseDTO getReservationInfoById(Long reservation_id) {

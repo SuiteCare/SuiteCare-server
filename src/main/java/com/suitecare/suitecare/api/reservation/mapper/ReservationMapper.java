@@ -11,9 +11,9 @@ public interface ReservationMapper {
     Integer createReservation(ReservationRequestDTO reservationRequestDTO);
     void createDayOfReservation(DayOfReservation dayOfReservation);
     List<SearchedReservationResponseDTO> getSearchedReservation(SearchedReservationRequestDTO requestDTO);
-    Integer applyReservation(ApplyReservationRequestDTO applyReservationRequestDTO);
-    Integer isPresentApplicant(ApplyReservationRequestDTO applyReservationRequestDTO);
-    List<PendingReservationResponseDTO> getReservationListById(Long id);
+    Integer applyReservation(String login_id, Long reservation_id);
+    Integer isPresentApplicant(String login_id, Long reservation_id);
+    List<PendingReservationResponseDTO> getReservationListById(String login_id);
     ReservationInfoResponseDTO getReservationInfoById(Long reservation_id);
     List<ApplicantInfoResponseDTO> getApplicantList(Long reservation_id);
     List<ReservationRequestDTO>getReservationList(String login_id);
