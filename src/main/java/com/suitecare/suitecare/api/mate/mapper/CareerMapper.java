@@ -8,4 +8,5 @@ import java.util.List;
 @Mapper
 public interface CareerMapper {
     List<CareerDTO> findCareerById(String login_id);
+    void createCareer(String login_id, List<CareerDTO> career);
 }

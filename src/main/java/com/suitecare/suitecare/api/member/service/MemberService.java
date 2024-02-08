@@ -73,6 +73,8 @@ public class MemberService {
         parameterMap.put("login_id", login_id);
         parameterMap.put("updateMemberRequestDTO", updateMemberRequestDTO);
 
+
+
         return memberMapper.updateMember(parameterMap);
     }
 }

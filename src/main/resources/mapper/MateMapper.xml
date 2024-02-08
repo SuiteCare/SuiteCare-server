@@ -14,4 +14,8 @@
         SELECT id FROM materesume WHERE member_id = #{id}
     </select>
 
+    <insert id="createResume">
+        INSERT INTO mateResume(member_id, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage)
+        VALUES (#{login_id}, 'filename', #{resumeRequestDTO.introduction}, #{resumeRequestDTO.contactTimeStart}, #{resumeRequestDTO.contactTimeEnd}, #{resumeRequestDTO.wage});
+    </insert>
 </mapper>

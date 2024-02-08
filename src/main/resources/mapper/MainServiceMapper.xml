@@ -10,5 +10,13 @@
         WHERE member_id = #{login_id};
     </select>
 
+    <insert id="createMainService">
+        INSERT INTO mainservice(member_id, name)
+        VALUES
+        <foreach collection="mainService" item="service" separator=", ">
+            (#{login_id}, #{service})
+        </foreach>
+    </insert>
+
 
 </mapper>
