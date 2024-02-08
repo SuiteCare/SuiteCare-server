@@ -27,8 +27,14 @@
     <!--회원 정보 수정-->
     <update id="updateMember" parameterType="Map">
         update SuiteMember
-        set tel = #{updateMemberRequestDTO.tel}
-        where login_id = #{login_id};
+        set
+        <if test="updateMemberRequestDTO.tel != null">
+            tel = #{updateMemberRequestDTO.tel}
+        </if>
+        <if test="updateMemberRequestDTO.role != null">
+            role = 'A'
+        </if>
+        where login_id = #{login_id}
     </update>
 
     <select id="getPasswordById">
