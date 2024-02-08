@@ -69,4 +69,8 @@ public class MateService {
             throw e;
         }
     }
+
+    public void updateResume(String login_id, ResumeRequestDTO resumeRequestDTO) {
+        mateMapper.updateResume(login_id, resumeRequestDTO);
+    }
 }

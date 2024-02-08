@@ -11,7 +11,7 @@
     </select>
 
     <select id="isPresentResume">
-        SELECT id FROM materesume WHERE member_id = #{id}
+        SELECT id FROM materesume WHERE member_id = #{login_id}
     </select>
 
     <insert id="createResume">
