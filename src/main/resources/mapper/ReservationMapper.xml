@@ -76,7 +76,7 @@
 
     <!-- family ID로 예약 내역 검색 -->
     <select id="getReservationList">
-        select * from reservation
+        select id, patient_id, mate_id, status, start_date, end_date, create_at, payment_at from reservation
         where patient_id in (select id from patient where member_id = #{member_id})
     </select>
 
