@@ -74,7 +74,7 @@ public class ReservationService {
     }
 
 
-    public List<ReservationRequestDTO> getReservationList(String login_id) {
+    public List<ReservationListResponseDTO> getReservationList(String login_id) {
         return reservationMapper.getReservationList(login_id);}
 }
 

@@ -38,9 +38,9 @@ public class ReservationController {
         return reservationService.getReservationListById(login_id);
     }
 
-    @GetMapping("/reservationInfo")
-    public ReservationInfoResponseDTO getReservationInfoById(@RequestParam Long reservation_id) {
-        return reservationService.getReservationInfoById(reservation_id);
+    @GetMapping("/reservation/{id}")
+    public ReservationInfoResponseDTO getReservationInfoById(@PathVariable Long id) {
+        return reservationService.getReservationInfoById(id);
     }
 
     @GetMapping("/applicant-list")
@@ -48,8 +48,8 @@ public class ReservationController {
         return reservationService.getApplicantList(reservation_id);
     }
     /* 예약 내역 조회 */
-    @GetMapping("/reservationHistory")
-    public List<ReservationRequestDTO> getReservationList(HttpServletRequest request) {
+    @GetMapping("/reservation")
+    public List<ReservationListResponseDTO> getReservationList(HttpServletRequest request) {
         String login_id= (String)request.getAttribute("login_id");
         return reservationService.getReservationList(login_id);
     }
