@@ -73,4 +73,8 @@ public class MateService {
     public void updateResume(String login_id, ResumeRequestDTO resumeRequestDTO) {
         mateMapper.updateResume(login_id, resumeRequestDTO);
     }
+
+    public List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO) {
+        return mateMapper.getSearchedMate(searchedMateRequestDTO);
+    }
 }

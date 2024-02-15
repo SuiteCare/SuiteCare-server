@@ -18,4 +18,57 @@
         INSERT INTO mateResume(member_id, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage)
         VALUES (#{login_id}, 'filename', #{resumeRequestDTO.introduction}, #{resumeRequestDTO.contactTimeStart}, #{resumeRequestDTO.contactTimeEnd}, #{resumeRequestDTO.wage});
     </insert>
+
+    <select id="getSearchedMate" resultType="SearchedMateResponseDTO">
+        SELECT
+        s.name, m.profile_picture_filename, m.introduction, m.contact_time_start, m.contact_time_end, m.desired_wage,
+        s.gender, s.birthday,
+        GROUP_CONCAT(DISTINCT loc.name) AS location,
+        GROUP_CONCAT(DISTINCT serve.name) AS mainservice
+
+        FROM materesume m
+        JOIN suitemember s ON m.member_id = s.login_id
+        JOIN location loc ON m.member_id = loc.member_id
+        JOIN mainservice serve ON m.member_id = serve.member_id
+
+        WHERE
+        desired_wage BETWEEN
+            <foreach collection="wage" item="it" separator="and">
+                #{it}
+            </foreach>
+
+        <if test="search_name != null">
+            AND s.name LIKE CONCAT('%', #{search_name}, '%')
+        </if>
+
+        <if test="gender != null and gender.length == 1">
+            AND gender =
+            <foreach collection="gender" item="it">
+                #{it}
+            </foreach>
+        </if>
+
+        <if test = "age != null">
+            AND TRUNCATE((to_days(NOW()) - to_days(birthday)) / 365, -1) IN
+                <foreach collection="age" item="it" separator="," open="(" close=")">
+                    #{it}
+                </foreach>
+        </if>
+
+        GROUP BY s.name, m.profile_picture_filename, m.introduction, m.contact_time_start, m.contact_time_end, m.desired_wage, s.gender, s.birthday
+        Having 1 = 1
+        <if test="location != null">
+            AND
+            <foreach collection="location" item="it" index="idx" separator="or" open="(" close=")">
+                location LIKE CONCAT('%', #{it}, '%')
+            </foreach>
+        </if>
+
+        <if test="service != null">
+            AND
+            <foreach collection="service" item="it" index="idx" separator="or" open="(" close=")">
+                mainservice LIKE CONCAT('%', #{it}, '%')
+            </foreach>
+        </if>
+    </select>
 </mapper>
