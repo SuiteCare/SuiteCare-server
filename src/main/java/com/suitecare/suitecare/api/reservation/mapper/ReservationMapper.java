@@ -14,7 +14,7 @@ public interface ReservationMapper {
     Integer applyReservation(String login_id, Long reservation_id);
     Integer isPresentApplicant(String login_id, Long reservation_id);
     List<PendingReservationResponseDTO> getReservationListById(String login_id);
-    ReservationInfoResponseDTO getReservationInfoById(Long reservation_id);
+    ReservationDetailResponseDTO getReservationInfoById(Long reservation_id);
     List<ApplicantInfoResponseDTO> getApplicantList(Long reservation_id);
-    List<ReservationListResponseDTO> getReservationList(String login_id);
+    List<ReservationResponseDTO> getReservationList(String login_id);
 }

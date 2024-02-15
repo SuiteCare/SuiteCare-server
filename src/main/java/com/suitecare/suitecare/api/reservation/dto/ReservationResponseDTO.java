@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ReservationListResponseDTO {
+public class ReservationResponseDTO {
     private Long id; // 예약 ID
     private String mate_id; // 예약 체결된 간병인 ID
     private Long patient_id; // 예약 대상 환자 ID
