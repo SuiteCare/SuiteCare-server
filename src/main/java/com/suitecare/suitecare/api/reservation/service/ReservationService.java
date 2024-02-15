@@ -65,7 +65,7 @@ public class ReservationService {
         return reservationMapper.getReservationListById(login_id);
     }
 
-    public ReservationInfoResponseDTO getReservationInfoById(Long reservation_id) {
+    public ReservationDetailResponseDTO getReservationInfoById(Long reservation_id) {
         return reservationMapper.getReservationInfoById(reservation_id);
     }
 
@@ -74,7 +74,7 @@ public class ReservationService {
     }
 
 
-    public List<ReservationListResponseDTO> getReservationList(String login_id) {
+    public List<ReservationResponseDTO> getReservationList(String login_id) {
         return reservationMapper.getReservationList(login_id);}
 }
 

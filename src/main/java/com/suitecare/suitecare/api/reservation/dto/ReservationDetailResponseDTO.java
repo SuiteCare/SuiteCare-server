@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalTime;
 
 @Data
-public class ReservationInfoResponseDTO {
+public class ReservationDetailResponseDTO {
     private String location;
     private String road_address;
     private String address_detail;

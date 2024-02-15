@@ -64,7 +64,7 @@
         WHERE member_id = #{id} AND r.patient_id = p.id AND now() <![CDATA[<]]> start_date AND status = 'p';
     </select>
 
-    <select id="getReservationInfoById" resultType="ReservationInfoResponseDTO">
+    <select id="getReservationInfoById" resultType="ReservationDetailResponseDTO">
         SELECT location, road_address, address_detail, wage, start_time, end_time, group_concat(day) weekday
         FROM reservation r, dayofreservation d
         WHERE r.id = #{reservation_id} AND d.reservation_id = r.id

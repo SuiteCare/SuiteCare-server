@@ -39,7 +39,7 @@ public class ReservationController {
     }
 
     @GetMapping("/reservation/{id}")
-    public ReservationInfoResponseDTO getReservationInfoById(@PathVariable Long id) {
+    public ReservationDetailResponseDTO getReservationInfoById(@PathVariable Long id) {
         return reservationService.getReservationInfoById(id);
     }
 
@@ -49,7 +49,7 @@ public class ReservationController {
     }
     /* 예약 내역 조회 */
     @GetMapping("/reservation")
-    public List<ReservationListResponseDTO> getReservationList(HttpServletRequest request) {
+    public List<ReservationResponseDTO> getReservationList(HttpServletRequest request) {
         String login_id= (String)request.getAttribute("login_id");
         return reservationService.getReservationList(login_id);
     }
