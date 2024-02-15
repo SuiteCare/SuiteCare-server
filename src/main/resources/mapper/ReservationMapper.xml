@@ -50,14 +50,14 @@
     </select>
     
     <insert id="applyReservation" parameterType="ApplyReservationRequestDTO">
-        insert into applicantofreservation (reservation_id, member_id)
-        values(#{reservation_id}, #{member_id});
+        insert into applicantofreservation (reservation_id, mate_id)
+        values(#{reservation_id}, #{login_id});
     </insert>
 
     <select id="isPresentApplicant" parameterType="ApplyReservationRequestDTO">
-        SELECT count(*) FROM applicantofreservation WHERE reservation_id = #{reservation_id} AND member_id = #{member_id}
+        SELECT count(reservation_id) FROM applicantofreservation WHERE reservation_id = #{reservation_id} AND mate_id = #{login_id}
     </select>
-  
+
     <select id="getReservationListById" resultType="PendingReservationResponseDTO">
         SELECT r.id reservation_id, patient_id, start_date, end_date
         FROM reservation r, patient p
