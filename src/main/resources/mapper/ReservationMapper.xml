@@ -17,11 +17,16 @@
     </insert>
 
     <select id="getSearchedReservation" parameterType="SearchedReservationRequestDTO" resultType="SearchedReservationResponseDTO">
-        SELECT reservation.id, patient_id, gender, birthday, diagnosis_name, location, substring_index(road_address, " ", 2) as road_address, wage, start_date, end_date, start_time, end_time, GROUP_CONCAT(day) as day
-        FROM reservation
-        JOIN patient as p ON p.id = reservation.patient_id
-        JOIN dayofreservation as d ON d.reservation_id = reservation.id
+        SELECT r.id, patient_id, s.tel, p.gender, p.birthday, p.diagnosis_name, r.location,
+            substring_index(r.road_address, " ", 2) as road_address,
+            r.wage, r.start_date, r.end_date, r.start_time, r.end_time, GROUP_CONCAT(day) as day
+        FROM reservation AS r
+        JOIN dayofreservation AS d ON d.reservation_id = r.id
+        JOIN patient AS p ON p.id = r.patient_id
+        JOIN suitemember AS s ON p.member_id = s.login_id
+
         WHERE status = 'P' AND start_date > current_date()
+
         AND wage between
         <foreach collection="wage" item="it" separator="and">
             #{it}
@@ -30,29 +35,29 @@
             AND diagnosis_name like '%${search_input}%'
         </if>
         <if test="location != null">
-            AND SUBSTRING(road_address, 4, 3) in
+            AND SUBSTRING(r.road_address, 4, 3) in
             <foreach collection="location" item="it" open="(" close=")" separator=",">
                 #{it}
             </foreach>
         </if>
         <if test="gender != null and gender.length == 1">
-            AND gender =
+            AND p.gender =
             <foreach collection="gender" item="it">
                 #{it}
             </foreach>
         </if>
-        GROUP BY reservation.id;
+        GROUP BY r.id, s.tel;
     </select>
     
     <insert id="applyReservation" parameterType="ApplyReservationRequestDTO">
-        insert into applicantofreservation (reservation_id, member_id)
-        values(#{reservation_id}, #{member_id});
+        insert into applicantofreservation (reservation_id, mate_id)
+        values(#{reservation_id}, #{login_id});
     </insert>
 
     <select id="isPresentApplicant" parameterType="ApplyReservationRequestDTO">
-        SELECT count(*) FROM applicantofreservation WHERE reservation_id = #{reservation_id} AND member_id = #{member_id}
+        SELECT count(reservation_id) FROM applicantofreservation WHERE reservation_id = #{reservation_id} AND mate_id = #{login_id}
     </select>
-  
+
     <select id="getReservationListById" resultType="PendingReservationResponseDTO">
         SELECT r.id reservation_id, patient_id, start_date, end_date
         FROM reservation r, patient p
