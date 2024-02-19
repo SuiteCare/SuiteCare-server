@@ -16,9 +16,9 @@ public interface MemberMapper {
     LoginDTO getAccountInfoForLogin(LoginRequestDTO loginRequestDTO);
 
     /* 패스워드 변경 관련 로직 */
-    String getPasswordById(String login_id);
-    Integer changePassword(String login_id, String newPassword);
+    String getPasswordById(String id);
+    Integer changePassword(String id, String newPassword);
 
-    MypageResponseDTO getMypageByLoginId(String login_id);
+    MypageResponseDTO getMypageById(String id);
     Integer updateMember(Map<String, Object> parameterMap);
 }

@@ -20,16 +20,16 @@ public class MateController {
 
     @GetMapping("/mate/resume")
     public ResumeResponseDTO resume(HttpServletRequest request) {
-        String login_id = (String) request.getAttribute("login_id");
-        return mateService.findResumeById(login_id);
+        String id = (String) request.getAttribute("id");
+        return mateService.findResumeById(id);
     }
 
     /* 간병인 이력서 등록 */
     @PostMapping("/mate/resume")
     public int createResume(HttpServletRequest request, @RequestBody ResumeRequestDTO resumeRequestDTO) {
-        String login_id = (String) request.getAttribute("login_id");
+        String id = (String) request.getAttribute("id");
         try {
-            return mateService.createResume(login_id, resumeRequestDTO);
+            return mateService.createResume(id, resumeRequestDTO);
         } catch (Exception e) {
             log.error("Exception [Err_Msg]: {}", e.getMessage());
             return 0;
@@ -38,8 +38,8 @@ public class MateController {
 
     @PatchMapping("/mate/resume")
     public void updateResume(HttpServletRequest request, @RequestBody ResumeRequestDTO resumeRequestDTO) {
-        String login_id = (String) request.getAttribute("login_id");
-        mateService.updateResume(login_id, resumeRequestDTO);
+        String id = (String) request.getAttribute("id");
+        mateService.updateResume(id, resumeRequestDTO);
     }
 
     @GetMapping("/search/mate")

@@ -30,7 +30,7 @@ public class PwdEncodeTest {
     @Test
     void pwdEnc() throws Exception {
         CreateMemberRequestDTO createMemberRequestDTO = CreateMemberRequestDTO.builder()
-                .login_id("dool")
+                .id("dool")
                 .name("dool")
                 .password("dool")
                 .tel("01012341234")

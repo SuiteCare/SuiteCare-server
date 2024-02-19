@@ -39,30 +39,30 @@ public class ReservationService {
         return reservationMapper.getSearchedReservation(requestDTO);
     }
     
-    public Integer applyReservation(String login_id, ApplyReservationRequestDTO applyReservationRequestDTO) {
-        if(!isPresentResume(login_id)) {
+    public Integer applyReservation(String id, ApplyReservationRequestDTO applyReservationRequestDTO) {
+        if(!isPresentResume(id)) {
             return 0;
         }
 
         Long reservation_id = applyReservationRequestDTO.getReservation_id();
 
-        if(!isPresentApplicant(login_id, reservation_id)) {
-            return reservationMapper.applyReservation(login_id, reservation_id);
+        if(!isPresentApplicant(id, reservation_id)) {
+            return reservationMapper.applyReservation(id, reservation_id);
         }
 
         return 2;
     }
 
-    public boolean isPresentResume(String login_id) { // 간병인 이력서 여부
-        return mateMapper.isPresentResume(login_id) != null;
+    public boolean isPresentResume(String id) { // 간병인 이력서 여부
+        return mateMapper.isPresentResume(id) != null;
     }
 
-    public boolean isPresentApplicant(String login_id, Long reservation_id) { // 지원 여부
-        return reservationMapper.isPresentApplicant(login_id, reservation_id) != 0;
+    public boolean isPresentApplicant(String id, Long reservation_id) { // 지원 여부
+        return reservationMapper.isPresentApplicant(id, reservation_id) != 0;
     }
   
-    public List<PendingReservationResponseDTO> getReservationListById(String login_id) {
-        return reservationMapper.getReservationListById(login_id);
+    public List<PendingReservationResponseDTO> getReservationListById(String id) {
+        return reservationMapper.getReservationListById(id);
     }
 
     public ReservationDetailResponseDTO getReservationInfoById(Long reservation_id) {
@@ -74,7 +74,7 @@ public class ReservationService {
     }
 
 
-    public List<ReservationResponseDTO> getReservationList(String login_id) {
-        return reservationMapper.getReservationList(login_id);}
+    public List<ReservationResponseDTO> getReservationList(String id) {
+        return reservationMapper.getReservationList(id);}
 }
 

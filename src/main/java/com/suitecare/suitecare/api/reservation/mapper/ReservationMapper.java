@@ -11,10 +11,10 @@ public interface ReservationMapper {
     Integer createReservation(ReservationRequestDTO reservationRequestDTO);
     void createDayOfReservation(DayOfReservation dayOfReservation);
     List<SearchedReservationResponseDTO> getSearchedReservation(SearchedReservationRequestDTO requestDTO);
-    Integer applyReservation(String login_id, Long reservation_id);
-    Integer isPresentApplicant(String login_id, Long reservation_id);
-    List<PendingReservationResponseDTO> getReservationListById(String login_id);
+    Integer applyReservation(String id, Long reservation_id);
+    Integer isPresentApplicant(String id, Long reservation_id);
+    List<PendingReservationResponseDTO> getReservationListById(String id);
     ReservationDetailResponseDTO getReservationInfoById(Long reservation_id);
     List<ApplicantInfoResponseDTO> getApplicantList(Long reservation_id);
-    List<ReservationResponseDTO> getReservationList(String login_id);
+    List<ReservationResponseDTO> getReservationList(String id);
 }

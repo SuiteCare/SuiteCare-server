@@ -20,8 +20,8 @@ public class PatientController {
     /* 환자 목록 조회 */
     @GetMapping("/patient")
     public List<PatientRequestDTO> getPatientList(HttpServletRequest request){
-        String login_id = (String) request.getAttribute("login_id");
-        return patientService.getPatientList(login_id);
+        String id = (String) request.getAttribute("id");
+        return patientService.getPatientList(id);
     }
 
     /* 환자 기본 조회 */
@@ -39,8 +39,8 @@ public class PatientController {
     /* 환자 등록 */
     @PostMapping("/patient")
     public int createPatient(@RequestBody PatientRequestDTO patientRequestDTO, HttpServletRequest request){
-        String login_id = (String)request.getAttribute("login_id");
-        return patientService.createPatient(login_id, patientRequestDTO);
+        String id = (String)request.getAttribute("id");
+        return patientService.createPatient(id, patientRequestDTO);
     }
 
     /* 환자 정보 수정 */

@@ -19,8 +19,8 @@ public class PatientService {
 
     /* 환자 목록 조회 */
     @Transactional
-    public List<PatientRequestDTO> getPatientList(String login_id){
-        return patientMapper.getPatientList(login_id);
+    public List<PatientRequestDTO> getPatientList(String id){
+        return patientMapper.getPatientList(id);
     }
 
     /* 환자 조회 */
@@ -37,11 +37,11 @@ public class PatientService {
 
     /* 환자 추가 */
     @Transactional
-    public int createPatient(String login_id, PatientRequestDTO patientRequestDTO){
+    public int createPatient(String id, PatientRequestDTO patientRequestDTO){
         // Patient 를 생성하려는 회원이 family 회원이 맞는지 검증 필요
 
         Map<String, Object> parameterMap = new HashMap<>();
-        parameterMap.put("login_id", login_id);
+        parameterMap.put("id", id);
         parameterMap.put("patient", patientRequestDTO);
 
         // Patient 레코드 생성

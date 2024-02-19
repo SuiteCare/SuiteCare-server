@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final String[] allowedUrls = {"/", "/swagger-ui/**", "/v3/**", "/api/v1/login", "/api/v1/signup", "api/v1/check/id"};
+    private final String[] allowedUrls = {"/", "/swagger-ui/**", "/v3/**", "/api/v1/login", "/api/v1/signup", "/api/v1/check/id"};
 
     @Bean
     public PasswordEncoder passwordEncoder() {

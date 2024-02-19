@@ -26,8 +26,8 @@ public class MemberService {
         return memberMapper.create(createMemberRequestDTO);
     }
 
-    public Integer checkDuplicateID(String login_id) {
-        return memberMapper.checkDuplicateID(login_id);
+    public Integer checkDuplicateID(String id) {
+        return memberMapper.checkDuplicateID(id);
     }
 
     public LoginDTO login(LoginRequestDTO loginRequestDTO) throws IllegalArgumentException{
@@ -36,7 +36,7 @@ public class MemberService {
 
         // 계정 정보 존재 확인
         if((loginDTO = memberMapper.getAccountInfoForLogin(loginRequestDTO)) == null) {
-            throw new IllegalArgumentException("No Account Info matches login_id");
+            throw new IllegalArgumentException("No Account Info matches Id");
         }
 
         // 패스워드 일치 여부 확인
@@ -52,25 +52,25 @@ public class MemberService {
         return loginDTO;
     }
 
-    public MypageResponseDTO findMypageByLoginId(String login_id) {
-        return memberMapper.getMypageByLoginId(login_id);
+    public MypageResponseDTO findMypageById(String id) {
+        return memberMapper.getMypageById(id);
     }
 
-    public Integer changePassword(String login_id, ChangePasswordRequestDTO changePasswordRequestDTO) {
-        String dbPassword = memberMapper.getPasswordById(login_id);
+    public Integer changePassword(String id, ChangePasswordRequestDTO changePasswordRequestDTO) {
+        String dbPassword = memberMapper.getPasswordById(id);
         if(passwordEncoder.matches(changePasswordRequestDTO.getOriginPassword(), dbPassword)) {
             if(changePasswordRequestDTO.getNewPassword().equals(changePasswordRequestDTO.getNewPasswordCheck())) {
                 String newPassword = passwordEncoder.encode(changePasswordRequestDTO.getNewPassword());
-                return memberMapper.changePassword(login_id, newPassword);
+                return memberMapper.changePassword(id, newPassword);
             }
         }
 
         return 0;
     }
 
-    public Integer updateMember(String login_id, UpdateMemberRequestDTO updateMemberRequestDTO) {
+    public Integer updateMember(String id, UpdateMemberRequestDTO updateMemberRequestDTO) {
         Map<String, Object> parameterMap = new HashMap<>();
-        parameterMap.put("login_id", login_id);
+        parameterMap.put("id", id);
         parameterMap.put("updateMemberRequestDTO", updateMemberRequestDTO);
 
 

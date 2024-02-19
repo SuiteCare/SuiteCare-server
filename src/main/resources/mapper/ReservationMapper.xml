@@ -23,7 +23,7 @@
         FROM reservation AS r
         JOIN dayofreservation AS d ON d.reservation_id = r.id
         JOIN patient AS p ON p.id = r.patient_id
-        JOIN suitemember AS s ON p.member_id = s.login_id
+        JOIN suitemember AS s ON p.member_id = s.id
 
         WHERE status = 'P' AND start_date > current_date()
 
@@ -51,11 +51,11 @@
     
     <insert id="applyReservation" parameterType="ApplyReservationRequestDTO">
         insert into applicantofreservation (reservation_id, mate_id)
-        values(#{reservation_id}, #{login_id});
+        values(#{reservation_id}, #{id});
     </insert>
 
     <select id="isPresentApplicant" parameterType="ApplyReservationRequestDTO">
-        SELECT count(reservation_id) FROM applicantofreservation WHERE reservation_id = #{reservation_id} AND mate_id = #{login_id}
+        SELECT count(reservation_id) FROM applicantofreservation WHERE reservation_id = #{reservation_id} AND mate_id = #{id}
     </select>
 
     <select id="getReservationListById" resultType="PendingReservationResponseDTO">
@@ -75,8 +75,8 @@
         select s.name, birthday, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage, group_concat(distinct m.name) mainservice, group_concat(distinct l.name) location
         from suitemember s, materesume r, mainservice m, location l
         where r.member_id in (select mate_id from applicantofreservation where reservation_id = #{reservation_id})
-        and s.login_id = r.member_id and r.member_id = m.member_id and r.member_id = l.member_id
-        group by login_id, s.name, birthday, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage;
+        and s.id = r.member_id and r.member_id = m.member_id and r.member_id = l.member_id
+        group by id, s.name, birthday, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage;
     </select>
 
     <!-- family ID로 예약 내역 검색 -->

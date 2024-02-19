@@ -7,14 +7,14 @@
     <select id="findMainServiceById" resultType="MainServiceDTO">
         SELECT id, name
         FROM mainservice
-        WHERE member_id = #{login_id};
+        WHERE member_id = #{id};
     </select>
 
     <insert id="createMainService">
         INSERT INTO mainservice(member_id, name)
         VALUES
         <foreach collection="mainService" item="service" separator=", ">
-            (#{login_id}, #{service})
+            (#{id}, #{service})
         </foreach>
     </insert>
 

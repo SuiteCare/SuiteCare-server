@@ -28,14 +28,14 @@ public class ReservationController {
 
     @PostMapping("/apply")
     public Integer applyReservation(HttpServletRequest request, @RequestBody ApplyReservationRequestDTO applyReservationRequestDTO) {
-        String login_id = (String) request.getAttribute("login_id");
-        return  reservationService.applyReservation(login_id, applyReservationRequestDTO);
+        String id = (String) request.getAttribute("id");
+        return  reservationService.applyReservation(id, applyReservationRequestDTO);
     }
   
     @GetMapping("/pendingReservation")
     public List<PendingReservationResponseDTO> getReservationListById(HttpServletRequest request) {
-        String login_id= (String)request.getAttribute("login_id");
-        return reservationService.getReservationListById(login_id);
+        String id = (String)request.getAttribute("id");
+        return reservationService.getReservationListById(id);
     }
 
     @GetMapping("/reservation/{id}")
@@ -50,7 +50,7 @@ public class ReservationController {
     /* 예약 내역 조회 */
     @GetMapping("/reservation")
     public List<ReservationResponseDTO> getReservationList(HttpServletRequest request) {
-        String login_id= (String)request.getAttribute("login_id");
-        return reservationService.getReservationList(login_id);
+        String id= (String)request.getAttribute("id");
+        return reservationService.getReservationList(id);
     }
 }

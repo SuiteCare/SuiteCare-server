@@ -24,14 +24,14 @@ public class MateService {
     @Autowired
     MainServiceMapper mainSeviceMapper;
 
-    public ResumeResponseDTO findResumeById(String login_id) {
+    public ResumeResponseDTO findResumeById(String id) {
         ResumeResponseDTO result = new ResumeResponseDTO();
 
-        MateDTO mate = mateMapper.findResumeById(login_id);
-        List<CareerDTO> career = careerMapper.findCareerById(login_id);
-        List<CertificateDTO> certificate = certificateMapper.findCertificateById(login_id);
-        List<LocationDTO> location = locationMapper.findLocationById(login_id);
-        List<MainServiceDTO> mainService = mainSeviceMapper.findMainServiceById(login_id);
+        MateDTO mate = mateMapper.findResumeById(id);
+        List<CareerDTO> career = careerMapper.findCareerById(id);
+        List<CertificateDTO> certificate = certificateMapper.findCertificateById(id);
+        List<LocationDTO> location = locationMapper.findLocationById(id);
+        List<MainServiceDTO> mainService = mainSeviceMapper.findMainServiceById(id);
 
         result.setMate(mate);
         result.setCareer(career);
@@ -43,24 +43,24 @@ public class MateService {
 
     /* 간병인 이력서 등록 */
     @Transactional(rollbackFor = SQLException.class)
-    public int createResume(String login_id, ResumeRequestDTO resumeRequestDTO) {
+    public int createResume(String id, ResumeRequestDTO resumeRequestDTO) {
         try {
-            int resume = mateMapper.createResume(login_id, resumeRequestDTO); // 기본 이력서 등록
+            int resume = mateMapper.createResume(id, resumeRequestDTO); // 기본 이력서 등록
 
             if(resumeRequestDTO.getCheckedLoc().length != 0) { // 활동 지역
-                locationMapper.createLocation(login_id, resumeRequestDTO.getCheckedLoc());
+                locationMapper.createLocation(id, resumeRequestDTO.getCheckedLoc());
             }
 
             if(resumeRequestDTO.getMainServiceData().length != 0) { // 대표서비스
-                mainSeviceMapper.createMainService(login_id, resumeRequestDTO.getMainServiceData());
+                mainSeviceMapper.createMainService(id, resumeRequestDTO.getMainServiceData());
             }
 
             if(!resumeRequestDTO.getCareer().isEmpty()) { // 경력
-                careerMapper.createCareer(login_id, resumeRequestDTO.getCareer());
+                careerMapper.createCareer(id, resumeRequestDTO.getCareer());
             }
 
             if(!resumeRequestDTO.getCertificate().isEmpty()) { // 자격증
-                certificateMapper.createCertificate(login_id, resumeRequestDTO.getCertificate());
+                certificateMapper.createCertificate(id, resumeRequestDTO.getCertificate());
             }
 
             return resume;
@@ -70,8 +70,8 @@ public class MateService {
         }
     }
 
-    public void updateResume(String login_id, ResumeRequestDTO resumeRequestDTO) {
-        mateMapper.updateResume(login_id, resumeRequestDTO);
+    public void updateResume(String id, ResumeRequestDTO resumeRequestDTO) {
+        mateMapper.updateResume(id, resumeRequestDTO);
     }
 
     public List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO) {

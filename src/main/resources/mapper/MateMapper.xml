@@ -7,16 +7,16 @@
     <select id="findResumeById" resultType="MateDTO">
         SELECT profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage
         FROM materesume
-        WHERE member_id = #{login_id};
+        WHERE member_id = #{id};
     </select>
 
     <select id="isPresentResume">
-        SELECT id FROM materesume WHERE member_id = #{login_id}
+        SELECT id FROM materesume WHERE member_id = #{id}
     </select>
 
     <insert id="createResume">
         INSERT INTO mateResume(member_id, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage)
-        VALUES (#{login_id}, 'filename', #{resumeRequestDTO.introduction}, #{resumeRequestDTO.contactTimeStart}, #{resumeRequestDTO.contactTimeEnd}, #{resumeRequestDTO.wage});
+        VALUES (#{id}, 'filename', #{resumeRequestDTO.introduction}, #{resumeRequestDTO.contactTimeStart}, #{resumeRequestDTO.contactTimeEnd}, #{resumeRequestDTO.wage});
     </insert>
 
     <select id="getSearchedMate" resultType="SearchedMateResponseDTO">
@@ -32,7 +32,7 @@
 
         SELECT member_id, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage, location, mainservice, name, gender, birthday
         FROM resume
-        JOIN suitemember ON login_id = member_id
+        JOIN suitemember ON id = member_id
 
         WHERE
         desired_wage BETWEEN

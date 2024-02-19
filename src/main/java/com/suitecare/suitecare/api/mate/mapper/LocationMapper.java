@@ -7,6 +7,6 @@ import java.util.List;
 
 @Mapper
 public interface LocationMapper {
-    List<LocationDTO> findLocationById(String login_id);
-    void createLocation(String login_id, String[] location);
+    List<LocationDTO> findLocationById(String id);
+    void createLocation(String id, String[] location);
 }
