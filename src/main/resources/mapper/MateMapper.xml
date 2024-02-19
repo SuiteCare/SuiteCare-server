@@ -20,16 +20,19 @@
     </insert>
 
     <select id="getSearchedMate" resultType="SearchedMateResponseDTO">
-        SELECT
-        s.name, m.profile_picture_filename, m.introduction, m.contact_time_start, m.contact_time_end, m.desired_wage,
-        s.gender, s.birthday,
-        GROUP_CONCAT(DISTINCT loc.name) AS location,
-        GROUP_CONCAT(DISTINCT serve.name) AS mainservice
+        WITH resume	AS (
+            SELECT r.member_id, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage,
+            GROUP_CONCAT(distinct loc.name) as location,
+            GROUP_CONCAT(distinct service.name) as mainservice
+            FROM materesume r
+            JOIN location loc ON r.member_id = loc.member_id
+            JOIN mainservice service ON r.member_id = service.member_id
+            GROUP BY r.member_id, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage
+        )
 
-        FROM materesume m
-        JOIN suitemember s ON m.member_id = s.login_id
-        JOIN location loc ON m.member_id = loc.member_id
-        JOIN mainservice serve ON m.member_id = serve.member_id
+        SELECT member_id, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage, location, mainservice, name, gender, birthday
+        FROM resume
+        JOIN suitemember ON login_id = member_id
 
         WHERE
         desired_wage BETWEEN
@@ -38,7 +41,7 @@
             </foreach>
 
         <if test="search_name != null">
-            AND s.name LIKE CONCAT('%', #{search_name}, '%')
+            AND name LIKE CONCAT('%', #{search_name}, '%')
         </if>
 
         <if test="gender != null and gender.length == 1">
@@ -55,8 +58,6 @@
                 </foreach>
         </if>
 
-        GROUP BY s.name, m.profile_picture_filename, m.introduction, m.contact_time_start, m.contact_time_end, m.desired_wage, s.gender, s.birthday
-        Having 1 = 1
         <if test="location != null">
             AND
             <foreach collection="location" item="it" index="idx" separator="or" open="(" close=")">
