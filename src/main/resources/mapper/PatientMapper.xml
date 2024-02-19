@@ -7,7 +7,7 @@
     <!-- 새로운 환자 등록 프론트url=(/family/addpatient) - 기본정보 -->
     <insert id="createPatient" parameterType="Map" useGeneratedKeys="true" keyProperty="id">
         insert into Patient (member_id, name, gender, birthday, diagnosis_name, height, weight, create_at, update_at)
-        values (#{login_id}, #{patient.name}, #{patient.gender}, #{patient.birthday}, #{patient.diagnosis_name}, #{patient.height}, #{patient.weight}, sysdate(), sysdate())
+        values (#{id}, #{patient.name}, #{patient.gender}, #{patient.birthday}, #{patient.diagnosis_name}, #{patient.height}, #{patient.weight}, sysdate(), sysdate())
     </insert>
 
     <!-- 새로운 환자 등록 프론트url=(/family/addpatient) - 상세정보 -->

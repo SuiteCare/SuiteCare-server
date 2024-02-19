@@ -31,13 +31,13 @@ public class JwtUtils {
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
     // Access Token 생성 메서드
-    public String createAccessToken(String login_id, String role){
+    public String createAccessToken(String id, String role){
         // 현재 시점 Date 객체 생성
         Date now = new Date();
 
-        // JWT 생성. AccessToken 생성하여 반환, login_id 로 구분, 'role' claim 설정
+        // JWT 생성. AccessToken 생성하여 반환, id 로 구분, 'role' claim 설정
         return Jwts.builder()
-                .setSubject(login_id)
+                .setSubject(id)
                 .claim("role", role)
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_VALIDATION_SECOND))
@@ -71,7 +71,7 @@ public class JwtUtils {
     }
 
     // Token 에서 id 추출하여 반환하는 메서드
-    public String getLoginId(String token) {
+    public String getId(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
                 .build()
@@ -103,9 +103,9 @@ public class JwtUtils {
     }
 
     public Authentication getAuthenticationToken(String token) {
-        String loginId = getLoginId(token);
+        String id = getId(token);
         String role = getRole(token);
 
-        return new UsernamePasswordAuthenticationToken(loginId, null, List.of(new SimpleGrantedAuthority(role)));
+        return new UsernamePasswordAuthenticationToken(id, null, List.of(new SimpleGrantedAuthority(role)));
     }
 }

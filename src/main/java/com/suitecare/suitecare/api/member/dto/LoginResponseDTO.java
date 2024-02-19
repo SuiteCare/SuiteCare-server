@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoginResponseDTO {
-    private Integer id;
-    private String login_id;
+    private String id;
+    private String role;
     private String token;
 }

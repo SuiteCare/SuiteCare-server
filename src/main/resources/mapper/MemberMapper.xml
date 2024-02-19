@@ -7,21 +7,21 @@
     <!-- 회원가입 -->
     <insert id="create" parameterType="CreateMemberRequestDTO">
         insert into SuiteMember (id, password, name, tel, role, create_at, update_at)
-        values (#{login_id}, #{password}, #{name}, #{tel}, #{role}, sysdate(), sysdate())
+        values (#{id}, #{password}, #{name}, #{tel}, #{role}, sysdate(), sysdate())
     </insert>
 
     <!--아이디 중복체크-->
     <select id="checkDuplicateID">
-        select count(*) from SuiteMember where id = #{login_id}
+        select count(*) from SuiteMember where id = #{id}
     </select>
 
     <select id="getAccountInfoForLogin">
         select id, password, role from SuiteMember
-        where id = #{login_id} and role in (#{role}, 'A');
+        where id = #{id} and role in (#{role}, 'A');
     </select>
 
-    <select id="getMypageByLoginId">
-        select * from suitemember where id = #{login_id};
+    <select id="getMypageById">
+        select * from suitemember where id = #{id};
     </select>
 
     <!--회원 정보 수정-->
@@ -34,18 +34,18 @@
         <if test="updateMemberRequestDTO.role != null">
             role = 'A'
         </if>
-        where id = #{login_id}
+        where id = #{id}
     </update>
 
     <select id="getPasswordById">
-        select password from suitemember where id=#{login_id};
+        select password from suitemember where id = #{id};
     </select>
 
     <!--비밀번호 변경-->
     <update id="changePassword">
         update SuiteMember
         set password = #{newPassword}
-        where id = #{login_id};
+        where id = #{id};
     </update>
 
 </mapper>

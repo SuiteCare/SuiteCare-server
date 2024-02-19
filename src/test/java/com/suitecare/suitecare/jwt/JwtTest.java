@@ -24,19 +24,16 @@ public class JwtTest {
     public void JwtTokenMethodTest(){
 
         // given
-        String login_id = "Kim";
-        String name = "Kim Ji Sung";
+        String id = "Kim";
         String role = "F";
 
 
         // when
-//        String token = jwt.createAccessToken(id, name);
-//        String token = jwt.createAccessToken(login_id);
-        String token = jwt.createAccessToken(login_id, role);
+        String token = jwt.createAccessToken(id, role);
 
         // then
         assertThat(jwt.validateToken(token)).isTrue();
-        assertThat(jwt.getLoginId(token)).isEqualTo(login_id);
+        assertThat(jwt.getId(token)).isEqualTo(id);
         assertThat(jwt.getRole(token)).isEqualTo(role);
 
 
@@ -46,12 +43,9 @@ public class JwtTest {
     @Test
     public void getAccessTokenTest() {
         // given
-        String login_id = "Kim";
-//        String name = "Kim Ji Sung";
+        String id = "Kim";
         String role = "F";
-//        String token = jwt.createAccessToken(id, name);
-//        String token = jwt.createAccessToken(login_id);
-        String token = jwt.createAccessToken(login_id, role);
+        String token = jwt.createAccessToken(id, role);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader(JwtUtils.AUTHORIZATION_HEADER, "Bearer " + token);

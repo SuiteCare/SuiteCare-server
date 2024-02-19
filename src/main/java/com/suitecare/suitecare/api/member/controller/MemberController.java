@@ -14,28 +14,26 @@ public class MemberController {
     MemberService memberService;
 
     @GetMapping("/check/id")
-    public Integer checkDuplicateID(@RequestParam String login_id){
-        System.out.println("checkdupid method started");
-        return memberService.checkDuplicateID(login_id);
+    public Integer checkDuplicateID(@RequestParam String id){
+        return memberService.checkDuplicateID(id);
     }
 
     @GetMapping("/mypage")
-    public MypageResponseDTO getMypageByLoginId(HttpServletRequest request){
-        String login_id = (String) request.getAttribute("login_id");
-        return memberService.findMypageByLoginId(login_id);
+    public MypageResponseDTO getMypageById(HttpServletRequest request){
+        String id = (String) request.getAttribute("id");
+        return memberService.findMypageById(id);
     }
 
     @PostMapping("/changepassword")
     public Integer changePassword(@RequestBody ChangePasswordRequestDTO changePasswordRequestDTO, HttpServletRequest request){
-        String login_id = (String) request.getAttribute("login_id");
-        return memberService.changePassword(login_id, changePasswordRequestDTO);
+        String id = (String) request.getAttribute("id");
+        return memberService.changePassword(id, changePasswordRequestDTO);
     }
 
     @PatchMapping("/member")
     public Integer updateMember(@RequestBody UpdateMemberRequestDTO updateMemberRequestDTO, HttpServletRequest request) {
-        String login_id = (String) request.getAttribute("login_id");
-        return memberService.updateMember(login_id, updateMemberRequestDTO);
+        String id = (String) request.getAttribute("id");
+        return memberService.updateMember(id, updateMemberRequestDTO);
     }
-
 
 }

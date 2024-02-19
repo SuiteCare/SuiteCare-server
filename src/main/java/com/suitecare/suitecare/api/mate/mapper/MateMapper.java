@@ -9,9 +9,9 @@ import java.util.List;
 
 @Mapper
 public interface MateMapper {
-    MateDTO findResumeById(String login_id);
-    Integer isPresentResume(String login_id);
-    Integer createResume(String login_id, ResumeRequestDTO resumeRequestDTO);
-    void updateResume(String login_id, ResumeRequestDTO resumeRequestDTO);
+    MateDTO findResumeById(String id);
+    Integer isPresentResume(String id);
+    Integer createResume(String id, ResumeRequestDTO resumeRequestDTO);
+    void updateResume(String id, ResumeRequestDTO resumeRequestDTO);
     List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO);
 }

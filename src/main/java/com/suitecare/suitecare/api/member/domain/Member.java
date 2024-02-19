@@ -10,8 +10,7 @@ import java.sql.Timestamp;
 @Data
 public class Member {
     @NonNull
-    private Long id;
-    private String login_id;
+    private String id;
     private String password;
     private String name;
     private String gender;

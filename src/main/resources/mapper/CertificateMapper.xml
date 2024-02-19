@@ -7,14 +7,14 @@
     <select id="findCertificateById" resultType="CertificateDTO">
         SELECT id, certificate_name, certificate_code, qualification_date, expired_date
         FROM certificate
-        WHERE member_id = #{login_id};
+        WHERE member_id = #{id};
     </select>
 
     <insert id="createCertificate">
         INSERT INTO certificate(member_id, certificate_name, certificate_code, qualification_date, expired_date)
         VALUES
         <foreach collection="certificate" item="item" separator=", ">
-            (#{login_id}, #{item.certificate_name}, #{item.certificate_code}, #{item.qualification_date}, #{item.expired_date})
+            (#{id}, #{item.certificate_name}, #{item.certificate_code}, #{item.qualification_date}, #{item.expired_date})
         </foreach>
     </insert>
 

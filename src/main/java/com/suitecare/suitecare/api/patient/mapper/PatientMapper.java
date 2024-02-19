@@ -12,7 +12,7 @@ import java.util.Map;
 public interface PatientMapper {
     Integer createPatient(Map<String, Object> parameterMap);
     Integer createPatientDetail(Map<String, Object> parameterMap);
-    List<PatientRequestDTO> getPatientList(String login_id);
+    List<PatientRequestDTO> getPatientList(String id);
     PatientResponseDTO getPatient(String id);
     PatientDetailResponseDTO getPatientDetail(String id);
     Integer updatePatient(PatientRequestDTO patientRequestDTO);

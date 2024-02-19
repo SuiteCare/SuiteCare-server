@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 @Data
 public class MypageResponseDTO {
-    private String login_id;
+    private String id;
     private String name;
     private String gender;
     private LocalDate birthday;
