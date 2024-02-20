@@ -31,9 +31,6 @@
         <if test="updateMemberRequestDTO.tel != null">
             tel = #{updateMemberRequestDTO.tel}
         </if>
-        <if test="updateMemberRequestDTO.role != null">
-            role = 'A'
-        </if>
         where id = #{id}
     </update>
 
@@ -46,6 +43,12 @@
         update SuiteMember
         set password = #{newPassword}
         where id = #{id};
+    </update>
+
+    <update id="updateRole">
+        UPDATE suitemember
+        SET role = 'A'
+        WHERE id = #{id};
     </update>
 
 </mapper>

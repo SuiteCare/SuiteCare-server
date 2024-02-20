@@ -73,8 +73,10 @@ public class MemberService {
         parameterMap.put("id", id);
         parameterMap.put("updateMemberRequestDTO", updateMemberRequestDTO);
 
-
-
         return memberMapper.updateMember(parameterMap);
+    }
+
+    public Integer updateRole(String id) {
+        return memberMapper.updateRole(id);
     }
 }

@@ -5,5 +5,4 @@ import lombok.Data;
 @Data
 public class UpdateMemberRequestDTO {
     private String tel;
-    private String role;
 }

@@ -21,4 +21,5 @@ public interface MemberMapper {
 
     MypageResponseDTO getMypageById(String id);
     Integer updateMember(Map<String, Object> parameterMap);
+    Integer updateRole(String id);
 }
