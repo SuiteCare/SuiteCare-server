@@ -5,16 +5,17 @@
 <mapper namespace="com.suitecare.suitecare.api.mate.mapper.MainServiceMapper">
 
     <select id="findMainServiceById" resultType="MainServiceDTO">
-        SELECT id, name
-        FROM mainservice
-        WHERE member_id = #{id};
+        SELECT s.id, name
+        FROM mainservice s
+        JOIN materesume m ON m.id = s.mate_resume_id
+        WHERE m.member_id = #{id};
     </select>
 
     <insert id="createMainService">
-        INSERT INTO mainservice(member_id, name)
+        INSERT INTO mainservice(mate_resume_id, name)
         VALUES
         <foreach collection="mainService" item="service" separator=", ">
-            (#{id}, #{service})
+            ((SELECT id FROM materesume WHERE member_id = #{id}), #{service})
         </foreach>
     </insert>
 

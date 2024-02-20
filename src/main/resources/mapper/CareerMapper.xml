@@ -5,16 +5,17 @@
 <mapper namespace="com.suitecare.suitecare.api.mate.mapper.CareerMapper">
 
     <select id="findCareerById" resultType="CareerDTO">
-        SELECT id, name, job_name, date_start, date_end
+        SELECT career.id, name, job_name, date_start, date_end
         FROM career
-        WHERE member_id = #{id};
+        JOIN materesume m ON m.id = mate_resume_id
+        WHERE m.member_id =#{id};
     </select>
 
     <insert id="createCareer">
-        INSERT INTO career(member_id, name, job_name, date_start, date_end)
+        INSERT INTO career(mate_resume_id, name, job_name, date_start, date_end)
         VALUES
         <foreach collection="career" item="item" separator=", ">
-            (#{id}, #{item.name}, #{item.job_name}, #{item.date_start}, #{item.date_end})
+            ((SELECT id FROM materesume WHERE member_id = #{id}), #{item.name}, #{item.job_name}, #{item.date_start}, #{item.date_end})
         </foreach>
     </insert>
 
