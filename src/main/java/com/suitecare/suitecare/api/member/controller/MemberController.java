@@ -36,4 +36,10 @@ public class MemberController {
         return memberService.updateMember(id, updateMemberRequestDTO);
     }
 
+    @PatchMapping("/role")
+    public Integer updateRole(HttpServletRequest request) {
+        String id = (String) request.getAttribute("id");
+        return memberService.updateRole(id);
+    }
+
 }
