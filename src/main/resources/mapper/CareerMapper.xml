@@ -15,7 +15,7 @@
         INSERT INTO career(mate_resume_id, name, job_name, date_start, date_end)
         VALUES
         <foreach collection="career" item="item" separator=", ">
-            ((SELECT id FROM materesume WHERE member_id = #{id}), #{item.name}, #{item.job_name}, #{item.date_start}, #{item.date_end})
+            (#{resume_id}, #{item.name}, #{item.job_name}, #{item.date_start}, #{item.date_end})
         </foreach>
     </insert>
 
