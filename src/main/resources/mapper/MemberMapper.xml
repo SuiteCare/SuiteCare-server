@@ -6,8 +6,8 @@
 
     <!-- 회원가입 -->
     <insert id="create" parameterType="CreateMemberRequestDTO">
-        insert into SuiteMember (id, password, name, tel, role, create_at, update_at)
-        values (#{id}, #{password}, #{name}, #{tel}, #{role}, sysdate(), sysdate())
+        insert into SuiteMember (id, password, name, birthday, gender, email, tel, role, create_at, update_at)
+        values (#{id}, #{password}, #{name}, #{birthday}, #{gender}, #{email}, #{tel}, #{role}, sysdate(), sysdate())
     </insert>
 
     <!--아이디 중복체크-->
