@@ -6,8 +6,8 @@ import java.time.LocalDate;
 @Data
 public class CertificateDTO {
     Long id;
-    String certificate_name;
-    String certificate_code;
+    String name;
+    String code;
     LocalDate qualification_date;
     LocalDate expired_date;
 }

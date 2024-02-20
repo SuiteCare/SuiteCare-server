@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class ResumeRequestDTO {
-    private String filename;
+    private String profilePictureFilename;
     private String contactTimeStart;
     private String contactTimeEnd;
     private String introduction;
