@@ -15,7 +15,7 @@
         INSERT INTO location(mate_resume_id, name)
         VALUES
         <foreach collection="location" index="idx" item="loc" separator=", ">
-            ((SELECT id FROM materesume WHERE member_id = #{id}), #{loc})
+            (#{resume_id}, #{loc})
         </foreach>
     </insert>
 </mapper>
