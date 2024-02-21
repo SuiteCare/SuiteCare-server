@@ -2,22 +2,28 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.suitecare.suitecare.api.mate.mapper.MateMapper">
+<mapper namespace="com.suitecare.suitecare.api.mate_resume.mapper.MateResumeMapper">
 
-    <select id="findResumeById" resultType="MateDTO">
-        SELECT profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage
+    <!--<insert id="createMateResume" useGeneratedKeys="true" keyProperty="mateResumeDTO.id">-->
+    <insert id="createMateResume">
+        INSERT INTO mateResume(id, profile_picture_filename, contact_time_start, contact_time_end, introduction, desired_wage)
+        VALUES (#{id}, #{mateResumeDTO.profilePictureFilename}, #{mateResumeDTO.contactTimeStart}, #{mateResumeDTO.contactTimeEnd}, #{mateResumeDTO.introduction}, #{mateResumeDTO.desiredWage});
+    </insert>
+    
+    <select id="findResumeById" resultType="MateResumeDTO">
+        SELECT  id,
+                profile_picture_filename as profilePictureFilename,
+                introduction,
+                contact_time_start as contactTimeStart,
+                contact_time_end as contactTimeEnd,
+                desired_wage as desiredWage
         FROM materesume
-        WHERE member_id = #{id};
+        WHERE id = #{id};
     </select>
 
     <select id="isPresentResume">
         SELECT id FROM materesume WHERE member_id = #{id}
     </select>
-
-    <insert id="createResume">
-        INSERT INTO mateResume(member_id, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage)
-        VALUES (#{id}, #{resumeRequestDTO.profilePictureFilename}, #{resumeRequestDTO.introduction}, #{resumeRequestDTO.contactTimeStart}, #{resumeRequestDTO.contactTimeEnd}, #{resumeRequestDTO.wage});
-    </insert>
 
     <select id="getSearchedMate" resultType="SearchedMateResponseDTO">
         WITH resume	AS (
@@ -72,4 +78,15 @@
             </foreach>
         </if>
     </select>
+
+    <update id="updateResume">
+        UPDATE MateResume
+        <set>
+            <if test="resumeRequestDTO.profilePictureFilename != null">profile_picture_filename = #{resumeRequestDTO.profilePictureFilename},</if>
+            <if test="resumeRequestDTO.contactTimeStart != null">contact_time_start = #{resumeRequestDTO.contactTimeStart},</if>
+            <if test="resumeRequestDTO.contactTimeEnd != null">contact_time_end = #{resumeRequestDTO.contactTimeEnd},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
 </mapper>
