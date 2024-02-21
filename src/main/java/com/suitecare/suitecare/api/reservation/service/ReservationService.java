@@ -1,6 +1,6 @@
 package com.suitecare.suitecare.api.reservation.service;
 
-import com.suitecare.suitecare.api.mate.mapper.MateMapper;
+import com.suitecare.suitecare.api.mate_resume.mapper.MateResumeMapper;
 import com.suitecare.suitecare.api.reservation.domain.DayOfReservation;
 import com.suitecare.suitecare.api.reservation.dto.*;
 import com.suitecare.suitecare.api.reservation.mapper.ReservationMapper;
@@ -16,7 +16,7 @@ public class ReservationService {
     ReservationMapper reservationMapper;
 
     @Autowired
-    MateMapper mateMapper;
+    MateResumeMapper mateResumeMapper;
 
     @Transactional
     public Integer create(ReservationRequestDTO reservationRequestDTO) {
@@ -54,7 +54,7 @@ public class ReservationService {
     }
 
     public boolean isPresentResume(String id) { // 간병인 이력서 여부
-        return mateMapper.isPresentResume(id) != null;
+        return mateResumeMapper.isPresentResume(id) != null;
     }
 
     public boolean isPresentApplicant(String id, Long reservation_id) { // 지원 여부
