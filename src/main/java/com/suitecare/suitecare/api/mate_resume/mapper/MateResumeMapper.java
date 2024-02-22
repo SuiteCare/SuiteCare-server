@@ -4,6 +4,7 @@ import com.suitecare.suitecare.api.mate_resume.dto.MateResumeDTO;
 import com.suitecare.suitecare.api.mate_resume.dto.SearchedMateRequestDTO;
 import com.suitecare.suitecare.api.mate_resume.dto.SearchedMateResponseDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public interface MateResumeMapper {
     MateResumeDTO findResumeById(String id);
     Integer isPresentResume(String id);
-    Integer createMateResume(String id, MateResumeDTO mateResumeDTO);
-    void updateMateResume(String id, MateResumeDTO mateResumeDTO);
+    Integer createMateResume(@Param("id") String id, @Param("mateResumeDTO") MateResumeDTO mateResumeDTO);
+    void updateMateResume(@Param("id") String id, @Param("mateResumeDTO") MateResumeDTO mateResumeDTO);
     List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO);
 }

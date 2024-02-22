@@ -7,8 +7,8 @@
     <insert id="createLocation">
         INSERT INTO location(mate_resume_id, name)
         VALUES
-        <foreach collection="locationList" item="location" open="(" close=")" separator=",">
-            #{mateResumeId}, #{location.name}
+        <foreach collection="locationList" item="location" separator=",">
+            (#{mateResumeId}, #{location.name})
         </foreach>
     </insert>
 

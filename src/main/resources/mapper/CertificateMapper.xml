@@ -7,8 +7,8 @@
     <insert id="createCertificate">
         INSERT INTO certificate(mate_resume_id, name, code, qualification_date, expired_date)
         VALUES
-        <foreach collection="certificateList" item="certificate" open="(" close=")" separator=",">
-            #{mateResumeId}, #{certificate.name}, #{certificate.code}, #{certificate.qualificationDate}, #{certificate.expiredDate}
+        <foreach collection="certificateList" item="certificate" separator=",">
+            (#{mateResumeId}, #{certificate.name}, #{certificate.code}, #{certificate.qualificationDate}, #{certificate.expiredDate})
         </foreach>
     </insert>
 

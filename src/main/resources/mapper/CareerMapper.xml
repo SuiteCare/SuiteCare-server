@@ -7,13 +7,13 @@
     <insert id="createCareer">
         INSERT INTO career(mate_resume_id, name, job_name, date_start, date_end)
         VALUES
-        <foreach collection="careerList" item="career" open="(" close=")" separator=",">
-            #{mateResumeId}, #{career.name}, #{career.jobName}, #{career.dateStart}, #{career.dateEnd}
+        <foreach collection="careerList" item="career" separator=", ">
+            (#{mateResumeId}, #{career.name}, #{career.jobName}, #{career.dateStart}, #{career.dateEnd})
         </foreach>
     </insert>
 
     <select id="findCareerById" resultType="CareerDTO">
-        SELECT career.id, name, job_name as jobName, date_start as dateStart, date_end as dateEnd
+        SELECT id, name, job_name as jobName, date_start as dateStart, date_end as dateEnd
         FROM career
         JOIN materesume m ON m.id = mate_resume_id
         WHERE m.id =#{id};
