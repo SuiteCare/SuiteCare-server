@@ -1,13 +1,11 @@
 package com.suitecare.suitecare.api.mate_resume.controller;
 
-import com.suitecare.suitecare.api.mate_resume.dto.*;
+import com.suitecare.suitecare.api.mate_resume.dto.ResumeDTO;
 import com.suitecare.suitecare.api.mate_resume.service.MateResumeService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1")
@@ -31,13 +29,14 @@ public class MateResumeController {
         String id = (String) request.getAttribute("id");
         return mateResumeService.createResume(id, resumeDTO);
     }
-/*
+
     @PatchMapping("/mate/resume")
     public void updateResume(HttpServletRequest request, @RequestBody ResumeDTO resumeDTO) {
         String id = (String) request.getAttribute("id");
-//        mateResumeService.updateResume(id, resumeRequestDTO);
+        mateResumeService.updateResume(id, resumeDTO);
     }
 
+    /*
     @GetMapping("/search/mate")
     public List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO) {
         return mateResumeService.getSearchedMate(searchedMateRequestDTO);
