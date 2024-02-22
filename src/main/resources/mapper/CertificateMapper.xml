@@ -8,14 +8,14 @@
         SELECT c.id, name, code, qualification_date, expired_date
         FROM certificate c
         JOIN materesume m ON m.id = c.mate_resume_id
-        WHERE m.member_id = #{id};
+        WHERE m.id = #{id};
     </select>
 
     <insert id="createCertificate">
         INSERT INTO certificate(mate_resume_id, name, code, qualification_date, expired_date)
         VALUES
         <foreach collection="certificate" item="item" separator=", ">
-            (#{resume_id}, #{item.name}, #{item.code}, #{item.qualification_date}, #{item.expired_date})
+            (#{id}, #{item.name}, #{item.code}, #{item.qualification_date}, #{item.expired_date})
         </foreach>
     </insert>
 

@@ -7,7 +7,7 @@
     <select id="findResumeById" resultType="MateDTO">
         SELECT profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage
         FROM materesume
-        WHERE member_id = #{id};
+        WHERE id = #{id};
     </select>
 
     <select id="isPresentResume">
@@ -15,7 +15,7 @@
     </select>
 
     <insert id="createResume">
-        INSERT INTO mateResume(member_id, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage)
+        INSERT INTO mateResume(id, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage)
         VALUES (#{id}, #{resumeRequestDTO.profilePictureFilename}, #{resumeRequestDTO.introduction}, #{resumeRequestDTO.contactTimeStart}, #{resumeRequestDTO.contactTimeEnd}, #{resumeRequestDTO.wage});
     </insert>
 

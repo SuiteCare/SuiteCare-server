@@ -8,5 +8,5 @@ import java.util.List;
 @Mapper
 public interface LocationMapper {
     List<LocationDTO> findLocationById(String id);
-    void createLocation(Integer resume_id, String[] location);
+    void createLocation(String id, String[] location);
 }

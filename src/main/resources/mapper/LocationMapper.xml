@@ -8,14 +8,14 @@
         SELECT l.id, name
         FROM location l
         JOIN materesume m ON m.id = l.mate_resume_id
-        WHERE m.member_id = #{id};
+        WHERE m.id = #{id};
     </select>
 
     <insert id="createLocation">
         INSERT INTO location(mate_resume_id, name)
         VALUES
         <foreach collection="location" index="idx" item="loc" separator=", ">
-            (#{resume_id}, #{loc})
+            (#{id}, #{loc})
         </foreach>
     </insert>
 </mapper>
