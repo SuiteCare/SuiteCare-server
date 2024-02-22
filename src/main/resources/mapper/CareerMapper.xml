@@ -13,8 +13,8 @@
     </insert>
 
     <select id="findCareerById" resultType="CareerDTO">
-        SELECT id, name, job_name as jobName, date_start as dateStart, date_end as dateEnd
-        FROM career
+        SELECT c.id, name, job_name as jobName, date_start as dateStart, date_end as dateEnd
+        FROM career c
         JOIN materesume m ON m.id = mate_resume_id
         WHERE m.id =#{id};
     </select>
