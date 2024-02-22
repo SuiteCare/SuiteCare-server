@@ -4,8 +4,6 @@ import com.suitecare.suitecare.api.member.dto.*;
 import com.suitecare.suitecare.api.member.dto.LoginDTO;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.Map;
-
 @Mapper
 public interface MemberMapper {
     /* 회원가입 관련 로직 */
@@ -20,6 +18,6 @@ public interface MemberMapper {
     Integer changePassword(String id, String newPassword);
 
     MypageResponseDTO getMypageById(String id);
-    Integer updateMember(Map<String, Object> parameterMap);
+    Integer updateMember(String id, UpdateMemberRequestDTO updateMemberRequestDTO);
     Integer updateRole(String id);
 }

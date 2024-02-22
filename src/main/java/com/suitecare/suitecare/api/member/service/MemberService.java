@@ -7,9 +7,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Service
 public class MemberService {
     @Autowired
@@ -69,11 +66,7 @@ public class MemberService {
     }
 
     public Integer updateMember(String id, UpdateMemberRequestDTO updateMemberRequestDTO) {
-        Map<String, Object> parameterMap = new HashMap<>();
-        parameterMap.put("id", id);
-        parameterMap.put("updateMemberRequestDTO", updateMemberRequestDTO);
-
-        return memberMapper.updateMember(parameterMap);
+        return memberMapper.updateMember(id, updateMemberRequestDTO);
     }
 
     public Integer updateRole(String id) {
