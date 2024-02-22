@@ -30,11 +30,11 @@ public class MateResumeController {
         return mateResumeService.createResume(id, resumeDTO);
     }
 
-    @PatchMapping("/mate/resume")
-    public void updateResume(HttpServletRequest request, @RequestBody ResumeDTO resumeDTO) {
-        String id = (String) request.getAttribute("id");
-        mateResumeService.updateResume(id, resumeDTO);
-    }
+//    @PatchMapping("/mate/resume")
+//    public void updateResume(HttpServletRequest request, @RequestBody ResumeDTO resumeDTO) {
+//        String id = (String) request.getAttribute("id");
+//        mateResumeService.updateResume(id, resumeDTO);
+//    }
 
     /*
     @GetMapping("/search/mate")
