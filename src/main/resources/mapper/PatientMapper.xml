@@ -5,21 +5,21 @@
 <mapper namespace="com.suitecare.suitecare.api.patient.mapper.PatientMapper">
 
     <!-- 새로운 환자 등록 프론트url=(/family/addpatient) - 기본정보 -->
-    <insert id="createPatient" parameterType="Map" useGeneratedKeys="true" keyProperty="id">
+    <insert id="createPatient" useGeneratedKeys="true" keyProperty="patientRequestDTO.id" parameterType="PatientRequestDTO">
         insert into Patient (member_id, name, gender, birthday, diagnosis_name, height, weight, create_at, update_at)
-        values (#{id}, #{patient.name}, #{patient.gender}, #{patient.birthday}, #{patient.diagnosis_name}, #{patient.height}, #{patient.weight}, sysdate(), sysdate())
+        values (#{login_id}, #{patientRequestDTO.name}, #{patientRequestDTO.gender}, #{patientRequestDTO.birthday}, #{patientRequestDTO.diagnosis_name}, #{patientRequestDTO.height}, #{patientRequestDTO.weight}, sysdate(), sysdate())
     </insert>
 
     <!-- 새로운 환자 등록 프론트url=(/family/addpatient) - 상세정보 -->
     <insert id="createPatientDetail" parameterType="PatientRequestDTO">
-        insert into PatientDetail (consciousness_state, meal_care_state, toilet_care_state, paralysis_state, behavioral_state, is_bedsore, need_suction, need_outpatient, need_night_care, notice)
-        values (#{patient.consciousness_state}, #{patient.meal_care_state}, #{patient.toilet_care_state}, #{patient.paralysis_state}, #{patient.behavioral_state}, #{patient.is_bedsore}, #{patient.need_suction}, #{patient.need_outpatient}, #{patient.need_night_care}, #{patient.notice})
+        insert into PatientDetail (id, consciousness_state, meal_care_state, toilet_care_state, paralysis_state, behavioral_state, is_bedsore, need_suction, need_outpatient, need_night_care, notice)
+        values (#{id}, #{consciousness_state}, #{meal_care_state}, #{toilet_care_state}, #{paralysis_state}, #{behavioral_state}, #{is_bedsore}, #{need_suction}, #{need_outpatient}, #{need_night_care}, #{notice})
     </insert>
 
     <!-- 환자 고유 ID 검색 -->
     <select id="getPatientID" parameterType="PatientRequestDTO">
         select id from Patient
-        where (member_id = #{member_id} and name = #{name} and gender = #{gender} and birthday = #{birthday} and height = #{height} and weight = #{weight})
+        where (member_id = #{login_id} and name = #{name} and gender = #{gender} and birthday = #{birthday} and height = #{height} and weight = #{weight})
     </select>
 
     <!-- family ID로 환자 목록 검색 -->
