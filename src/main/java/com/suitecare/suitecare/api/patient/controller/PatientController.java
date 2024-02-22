@@ -39,8 +39,8 @@ public class PatientController {
     /* 환자 등록 */
     @PostMapping("/patient")
     public int createPatient(@RequestBody PatientRequestDTO patientRequestDTO, HttpServletRequest request){
-        String id = (String)request.getAttribute("id");
-        return patientService.createPatient(id, patientRequestDTO);
+        String login_id = (String)request.getAttribute("id");
+        return patientService.createPatient(login_id, patientRequestDTO);
     }
 
     /* 환자 정보 수정 */

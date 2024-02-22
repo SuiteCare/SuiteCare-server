@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class PatientService {
@@ -37,19 +35,14 @@ public class PatientService {
 
     /* 환자 추가 */
     @Transactional
-    public int createPatient(String id, PatientRequestDTO patientRequestDTO){
+    public int createPatient(String login_id, PatientRequestDTO patientRequestDTO){
         // Patient 를 생성하려는 회원이 family 회원이 맞는지 검증 필요
-
-        Map<String, Object> parameterMap = new HashMap<>();
-        parameterMap.put("id", id);
-        parameterMap.put("patient", patientRequestDTO);
-
         // Patient 레코드 생성
-        Integer addPatientCount = patientMapper.createPatient(parameterMap);
+        Integer addPatientCount = patientMapper.createPatient(login_id, patientRequestDTO);
 
         // Patient 레코드가 정상적으로 생성되었다면, PatientDetail 레코드 생성
         if (addPatientCount == 1) {
-            return patientMapper.createPatientDetail(parameterMap);
+            return patientMapper.createPatientDetail(patientRequestDTO);
         }
 
         return 0;
