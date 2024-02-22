@@ -16,4 +16,5 @@ public interface PatientMapper {
     PatientDetailResponseDTO getPatientDetail(String id);
     Integer updatePatient(PatientRequestDTO patientRequestDTO);
     Integer updatePatientDetail(PatientRequestDTO patientRequestDTO);
+    Integer deletePatient(Long id, String login_id);
 }

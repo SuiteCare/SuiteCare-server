@@ -49,4 +49,10 @@ public class PatientController {
         patientRequestDTO.setId(id);
         return patientService.updatePatient(patientRequestDTO);
     }
+
+    @DeleteMapping("/patient/{id}")
+    public int deletePatient(@PathVariable Long id, HttpServletRequest requet) {
+        String login_id = (String)requet.getAttribute("id");
+        return patientService.deletePatient(id, login_id);
+    }
 }
