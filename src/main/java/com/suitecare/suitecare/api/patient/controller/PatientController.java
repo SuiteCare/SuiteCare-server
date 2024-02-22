@@ -20,8 +20,8 @@ public class PatientController {
     /* 환자 목록 조회 */
     @GetMapping("/patient")
     public List<PatientRequestDTO> getPatientList(HttpServletRequest request){
-        String id = (String) request.getAttribute("id");
-        return patientService.getPatientList(id);
+        String login_id = (String) request.getAttribute("id");
+        return patientService.getPatientList(login_id);
     }
 
     /* 환자 기본 조회 */
