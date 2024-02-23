@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suitecare.suitecare.api.recruitment.mapper.RecruitmentMapper">
+
+    <insert id="createRecruitment">
+        INSERT INTO
+            recruitment (member_id, location, postcode, road_address, jibun_address, address_detail, wage, start_date, end_date, start_time, end_time, create_at, expire_at, status, patient_name, patient_gender, patient_birthday, patient_diagnosis_name, patient_height, patient_weight, patient_consciousness_state, patient_meal_care_state, patient_toilet_care_state, patient_paralysis_state, patient_behavioral_state, patient_is_bedsore, patient_need_suction, patient_need_outpatient, patient_need_night_care, patient_notice)
+        SELECT
+            #{login_id}, #{recruitmentRequestDTO.location}, #{recruitmentRequestDTO.postcode}, #{recruitmentRequestDTO.road_address}, #{recruitmentRequestDTO.jibun_address},
+            #{recruitmentRequestDTO.address_detail}, #{recruitmentRequestDTO.wage}, #{recruitmentRequestDTO.start_date}, #{recruitmentRequestDTO.end_date},
+            #{recruitmentRequestDTO.start_time}, #{recruitmentRequestDTO.end_time}, sysdate(), sysdate(), 'P',
+            name, gender, birthday, diagnosis_name, height, weight, consciousness_state, meal_care_state, toilet_care_state, paralysis_state, behavioral_state, is_bedsore, need_suction, need_outpatient, need_night_care, notice
+        FROM patient JOIN patientdetail ON patient.id = patientdetail.id
+        WHERE patient.id = #{recruitmentRequestDTO.patient_id}
+    </insert>
+
+</mapper>
