@@ -8,5 +8,5 @@ import java.util.List;
 @Mapper
 public interface MainServiceMapper {
     List<MainServiceDTO> findMainServiceById(String id);
-    void createMainService(Integer resume_id, String[] mainService);
+    void createMainService(String id, String[] mainService);
 }

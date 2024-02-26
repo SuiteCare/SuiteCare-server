@@ -46,22 +46,21 @@ public class MateService {
     public int createResume(String id, ResumeRequestDTO resumeRequestDTO) {
         try {
             int resume = mateMapper.createResume(id, resumeRequestDTO); // 기본 이력서 등록
-            int resume_id = mateMapper.isPresentResume(id);
 
             if(resumeRequestDTO.getCheckedLoc().length != 0) { // 활동 지역
-                locationMapper.createLocation(resume_id, resumeRequestDTO.getCheckedLoc());
+                locationMapper.createLocation(id, resumeRequestDTO.getCheckedLoc());
             }
 
             if(resumeRequestDTO.getMainServiceData().length != 0) { // 대표서비스
-                mainSeviceMapper.createMainService(resume_id, resumeRequestDTO.getMainServiceData());
+                mainSeviceMapper.createMainService(id, resumeRequestDTO.getMainServiceData());
             }
 
             if(!resumeRequestDTO.getCareer().isEmpty()) { // 경력
-                careerMapper.createCareer(resume_id, resumeRequestDTO.getCareer());
+                careerMapper.createCareer(id, resumeRequestDTO.getCareer());
             }
 
             if(!resumeRequestDTO.getCertificate().isEmpty()) { // 자격증
-                certificateMapper.createCertificate(resume_id, resumeRequestDTO.getCertificate());
+                certificateMapper.createCertificate(id, resumeRequestDTO.getCertificate());
             }
 
             return resume;

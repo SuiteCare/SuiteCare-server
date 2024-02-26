@@ -8,14 +8,14 @@
         SELECT career.id, name, job_name, date_start, date_end
         FROM career
         JOIN materesume m ON m.id = mate_resume_id
-        WHERE m.member_id =#{id};
+        WHERE m.id =#{id};
     </select>
 
     <insert id="createCareer">
         INSERT INTO career(mate_resume_id, name, job_name, date_start, date_end)
         VALUES
         <foreach collection="career" item="item" separator=", ">
-            (#{resume_id}, #{item.name}, #{item.job_name}, #{item.date_start}, #{item.date_end})
+            (#{id}, #{item.name}, #{item.job_name}, #{item.date_start}, #{item.date_end})
         </foreach>
     </insert>
 
