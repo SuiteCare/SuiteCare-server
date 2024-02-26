@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.recruitment.mapper;
 
+import com.suitecare.suitecare.api.recruitment.dto.PendingRecruitmentResponseDTO;
 import com.suitecare.suitecare.api.recruitment.dto.RecruitmentRequestDTO;
 import com.suitecare.suitecare.api.recruitment.dto.SearchedRecruitmentRequestDTO;
 import com.suitecare.suitecare.api.recruitment.dto.SearchedRecruitmentResponseDTO;
@@ -14,4 +15,5 @@ public interface RecruitmentMapper {
     List<SearchedRecruitmentResponseDTO> getSearchedRecruitment(SearchedRecruitmentRequestDTO requestDTO, List<Integer> excluded_days);
     Integer isPresentApplicant(String login_id, Long recruitment_id);
     Integer applyRecruitment(String login_id, Long recruitment_id);
+    List<PendingRecruitmentResponseDTO> getRecruitmentListById(String login_id);
 }

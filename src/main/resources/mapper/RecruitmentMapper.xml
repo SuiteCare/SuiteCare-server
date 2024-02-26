@@ -10,7 +10,7 @@
         SELECT
             #{login_id}, #{recruitmentRequestDTO.location}, #{recruitmentRequestDTO.postcode}, #{recruitmentRequestDTO.road_address}, #{recruitmentRequestDTO.jibun_address},
             #{recruitmentRequestDTO.address_detail}, #{recruitmentRequestDTO.wage}, #{recruitmentRequestDTO.start_date}, #{recruitmentRequestDTO.end_date},
-            #{recruitmentRequestDTO.start_time}, #{recruitmentRequestDTO.end_time}, sysdate(), sysdate(), 'P',
+            #{recruitmentRequestDTO.start_time}, #{recruitmentRequestDTO.end_time}, sysdate(), #{recruitmentRequestDTO.expire_at}, 'P',
             name, gender, birthday, diagnosis_name, height, weight, consciousness_state, meal_care_state, toilet_care_state, paralysis_state, behavioral_state, is_bedsore, need_suction, need_outpatient, need_night_care, notice
         FROM patient JOIN patientdetail ON patient.id = patientdetail.id
         WHERE patient.id = #{recruitmentRequestDTO.patient_id}
@@ -77,5 +77,12 @@
 
     <select id="isPresentApplicant">
         SELECT count(recruitment_id) FROM applicants WHERE recruitment_id = #{recruitment_id} AND mate_resume_id = #{login_id}
+    </select>
+
+    <select id="getRecruitmentListById">
+        SELECT id, patient_name, patient_diagnosis_name, start_date, end_date FROM recruitment
+        WHERE member_id = #{login_id}
+        AND status = 'P'
+        AND expire_at >= now();
     </select>
 </mapper>
