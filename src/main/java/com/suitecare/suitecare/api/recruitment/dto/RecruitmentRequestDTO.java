@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 public class RecruitmentRequestDTO {
+    private Long id;
     private Long patient_id;
     // 간병 지역
     private String location;

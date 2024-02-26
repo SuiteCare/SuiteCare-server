@@ -4,7 +4,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.suitecare.suitecare.api.recruitment.mapper.RecruitmentMapper">
 
-    <insert id="createRecruitment">
+    <insert id="createRecruitment" useGeneratedKeys="true" keyProperty="recruitmentRequestDTO.id">
         INSERT INTO
             recruitment (member_id, location, postcode, road_address, jibun_address, address_detail, wage, start_date, end_date, start_time, end_time, create_at, expire_at, status, patient_name, patient_gender, patient_birthday, patient_diagnosis_name, patient_height, patient_weight, patient_consciousness_state, patient_meal_care_state, patient_toilet_care_state, patient_paralysis_state, patient_behavioral_state, patient_is_bedsore, patient_need_suction, patient_need_outpatient, patient_need_night_care, patient_notice)
         SELECT
@@ -16,4 +16,11 @@
         WHERE patient.id = #{recruitmentRequestDTO.patient_id}
     </insert>
 
+    <insert id="createDayOfReservation">
+        insert into DayOfReservation (recruitment_id, day)
+        values
+        <foreach collection="weekday" item="day" separator=", ">
+            (#{id}, #{day})
+        </foreach>
+    </insert>
 </mapper>
