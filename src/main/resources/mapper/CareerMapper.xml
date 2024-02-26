@@ -8,18 +8,18 @@
         INSERT INTO career(mate_resume_id, name, job_name, date_start, date_end)
         VALUES
         <foreach collection="careerList" item="career" separator=", ">
-            (#{mateResumeId}, #{career.name}, #{career.jobName}, #{career.dateStart}, #{career.dateEnd})
+            (#{mate_resume_id}, #{career.name}, #{career.job_name}, #{career.date_start}, #{career.date_end})
         </foreach>
     </insert>
 
     <insert id="insertCareer">
         INSERT INTO career(mate_resume_id, name, job_name, date_start, date_end)
         VALUES
-            (#{mateResumeId}, #{careerDTO.name}, #{careerDTO.jobName}, #{careerDTO.dateStart}, #{careerDTO.dateEnd})
+            (#{mate_resume_id}, #{careerDTO.job_name}, #{careerDTO.job_name}, #{careerDTO.date_start}, #{careerDTO.date_end})
     </insert>
 
     <select id="findCareerById" resultType="CareerDTO">
-        SELECT c.id, name, job_name as jobName, date_start as dateStart, date_end as dateEnd
+        SELECT c.id, name, job_name, date_start, date_end
         FROM career c
         JOIN materesume m ON m.id = mate_resume_id
         WHERE m.id =#{id};
@@ -27,23 +27,26 @@
 
     <update id="updateCareer">
         UPDATE career
-        SET
-        <if test="careerDTO.name != null">
-            name = #{mateResumeDTO.name}
+        <set>
+
+        <if test="name != null">
+            name = #{name},
         </if>
 
-        <if test="careerDTO.job_name != null">
-            job_name = #{mateResumeDTO.job_name}
+        <if test="job_name != null">
+            job_name = #{job_name},
         </if>
 
-        <if test="careerDTO.date_start != null">
-            date_start = #{mateResumeDTO.date_start}
+        <if test="date_start != null">
+            date_start = #{date_start},
         </if>
 
-        <if test="careerDTO.date_end != null">
-            date_end = #{mateResumeDTO.date_end}
+        <if test="date_end != null">
+            date_end = #{date_end}
         </if>
-        WHERE id = #{careerDTO.id}
+
+        </set>
+        WHERE id = #{id}
     </update>
 
 </mapper>

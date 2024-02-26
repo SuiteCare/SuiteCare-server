@@ -23,16 +23,16 @@ public class MateResumeService {
 
     /* 간병인 이력서 등록 */
     @Transactional
-    public int createResume(String id, ResumeDTO resumeDTO) {
+    public int createResume(String id, ResumeDTO resume_dto) {
 
         // 이력서 Insert
-        mateResumeMapper.createMateResume(id, resumeDTO.getMateResume());
+        mateResumeMapper.createMateResume(id, resume_dto.getMateResume());
 
         // 경력, 자격증, 지역, 대표서비스 Insert
-        careerMapper.createCareer(id, resumeDTO.getCareerList());
-        certificateMapper.createCertificate(id, resumeDTO.getCertificateList());
-        locationMapper.createLocation(id, resumeDTO.getLocationList());
-        mainSeviceMapper.createMainService(id, resumeDTO.getMainServiceList());
+        careerMapper.createCareer(id, resume_dto.getCareerList());
+        certificateMapper.createCertificate(id, resume_dto.getCertificateList());
+        locationMapper.createLocation(id, resume_dto.getLocationList());
+        mainSeviceMapper.createMainService(id, resume_dto.getMainServiceList());
 
         return 1;
 
@@ -41,19 +41,21 @@ public class MateResumeService {
     /* 이력서 조회 */
     public ResumeDTO findMateResumeById(String id) {
 
-        MateResumeDTO mateResume = mateResumeMapper.findResumeById(id);
-        String mateResumeId = mateResume.getId();
+        MateResumeDTO mateResumeDTO = mateResumeMapper.findResumeById(id);
+        String mate_resume_id = mateResumeDTO.getId();
 
         return ResumeDTO.builder()
-                .mateResume(mateResume)
-                .careerList(careerMapper.findCareerById(mateResumeId))
-                .certificateList(certificateMapper.findCertificateById(mateResumeId))
-                .locationList(locationMapper.findLocationById(mateResumeId))
-                .mainServiceList(mainSeviceMapper.findMainServiceById(mateResumeId))
+                .mateResume(mateResumeDTO)
+                .careerList(careerMapper.findCareerById(mate_resume_id))
+                .certificateList(certificateMapper.findCertificateById(mate_resume_id))
+                .locationList(locationMapper.findLocationById(mate_resume_id))
+                .mainServiceList(mainSeviceMapper.findMainServiceById(mate_resume_id))
                 .build();
 
     }
 
+    /* 이력서 업데이트 */
+    @Transactional
     public void updateResume(String login_id, ResumeDTO resumeDTO) {
 
         /* 이력서 기본 정보 업데이트 */

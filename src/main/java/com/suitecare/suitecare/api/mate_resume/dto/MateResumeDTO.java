@@ -1,24 +1,21 @@
 package com.suitecare.suitecare.api.mate_resume.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class MateResumeDTO {
     private String id;
     @JsonProperty("profile_picture_filename")
-    private String profilePictureFilename;
+    private String profile_picture_filename;
     @JsonProperty("contact_time_start")
-    private String contactTimeStart;
+    private String contact_time_start;
     @JsonProperty("contact_time_end")
-    private String contactTimeEnd;
+    private String contact_time_end;
     private String introduction;
     @JsonProperty("desired_wage")
-    private Integer desiredWage;
+    private Integer desired_wage;
 }

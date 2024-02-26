@@ -19,4 +19,16 @@
         WHERE m.id = #{id};
     </select>
 
+    <update id="updateMainService">
+        UPDATE mainservice
+        <set>
+
+            <if test="name != null">
+                name = #{name}
+            </if>
+
+        </set>
+        WHERE id = #{id}
+    </update>
+
 </mapper>
