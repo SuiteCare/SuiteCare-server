@@ -1,14 +1,11 @@
 package com.suitecare.suitecare.api.mate_resume.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,9 +13,9 @@ public class CareerDTO {
     private Long id;
     private String name;
     @JsonProperty("job_name")
-    private String jobName;
+    private String job_name;
     @JsonProperty("date_start")
-    private LocalDate dateStart;
+    private LocalDate date_start;
     @JsonProperty("date_end")
-    private LocalDate dateEnd;
+    private LocalDate date_end;
 }

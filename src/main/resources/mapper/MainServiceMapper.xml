@@ -8,7 +8,7 @@
         INSERT INTO mainService(mate_resume_id, name)
         VALUES
         <foreach collection="mainServiceList" item="mainService" separator=",">
-            (#{mateResumeId}, #{mainService.name})
+            (#{mate_resume_id}, #{mainService.name})
         </foreach>
     </insert>
 
@@ -18,5 +18,17 @@
         JOIN materesume m ON m.id = s.mate_resume_id
         WHERE m.id = #{id};
     </select>
+
+    <update id="updateMainService">
+        UPDATE mainservice
+        <set>
+
+            <if test="name != null">
+                name = #{name}
+            </if>
+
+        </set>
+        WHERE id = #{id}
+    </update>
 
 </mapper>

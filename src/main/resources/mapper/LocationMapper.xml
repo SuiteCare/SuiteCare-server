@@ -8,7 +8,7 @@
         INSERT INTO location(mate_resume_id, name)
         VALUES
         <foreach collection="locationList" item="location" separator=",">
-            (#{mateResumeId}, #{location.name})
+            (#{mate_resume_id}, #{location.name})
         </foreach>
     </insert>
 
@@ -18,5 +18,17 @@
         JOIN materesume m ON m.id = l.mate_resume_id
         WHERE m.id = #{id};
     </select>
+
+    <update id="updateLocation">
+        UPDATE location
+        <set>
+
+            <if test="name != null">
+                name = #{name}
+            </if>
+
+        </set>
+        WHERE id = #{id}
+    </update>
 
 </mapper>

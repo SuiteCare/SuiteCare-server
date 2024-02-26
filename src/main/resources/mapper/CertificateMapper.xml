@@ -8,15 +8,39 @@
         INSERT INTO certificate(mate_resume_id, name, code, qualification_date, expired_date)
         VALUES
         <foreach collection="certificateList" item="certificate" separator=",">
-            (#{mateResumeId}, #{certificate.name}, #{certificate.code}, #{certificate.qualificationDate}, #{certificate.expiredDate})
+            (#{mate_resume_id}, #{certificate.name}, #{certificate.code}, #{certificate.qualification_date}, #{certificate.expired_date})
         </foreach>
     </insert>
 
     <select id="findCertificateById" resultType="CertificateDTO">
-        SELECT c.id, name, code, qualification_date as qualificationDate, expired_date as expiredDate
+        SELECT c.id, name, code, qualification_date, expired_date
         FROM certificate c
         JOIN materesume m ON m.id = c.mate_resume_id
         WHERE m.id = #{id};
     </select>
+
+    <update id="updateCertificate">
+        UPDATE certificate
+        <set>
+
+            <if test="name != null">
+                name = #{name},
+            </if>
+
+            <if test="code != null">
+                code = #{code},
+            </if>
+
+            <if test="qualification_date != null">
+                qualification_date = #{qualification_date},
+            </if>
+
+            <if test="expired_date != null">
+                expired_date = #{expired_date}
+            </if>
+
+        </set>
+        WHERE id = #{id}
+    </update>
 
 </mapper>
