@@ -12,4 +12,6 @@ public interface RecruitmentMapper {
     Integer createRecruitment(String login_id, RecruitmentRequestDTO recruitmentRequestDTO);
     Integer createDayOfReservation(RecruitmentRequestDTO recruitmentRequestDTO);
     List<SearchedRecruitmentResponseDTO> getSearchedRecruitment(SearchedRecruitmentRequestDTO requestDTO, List<Integer> excluded_days);
+    Integer isPresentApplicant(String login_id, Long recruitment_id);
+    Integer applyRecruitment(String login_id, Long recruitment_id);
 }

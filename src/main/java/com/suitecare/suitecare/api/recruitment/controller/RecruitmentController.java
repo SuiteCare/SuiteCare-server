@@ -19,7 +19,7 @@ public class RecruitmentController {
     RecruitmentService recruitmentService;
 
     @PostMapping("/recruitment")
-    public int createRecruitment(HttpServletRequest request, @RequestBody RecruitmentRequestDTO recruitmentRequestDTO) {
+    public Integer createRecruitment(HttpServletRequest request, @RequestBody RecruitmentRequestDTO recruitmentRequestDTO) {
         String login_id = (String)request.getAttribute("id");
         return recruitmentService.createRecruitment(login_id, recruitmentRequestDTO);
     }
@@ -31,4 +31,9 @@ public class RecruitmentController {
         return recruitmentService.getSearchedRecruitment(requestDTO);
     }
 
+    @GetMapping("/apply/{id}")
+    public Integer applyRecruitment(HttpServletRequest request, @PathVariable Long id) {
+        String login_id = (String) request.getAttribute("id");
+        return  recruitmentService.applyRecruitment(login_id, id);
+    }
 }

@@ -68,4 +68,13 @@
         GROUP BY r.id, member_id, location, road_address, wage, start_date, end_date, start_time, end_time, expire_at
         ;
     </select>
+
+    <insert id="applyRecruitment">
+        INSERT INTO applicants (recruitment_id, mate_resume_id, status, request_by, create_at)
+        VALUES (#{recruitment_id}, #{login_id}, 'P', 'M', sysdate());
+    </insert>
+
+    <select id="isPresentApplicant">
+        SELECT count(recruitment_id) FROM applicants WHERE recruitment_id = #{recruitment_id} AND mate_resume_id = #{login_id}
+    </select>
 </mapper>

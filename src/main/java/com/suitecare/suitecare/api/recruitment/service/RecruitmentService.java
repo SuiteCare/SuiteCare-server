@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.recruitment.service;
 
+import com.suitecare.suitecare.api.mate.mapper.MateMapper;
 import com.suitecare.suitecare.api.recruitment.dto.RecruitmentRequestDTO;
 import com.suitecare.suitecare.api.recruitment.dto.SearchedRecruitmentRequestDTO;
 import com.suitecare.suitecare.api.recruitment.dto.SearchedRecruitmentResponseDTO;
@@ -17,6 +18,8 @@ public class RecruitmentService {
 
     @Autowired
     RecruitmentMapper recruitmentMapper;
+    @Autowired
+    MateMapper mateMapper;
 
     @Transactional
     public Integer createRecruitment(String login_id, RecruitmentRequestDTO recruitmentRequestDTO) {
@@ -37,5 +40,25 @@ public class RecruitmentService {
         System.err.println("size : " + excluded_days.size());
 
         return recruitmentMapper.getSearchedRecruitment(requestDTO, excluded_days);
+    }
+
+    public Integer applyRecruitment(String login_id, Long recruitment_id) {
+        if(!isPresentResume(login_id)) {
+            return 0;
+        }
+
+        if(!isPresentApplicant(login_id, recruitment_id)) {
+            return recruitmentMapper.applyRecruitment(login_id, recruitment_id);
+        }
+
+        return 2;
+    }
+
+    public boolean isPresentResume(String login_id) { // 간병인 이력서 여부
+        return mateMapper.isPresentResume(login_id) != null;
+    }
+
+    public boolean isPresentApplicant(String login_id, Long recruitment_id) { // 지원 여부
+        return recruitmentMapper.isPresentApplicant(login_id, recruitment_id) != 0;
     }
 }
