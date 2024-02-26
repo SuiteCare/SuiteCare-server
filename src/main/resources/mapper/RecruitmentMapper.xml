@@ -17,10 +17,55 @@
     </insert>
 
     <insert id="createDayOfReservation">
-        insert into DayOfReservation (recruitment_id, day)
-        values
+        INSERT INTO DayOfReservation (recruitment_id, day)
+        VALUES
         <foreach collection="weekday" item="day" separator=", ">
             (#{id}, #{day})
         </foreach>
     </insert>
+
+    <select id="getSearchedRecruitment">
+        SELECT r.id, member_id, location, road_address, wage, start_date, end_date, start_time, end_time, expire_at, group_concat(day) AS day
+        FROM recruitment r
+        JOIN dayofreservation d ON d.recruitment_id = r.id
+        WHERE
+            wage between
+            <foreach collection="requestDTO.wage" item="it" separator="and">
+                #{it}
+            </foreach>
+            AND start_time &gt;= #{requestDTO.worktime[0]}
+            AND end_time &lt;= #{requestDTO.worktime[1]}
+            <if test="excluded_days.size() > 0">
+                AND r.id IN (
+                    SELECT DISTINCT recruitment_id
+                    FROM dayofreservation
+                    WHERE NOT EXISTS (
+                        SELECT 1
+                        FROM dayofreservation d2
+                        WHERE d2.recruitment_id = dayofreservation.recruitment_id
+                        AND
+                        <foreach collection="excluded_days" item="day" separator="OR">
+                            d2.day = #{day}
+                        </foreach>
+                    )
+                )
+            </if>
+            <if test="requestDTO.search_input neq ''">
+                AND diagnosis_name like '%#{requestDTO.search_input}%'
+            </if>
+            <if test="requestDTO.location != null">
+                AND SUBSTRING(road_address, 4, 3) in
+                <foreach collection="requestDTO.location" item="it" open="(" close=")" separator=",">
+                    #{it}
+                </foreach>
+            </if>
+            <if test="requestDTO.gender != null and requestDTO.gender.length == 1">
+                AND gender =
+                <foreach collection="requestDTO.gender" item="it">
+                    #{it}
+                </foreach>
+            </if>
+        GROUP BY r.id, member_id, location, road_address, wage, start_date, end_date, start_time, end_time, expire_at
+        ;
+    </select>
 </mapper>
