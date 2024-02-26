@@ -2,7 +2,15 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.suitecare.suitecare.api.mate.mapper.LocationMapper">
+<mapper namespace="com.suitecare.suitecare.api.mate_resume.mapper.LocationMapper">
+
+    <insert id="createLocation">
+        INSERT INTO location(mate_resume_id, name)
+        VALUES
+        <foreach collection="locationList" item="location" separator=",">
+            (#{mateResumeId}, #{location.name})
+        </foreach>
+    </insert>
 
     <select id="findLocationById" resultType="LocationDTO">
         SELECT l.id, name
@@ -11,11 +19,4 @@
         WHERE m.id = #{id};
     </select>
 
-    <insert id="createLocation">
-        INSERT INTO location(mate_resume_id, name)
-        VALUES
-        <foreach collection="location" index="idx" item="loc" separator=", ">
-            (#{id}, #{loc})
-        </foreach>
-    </insert>
 </mapper>

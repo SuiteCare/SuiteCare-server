@@ -2,22 +2,48 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.suitecare.suitecare.api.mate.mapper.CareerMapper">
-
-    <select id="findCareerById" resultType="CareerDTO">
-        SELECT career.id, name, job_name, date_start, date_end
-        FROM career
-        JOIN materesume m ON m.id = mate_resume_id
-        WHERE m.id =#{id};
-    </select>
+<mapper namespace="com.suitecare.suitecare.api.mate_resume.mapper.CareerMapper">
 
     <insert id="createCareer">
         INSERT INTO career(mate_resume_id, name, job_name, date_start, date_end)
         VALUES
-        <foreach collection="career" item="item" separator=", ">
-            (#{id}, #{item.name}, #{item.job_name}, #{item.date_start}, #{item.date_end})
+        <foreach collection="careerList" item="career" separator=", ">
+            (#{mateResumeId}, #{career.name}, #{career.jobName}, #{career.dateStart}, #{career.dateEnd})
         </foreach>
     </insert>
 
+    <insert id="insertCareer">
+        INSERT INTO career(mate_resume_id, name, job_name, date_start, date_end)
+        VALUES
+            (#{mateResumeId}, #{careerDTO.name}, #{careerDTO.jobName}, #{careerDTO.dateStart}, #{careerDTO.dateEnd})
+    </insert>
+
+    <select id="findCareerById" resultType="CareerDTO">
+        SELECT c.id, name, job_name as jobName, date_start as dateStart, date_end as dateEnd
+        FROM career c
+        JOIN materesume m ON m.id = mate_resume_id
+        WHERE m.id =#{id};
+    </select>
+
+    <update id="updateCareer">
+        UPDATE career
+        SET
+        <if test="careerDTO.name != null">
+            name = #{mateResumeDTO.name}
+        </if>
+
+        <if test="careerDTO.job_name != null">
+            job_name = #{mateResumeDTO.job_name}
+        </if>
+
+        <if test="careerDTO.date_start != null">
+            date_start = #{mateResumeDTO.date_start}
+        </if>
+
+        <if test="careerDTO.date_end != null">
+            date_end = #{mateResumeDTO.date_end}
+        </if>
+        WHERE id = #{careerDTO.id}
+    </update>
 
 </mapper>

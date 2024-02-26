@@ -2,21 +2,21 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.suitecare.suitecare.api.mate.mapper.CertificateMapper">
-
-    <select id="findCertificateById" resultType="CertificateDTO">
-        SELECT c.id, name, code, qualification_date, expired_date
-        FROM certificate c
-        JOIN materesume m ON m.id = c.mate_resume_id
-        WHERE m.id = #{id};
-    </select>
+<mapper namespace="com.suitecare.suitecare.api.mate_resume.mapper.CertificateMapper">
 
     <insert id="createCertificate">
         INSERT INTO certificate(mate_resume_id, name, code, qualification_date, expired_date)
         VALUES
-        <foreach collection="certificate" item="item" separator=", ">
-            (#{id}, #{item.name}, #{item.code}, #{item.qualification_date}, #{item.expired_date})
+        <foreach collection="certificateList" item="certificate" separator=",">
+            (#{mateResumeId}, #{certificate.name}, #{certificate.code}, #{certificate.qualificationDate}, #{certificate.expiredDate})
         </foreach>
     </insert>
+
+    <select id="findCertificateById" resultType="CertificateDTO">
+        SELECT c.id, name, code, qualification_date as qualificationDate, expired_date as expiredDate
+        FROM certificate c
+        JOIN materesume m ON m.id = c.mate_resume_id
+        WHERE m.id = #{id};
+    </select>
 
 </mapper>
