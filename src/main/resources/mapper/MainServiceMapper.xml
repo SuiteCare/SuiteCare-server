@@ -8,7 +8,7 @@
         INSERT INTO mainService(mate_resume_id, name)
         VALUES
         <foreach collection="mainServiceList" item="mainService" separator=",">
-            (#{mateResumeId}, #{mainService.name})
+            (#{mate_resume_id}, #{mainService.name})
         </foreach>
     </insert>
 
