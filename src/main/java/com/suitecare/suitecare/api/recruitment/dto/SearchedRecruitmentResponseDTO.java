@@ -10,9 +10,9 @@ import java.time.LocalTime;
 public class SearchedRecruitmentResponseDTO {
     private Integer id;
     private String member_id;
-    private String gender;
-    private LocalDate birthday;
-    private String diagnosis_name;
+    private String patient_gender;
+    private LocalDate patient_birthday;
+    private String patient_diagnosis_name;
     private String location;
     private String road_address;
     private Integer wage;

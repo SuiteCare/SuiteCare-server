@@ -25,9 +25,10 @@
     </insert>
 
     <select id="getSearchedRecruitment">
-        SELECT r.id, member_id, location, SUBSTRING_INDEX(road_address, ' ', 2) AS road_address, wage, start_date, end_date, start_time, end_time, expire_at, group_concat(day) AS day
+        SELECT r.id, member_id, tel, patient_gender, patient_birthday, patient_diagnosis_name, location, SUBSTRING_INDEX(road_address, ' ', 2) AS road_address, wage, start_date, end_date, start_time, end_time, expire_at, group_concat(day) AS day
         FROM recruitment r
         JOIN dayofreservation d ON d.recruitment_id = r.id
+        JOIN suitemember s ON s.id = r.member_id
         WHERE
             wage between
             <foreach collection="requestDTO.wage" item="it" separator="and">
@@ -65,7 +66,7 @@
                     #{it}
                 </foreach>
             </if>
-        GROUP BY r.id, member_id, location, road_address, wage, start_date, end_date, start_time, end_time, expire_at
+        GROUP BY r.id, member_id, tel, patient_gender, patient_diagnosis_name, location, road_address, wage, start_date, end_date, start_time, end_time, expire_at
         ;
     </select>
 
