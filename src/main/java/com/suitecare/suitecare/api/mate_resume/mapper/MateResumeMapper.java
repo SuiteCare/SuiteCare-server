@@ -13,6 +13,6 @@ public interface MateResumeMapper {
     MateResumeDTO findResumeById(String id);
     Integer isPresentResume(String id);
     Integer createMateResume(@Param("id") String id, @Param("mateResumeDTO") MateResumeDTO mateResumeDTO);
-    void updateMateResume(@Param("id") String id, @Param("mateResumeDTO") MateResumeDTO mateResumeDTO);
+    void updateMateResume(@Param("login_id") String login_id, @Param("mateResumeDTO") MateResumeDTO mateResumeDTO);
     List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO);
 }

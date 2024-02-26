@@ -12,11 +12,38 @@
         </foreach>
     </insert>
 
+    <insert id="insertCareer">
+        INSERT INTO career(mate_resume_id, name, job_name, date_start, date_end)
+        VALUES
+            (#{mateResumeId}, #{careerDTO.name}, #{careerDTO.jobName}, #{careerDTO.dateStart}, #{careerDTO.dateEnd})
+    </insert>
+
     <select id="findCareerById" resultType="CareerDTO">
         SELECT c.id, name, job_name as jobName, date_start as dateStart, date_end as dateEnd
         FROM career c
         JOIN materesume m ON m.id = mate_resume_id
         WHERE m.id =#{id};
     </select>
+
+    <update id="updateCareer">
+        UPDATE career
+        SET
+        <if test="careerDTO.name != null">
+            name = #{mateResumeDTO.name}
+        </if>
+
+        <if test="careerDTO.job_name != null">
+            job_name = #{mateResumeDTO.job_name}
+        </if>
+
+        <if test="careerDTO.date_start != null">
+            date_start = #{mateResumeDTO.date_start}
+        </if>
+
+        <if test="careerDTO.date_end != null">
+            date_end = #{mateResumeDTO.date_end}
+        </if>
+        WHERE id = #{careerDTO.id}
+    </update>
 
 </mapper>

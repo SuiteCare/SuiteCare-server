@@ -21,9 +21,30 @@
         WHERE id = #{id};
     </select>
 
-    <select id="isPresentResume">
-        SELECT id FROM materesume WHERE member_id = #{id}
-    </select>
+    <update id="updateMateResume">
+        UPDATE MateResume
+        SET
+            <if test="mateResumeDTO.profile_picture_filename != null">
+                profile_picture_filename = #{mateResumeDTO.profile_picture_filename}
+            </if>
+
+            <if test="mateResumeDTO.introduction != null">
+                introduction = #{mateResumeDTO.introduction}
+            </if>
+
+            <if test="mateResumeDTO.contact_time_start != null">
+                contact_time_start = #{mateResumeDTO.contact_time_start}
+            </if>
+
+            <if test="mateResumeDTO.contact_time_end != null">
+                contact_time_end = #{mateResumeDTO.contact_time_end}
+            </if>
+
+            <if test="mateResumeDTO.desired_wage != null">
+                desired_wage = #{mateResumeDTO.desired_wage}
+            </if>
+        WHERE id = #{login_id}
+    </update>
 
     <select id="getSearchedMate" resultType="SearchedMateResponseDTO">
         WITH resume	AS (

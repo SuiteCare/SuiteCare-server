@@ -10,4 +10,10 @@ import java.util.List;
 public interface CertificateMapper {
     List<CertificateDTO> findCertificateById(String id);
     void createCertificate(@Param("mateResumeId") String mateResumeId, @Param("certificateList") List<CertificateDTO> certificateList);
+
+    /* 단건 Insert */
+    void insertCertificate(String login_id, CertificateDTO certificateDTO);
+
+    /* 단건 Update */
+    void updateCertificate(CertificateDTO certificateDTO);
 }
