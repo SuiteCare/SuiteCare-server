@@ -11,9 +11,10 @@ import java.util.List;
 public interface PatientMapper {
     Integer createPatient(String login_id, PatientRequestDTO patientRequestDTO);
     Integer createPatientDetail(PatientRequestDTO patientRequestDTO);
-    List<PatientRequestDTO> getPatientList(String id);
+    List<PatientRequestDTO> getPatientList(String login_id);
     PatientResponseDTO getPatient(String id);
     PatientDetailResponseDTO getPatientDetail(String id);
     Integer updatePatient(PatientRequestDTO patientRequestDTO);
     Integer updatePatientDetail(PatientRequestDTO patientRequestDTO);
+    Integer deletePatient(Long id, String login_id);
 }

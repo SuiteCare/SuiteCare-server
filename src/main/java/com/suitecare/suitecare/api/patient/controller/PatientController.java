@@ -20,8 +20,8 @@ public class PatientController {
     /* 환자 목록 조회 */
     @GetMapping("/patient")
     public List<PatientRequestDTO> getPatientList(HttpServletRequest request){
-        String id = (String) request.getAttribute("id");
-        return patientService.getPatientList(id);
+        String login_id = (String) request.getAttribute("id");
+        return patientService.getPatientList(login_id);
     }
 
     /* 환자 기본 조회 */
@@ -48,5 +48,11 @@ public class PatientController {
     public int updatePatient(@PathVariable Long id, @RequestBody PatientRequestDTO patientRequestDTO) {
         patientRequestDTO.setId(id);
         return patientService.updatePatient(patientRequestDTO);
+    }
+
+    @DeleteMapping("/patient/{id}")
+    public int deletePatient(@PathVariable Long id, HttpServletRequest requet) {
+        String login_id = (String)requet.getAttribute("id");
+        return patientService.deletePatient(id, login_id);
     }
 }

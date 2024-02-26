@@ -17,8 +17,8 @@ public class PatientService {
 
     /* 환자 목록 조회 */
     @Transactional
-    public List<PatientRequestDTO> getPatientList(String id){
-        return patientMapper.getPatientList(id);
+    public List<PatientRequestDTO> getPatientList(String login_id){
+        return patientMapper.getPatientList(login_id);
     }
 
     /* 환자 조회 */
@@ -35,7 +35,7 @@ public class PatientService {
 
     /* 환자 추가 */
     @Transactional
-    public int createPatient(String login_id, PatientRequestDTO patientRequestDTO){
+    public int createPatient(String login_id, PatientRequestDTO patientRequestDTO) {
         // Patient 를 생성하려는 회원이 family 회원이 맞는지 검증 필요
         // Patient 레코드 생성
         Integer addPatientCount = patientMapper.createPatient(login_id, patientRequestDTO);
@@ -55,5 +55,9 @@ public class PatientService {
         }
 
         return 0;
+    }
+
+    public int deletePatient(Long id, String login_id) {
+        return patientMapper.deletePatient(id, login_id);
     }
 }
