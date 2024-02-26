@@ -25,7 +25,7 @@
     </insert>
 
     <select id="getSearchedRecruitment">
-        SELECT r.id, member_id, location, road_address, wage, start_date, end_date, start_time, end_time, expire_at, group_concat(day) AS day
+        SELECT r.id, member_id, location, SUBSTRING_INDEX(road_address, ' ', 2) AS road_address, wage, start_date, end_date, start_time, end_time, expire_at, group_concat(day) AS day
         FROM recruitment r
         JOIN dayofreservation d ON d.recruitment_id = r.id
         WHERE
@@ -54,7 +54,7 @@
                 AND diagnosis_name like '%#{requestDTO.search_input}%'
             </if>
             <if test="requestDTO.location != null">
-                AND SUBSTRING(road_address, 4, 3) in
+                AND SUBSTRING_INDEX(SUBSTRING_INDEX(road_address, ' ', 2), ' ', -1) in
                 <foreach collection="requestDTO.location" item="it" open="(" close=")" separator=",">
                     #{it}
                 </foreach>
