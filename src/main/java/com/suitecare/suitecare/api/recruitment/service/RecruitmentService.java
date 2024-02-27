@@ -1,6 +1,6 @@
 package com.suitecare.suitecare.api.recruitment.service;
 
-import com.suitecare.suitecare.api.mate.mapper.MateMapper;
+import com.suitecare.suitecare.api.mate_resume.mapper.MateResumeMapper;
 import com.suitecare.suitecare.api.recruitment.dto.PendingRecruitmentResponseDTO;
 import com.suitecare.suitecare.api.recruitment.dto.RecruitmentRequestDTO;
 import com.suitecare.suitecare.api.recruitment.dto.SearchedRecruitmentRequestDTO;
@@ -20,7 +20,7 @@ public class RecruitmentService {
     @Autowired
     RecruitmentMapper recruitmentMapper;
     @Autowired
-    MateMapper mateMapper;
+    MateResumeMapper mateResumeMapper;
 
     /* 간병 공고 등록 */
     @Transactional
@@ -60,7 +60,7 @@ public class RecruitmentService {
 
     /* 간병인 이력서 유무 확인 */
     public boolean isPresentResume(String login_id) { // 간병인 이력서 여부
-        return mateMapper.isPresentResume(login_id) != null;
+        return mateResumeMapper.isPresentResume(login_id) != 1;
     }
 
     /* 간병 지원 여부 */
