@@ -40,8 +40,6 @@ public class RecruitmentService {
             if(!weekdays.contains(day)) excluded_days.add(day);
         }
 
-        System.err.println("size : " + excluded_days.size());
-
         return recruitmentMapper.getSearchedRecruitment(requestDTO, excluded_days);
     }
 

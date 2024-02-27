@@ -30,7 +30,8 @@
         JOIN dayofreservation d ON d.recruitment_id = r.id
         JOIN suitemember s ON s.id = r.member_id
         WHERE
-            wage between
+            expire_at > now() AND status = 'P'
+            AND wage BETWEEN
             <foreach collection="requestDTO.wage" item="it" separator="and">
                 #{it}
             </foreach>
