@@ -112,6 +112,6 @@
     </update>
 
     <select id="isPresentResume">
-        SELECT id FROM materesume WHERE id = #{login_id}
+        SELECT count(id) FROM materesume WHERE id = #{login_id}
     </select>
 </mapper>

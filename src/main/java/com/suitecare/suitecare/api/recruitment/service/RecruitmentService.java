@@ -58,7 +58,7 @@ public class RecruitmentService {
 
     /* 간병인 이력서 유무 확인 */
     public boolean isPresentResume(String login_id) { // 간병인 이력서 여부
-        return mateResumeMapper.isPresentResume(login_id) != 1;
+        return mateResumeMapper.isPresentResume(login_id) == 1;
     }
 
     /* 간병 지원 여부 */
