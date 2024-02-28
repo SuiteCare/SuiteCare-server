@@ -1,9 +1,6 @@
 package com.suitecare.suitecare.api.recruitment.controller;
 
-import com.suitecare.suitecare.api.recruitment.dto.PendingRecruitmentResponseDTO;
-import com.suitecare.suitecare.api.recruitment.dto.RecruitmentRequestDTO;
-import com.suitecare.suitecare.api.recruitment.dto.SearchedRecruitmentRequestDTO;
-import com.suitecare.suitecare.api.recruitment.dto.SearchedRecruitmentResponseDTO;
+import com.suitecare.suitecare.api.recruitment.dto.*;
 import com.suitecare.suitecare.api.recruitment.service.RecruitmentService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +20,11 @@ public class RecruitmentController {
     public Integer createRecruitment(HttpServletRequest request, @RequestBody RecruitmentRequestDTO recruitmentRequestDTO) {
         String login_id = (String)request.getAttribute("id");
         return recruitmentService.createRecruitment(login_id, recruitmentRequestDTO);
+    }
+
+    @GetMapping("/recruitment/{recruitment_id}")
+    public RecruitmentPatientResponseDTO getRecruitmentPatientById(@PathVariable Long recruitment_id) {
+        return recruitmentService.getRecruitmentPatientById(recruitment_id);
     }
 
     @GetMapping("/search/recruitment")

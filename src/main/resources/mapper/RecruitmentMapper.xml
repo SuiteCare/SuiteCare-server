@@ -24,6 +24,10 @@
         </foreach>
     </insert>
 
+    <select id="getRecruitmentPatientById">
+        SELECT * FROM recruitment WHERE id = #{id};
+    </select>
+
     <select id="getSearchedRecruitment">
         SELECT r.id, member_id, tel, patient_gender, patient_birthday, patient_diagnosis_name, location, SUBSTRING_INDEX(road_address, ' ', 2) AS road_address, wage, start_date, end_date, start_time, end_time, expire_at, group_concat(day) AS day
         FROM recruitment r

@@ -1,10 +1,7 @@
 package com.suitecare.suitecare.api.recruitment.service;
 
 import com.suitecare.suitecare.api.mate_resume.mapper.MateResumeMapper;
-import com.suitecare.suitecare.api.recruitment.dto.PendingRecruitmentResponseDTO;
-import com.suitecare.suitecare.api.recruitment.dto.RecruitmentRequestDTO;
-import com.suitecare.suitecare.api.recruitment.dto.SearchedRecruitmentRequestDTO;
-import com.suitecare.suitecare.api.recruitment.dto.SearchedRecruitmentResponseDTO;
+import com.suitecare.suitecare.api.recruitment.dto.*;
 import com.suitecare.suitecare.api.recruitment.mapper.RecruitmentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +26,10 @@ public class RecruitmentService {
             return recruitmentMapper.createDayOfReservation(recruitmentRequestDTO);
         }
         return 0;
+    }
+
+    public RecruitmentPatientResponseDTO getRecruitmentPatientById(Long id) {
+        return recruitmentMapper.getRecruitmentPatientById(id);
     }
 
     /* 간병 공고 검색 */
