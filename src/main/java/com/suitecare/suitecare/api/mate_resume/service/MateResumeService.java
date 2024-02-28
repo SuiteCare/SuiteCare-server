@@ -28,10 +28,17 @@ public class MateResumeService {
         // 이력서 Insert
         mateResumeMapper.createMateResume(id, resume_dto.getMateResume());
 
-        // 경력, 자격증, 지역, 대표서비스 Insert
-        careerMapper.createCareer(id, resume_dto.getCareerList());
-        certificateMapper.createCertificate(id, resume_dto.getCertificateList());
+        // 경력 Insert
+        if(resume_dto.getCareerList() != null) {
+            careerMapper.createCareer(id, resume_dto.getCareerList());
+        }
+        // 자격증 Insert
+        if(resume_dto.getCertificateList() != null) {
+            certificateMapper.createCertificate(id, resume_dto.getCertificateList());
+        }
+        // 지역 Insert
         locationMapper.createLocation(id, resume_dto.getLocationList());
+        // 대표서비스 Insert
         mainSeviceMapper.createMainService(id, resume_dto.getMainServiceList());
 
         return 1;
