@@ -25,8 +25,8 @@ public class MateResumeController {
     /* 간병인 이력서 등록 */
     @PostMapping("/mate/resume")
     public int createResume(HttpServletRequest request, @RequestBody ResumeDTO resumeDTO) {
-        String id = (String) request.getAttribute("id");
-        return mateResumeService.createResume(id, resumeDTO);
+        String login_id = (String) request.getAttribute("id");
+        return mateResumeService.createResume(login_id, resumeDTO);
     }
 
     @PatchMapping("/mate/resume")
