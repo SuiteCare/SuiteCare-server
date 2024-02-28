@@ -9,8 +9,8 @@ import java.util.List;
 public interface RecruitmentMapper {
     Integer createRecruitment(String login_id, RecruitmentRequestDTO recruitmentRequestDTO);
     Integer createDayOfReservation(RecruitmentRequestDTO recruitmentRequestDTO);
-    RecruitmentDetailDTO getRecruitmentById(Long id);
-    RecruitmentPatientResponseDTO getRecruitmentPatientById(Long id);
+    RecruitmentDetailDTO getRecruitmentById(Long recruitment_id);
+    RecruitmentPatientResponseDTO getRecruitmentPatientById(Long recruitment_id);
     List<SearchedRecruitmentResponseDTO> getSearchedRecruitment(SearchedRecruitmentRequestDTO requestDTO, List<Integer> excluded_days);
     Integer isPresentApplicant(String login_id, Long recruitment_id);
     Integer applyRecruitment(String login_id, Long recruitment_id);

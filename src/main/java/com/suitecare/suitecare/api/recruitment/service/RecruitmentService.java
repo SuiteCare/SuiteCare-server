@@ -28,12 +28,12 @@ public class RecruitmentService {
         return 0;
     }
 
-    public RecruitmentDetailDTO getRecruitmentById(Long id) {
-        return recruitmentMapper.getRecruitmentById(id);
+    public RecruitmentDetailDTO getRecruitmentById(Long recruitment_id) {
+        return recruitmentMapper.getRecruitmentById(recruitment_id);
     }
 
-    public RecruitmentPatientResponseDTO getRecruitmentPatientById(Long id) {
-        return recruitmentMapper.getRecruitmentPatientById(id);
+    public RecruitmentPatientResponseDTO getRecruitmentPatientById(Long recruitment_id) {
+        return recruitmentMapper.getRecruitmentPatientById(recruitment_id);
     }
 
     /* 간병 공고 검색 */
