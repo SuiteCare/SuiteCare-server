@@ -7,7 +7,7 @@
     <!--<insert id="createMateResume" useGeneratedKeys="true" keyProperty="mateResumeDTO.id">-->
     <insert id="createMateResume">
         INSERT INTO mateResume(id, profile_picture_filename, contact_time_start, contact_time_end, introduction, desired_wage)
-        VALUES (#{id}, #{mateResumeDTO.profile_picture_filename}, #{mateResumeDTO.contact_time_start}, #{mateResumeDTO.contact_time_end}, #{mateResumeDTO.introduction}, #{mateResumeDTO.desired_wage});
+        VALUES (#{login_id}, #{mateResumeDTO.profile_picture_filename}, #{mateResumeDTO.contact_time_start}, #{mateResumeDTO.contact_time_end}, #{mateResumeDTO.introduction}, #{mateResumeDTO.desired_wage});
     </insert>
     
     <select id="findResumeById" resultType="MateResumeDTO">
@@ -18,7 +18,7 @@
                 contact_time_end,
                 desired_wage
         FROM materesume
-        WHERE id = #{id};
+        WHERE id = #{login_id};
     </select>
 
     <update id="updateMateResume">
