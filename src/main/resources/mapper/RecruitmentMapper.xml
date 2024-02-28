@@ -24,6 +24,13 @@
         </foreach>
     </insert>
 
+    <select id="getRecruitmentById">
+        SELECT location, road_address, address_detail, wage, start_time, end_time, GROUP_CONCAT(day) as weekday
+        FROM recruitment r
+        JOIN dayofreservation d ON d.recruitment_id = r.id
+        WHERE r.id = #{id};
+    </select>
+
     <select id="getRecruitmentPatientById">
         SELECT * FROM recruitment WHERE id = #{id};
     </select>

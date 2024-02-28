@@ -28,6 +28,10 @@ public class RecruitmentService {
         return 0;
     }
 
+    public RecruitmentDetailDTO getRecruitmentById(Long id) {
+        return recruitmentMapper.getRecruitmentById(id);
+    }
+
     public RecruitmentPatientResponseDTO getRecruitmentPatientById(Long id) {
         return recruitmentMapper.getRecruitmentPatientById(id);
     }

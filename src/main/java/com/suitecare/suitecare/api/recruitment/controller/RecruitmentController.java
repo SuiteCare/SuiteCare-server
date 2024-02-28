@@ -22,7 +22,14 @@ public class RecruitmentController {
         return recruitmentService.createRecruitment(login_id, recruitmentRequestDTO);
     }
 
+    /* 공고 추가 정보 불러오기 */
     @GetMapping("/recruitment/{recruitment_id}")
+    public RecruitmentDetailDTO getRecruitmentById(@PathVariable Long recruitment_id) {
+        return recruitmentService.getRecruitmentById(recruitment_id);
+    }
+
+    /* 공고에 대한 환자 정보 불러오기 */
+    @GetMapping("/recruitment-patient/{recruitment_id}")
     public RecruitmentPatientResponseDTO getRecruitmentPatientById(@PathVariable Long recruitment_id) {
         return recruitmentService.getRecruitmentPatientById(recruitment_id);
     }
