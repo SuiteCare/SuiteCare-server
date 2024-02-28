@@ -30,7 +30,8 @@
         JOIN dayofreservation d ON d.recruitment_id = r.id
         JOIN suitemember s ON s.id = r.member_id
         WHERE
-            wage between
+            expire_at > now() AND status = 'P'
+            AND wage BETWEEN
             <foreach collection="requestDTO.wage" item="it" separator="and">
                 #{it}
             </foreach>
@@ -52,7 +53,7 @@
                 )
             </if>
             <if test="requestDTO.search_input neq ''">
-                AND diagnosis_name like '%#{requestDTO.search_input}%'
+                AND patient_diagnosis_name like CONCAT('%', #{requestDTO.search_input}, '%')
             </if>
             <if test="requestDTO.location != null">
                 AND SUBSTRING_INDEX(SUBSTRING_INDEX(road_address, ' ', 2), ' ', -1) in
@@ -61,10 +62,7 @@
                 </foreach>
             </if>
             <if test="requestDTO.gender != null and requestDTO.gender.length == 1">
-                AND gender =
-                <foreach collection="requestDTO.gender" item="it">
-                    #{it}
-                </foreach>
+                AND patient_gender = #{requestDTO.gender[0]}
             </if>
         GROUP BY r.id, member_id, tel, patient_gender, patient_diagnosis_name, location, road_address, wage, start_date, end_date, start_time, end_time, expire_at
         ;

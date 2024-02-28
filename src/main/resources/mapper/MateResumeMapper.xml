@@ -111,4 +111,7 @@
         WHERE id = #{id}
     </update>
 
+    <select id="isPresentResume">
+        SELECT count(id) FROM materesume WHERE id = #{login_id}
+    </select>
 </mapper>
