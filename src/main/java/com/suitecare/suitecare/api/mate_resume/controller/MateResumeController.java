@@ -17,10 +17,9 @@ public class MateResumeController {
     MateResumeService mateResumeService;
 
     /* 간병인 이력서 조회 */
-    @GetMapping("/mate/resume")
-    public ResumeDTO getResume(HttpServletRequest request) {
-        String id = (String) request.getAttribute("id");
-        return mateResumeService.findMateResumeById(id);
+    @GetMapping("/mate/resume/{login_id}")
+    public ResumeDTO getResume(@PathVariable String login_id) {
+        return mateResumeService.findMateResumeById(login_id);
     }
 
     /* 간병인 이력서 등록 */

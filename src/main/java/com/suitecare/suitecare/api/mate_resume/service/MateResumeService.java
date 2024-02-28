@@ -46,9 +46,9 @@ public class MateResumeService {
     }
 
     /* 이력서 조회 */
-    public ResumeDTO findMateResumeById(String id) {
+    public ResumeDTO findMateResumeById(String login_id) {
 
-        MateResumeDTO mateResumeDTO = mateResumeMapper.findResumeById(id);
+        MateResumeDTO mateResumeDTO = mateResumeMapper.findResumeById(login_id);
         String mate_resume_id = mateResumeDTO.getId();
 
         return ResumeDTO.builder()
