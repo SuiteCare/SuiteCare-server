@@ -23,23 +23,23 @@ public class MateResumeService {
 
     /* 간병인 이력서 등록 */
     @Transactional
-    public int createResume(String id, ResumeDTO resume_dto) {
+    public int createResume(String login_id, ResumeDTO resume_dto) {
 
         // 이력서 Insert
-        mateResumeMapper.createMateResume(id, resume_dto.getMateResume());
+        mateResumeMapper.createMateResume(login_id, resume_dto.getMateResume());
 
         // 경력 Insert
         if(resume_dto.getCareerList() != null) {
-            careerMapper.createCareer(id, resume_dto.getCareerList());
+            careerMapper.createCareer(login_id, resume_dto.getCareerList());
         }
         // 자격증 Insert
         if(resume_dto.getCertificateList() != null) {
-            certificateMapper.createCertificate(id, resume_dto.getCertificateList());
+            certificateMapper.createCertificate(login_id, resume_dto.getCertificateList());
         }
         // 지역 Insert
-        locationMapper.createLocation(id, resume_dto.getLocationList());
+        locationMapper.createLocation(login_id, resume_dto.getLocationList());
         // 대표서비스 Insert
-        mainSeviceMapper.createMainService(id, resume_dto.getMainServiceList());
+        mainSeviceMapper.createMainService(login_id, resume_dto.getMainServiceList());
 
         return 1;
 
