@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SearchedRecruitmentRequestDTO {
-    private String search_input; // introduction에서 검색하게!
+    private String search_input;
     private String[] gender;
     private String[] location;
     private Integer[] wage;

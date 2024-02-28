@@ -1,9 +1,6 @@
 package com.suitecare.suitecare.api.recruitment.mapper;
 
-import com.suitecare.suitecare.api.recruitment.dto.PendingRecruitmentResponseDTO;
-import com.suitecare.suitecare.api.recruitment.dto.RecruitmentRequestDTO;
-import com.suitecare.suitecare.api.recruitment.dto.SearchedRecruitmentRequestDTO;
-import com.suitecare.suitecare.api.recruitment.dto.SearchedRecruitmentResponseDTO;
+import com.suitecare.suitecare.api.recruitment.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,6 +9,8 @@ import java.util.List;
 public interface RecruitmentMapper {
     Integer createRecruitment(String login_id, RecruitmentRequestDTO recruitmentRequestDTO);
     Integer createDayOfReservation(RecruitmentRequestDTO recruitmentRequestDTO);
+    RecruitmentDetailDTO getRecruitmentById(Long recruitment_id);
+    RecruitmentPatientResponseDTO getRecruitmentPatientById(Long recruitment_id);
     List<SearchedRecruitmentResponseDTO> getSearchedRecruitment(SearchedRecruitmentRequestDTO requestDTO, List<Integer> excluded_days);
     Integer isPresentApplicant(String login_id, Long recruitment_id);
     Integer applyRecruitment(String login_id, Long recruitment_id);
