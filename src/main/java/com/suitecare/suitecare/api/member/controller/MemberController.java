@@ -20,26 +20,26 @@ public class MemberController {
 
     @GetMapping("/mypage")
     public MypageResponseDTO getMypageById(HttpServletRequest request){
-        String id = (String) request.getAttribute("id");
-        return memberService.findMypageById(id);
+        String login_id = (String) request.getAttribute("id");
+        return memberService.getMypageById(login_id);
     }
 
     @PostMapping("/changepassword")
     public Integer changePassword(@RequestBody ChangePasswordRequestDTO changePasswordRequestDTO, HttpServletRequest request){
-        String id = (String) request.getAttribute("id");
-        return memberService.changePassword(id, changePasswordRequestDTO);
+        String login_id = (String) request.getAttribute("id");
+        return memberService.changePassword(login_id, changePasswordRequestDTO);
     }
 
     @PatchMapping("/member")
     public Integer updateMember(@RequestBody UpdateMemberRequestDTO updateMemberRequestDTO, HttpServletRequest request) {
-        String id = (String) request.getAttribute("id");
-        return memberService.updateMember(id, updateMemberRequestDTO);
+        String login_id = (String) request.getAttribute("id");
+        return memberService.updateMember(login_id, updateMemberRequestDTO);
     }
 
     @PatchMapping("/member/role")
     public Integer updateRole(HttpServletRequest request) {
-        String id = (String) request.getAttribute("id");
-        return memberService.updateRole(id);
+        String login_id = (String) request.getAttribute("id");
+        return memberService.updateRole(login_id);
     }
 
 }

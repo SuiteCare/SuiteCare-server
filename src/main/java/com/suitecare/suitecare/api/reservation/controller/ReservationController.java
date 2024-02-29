@@ -26,11 +26,11 @@ public class ReservationController {
         return reservationService.getSearchedReservation(requestDTO);
     }
 
-    @PostMapping("/apply")
-    public Integer applyReservation(HttpServletRequest request, @RequestBody ApplyReservationRequestDTO applyReservationRequestDTO) {
-        String id = (String) request.getAttribute("id");
-        return  reservationService.applyReservation(id, applyReservationRequestDTO);
-    }
+//    @PostMapping("/apply")
+//    public Integer applyReservation(HttpServletRequest request, @RequestBody ApplyReservationRequestDTO applyReservationRequestDTO) {
+//        String id = (String) request.getAttribute("id");
+//        return  reservationService.applyReservation(id, applyReservationRequestDTO);
+//    }
   
     @GetMapping("/pendingReservation")
     public List<PendingReservationResponseDTO> getReservationListById(HttpServletRequest request) {
