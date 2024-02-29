@@ -54,16 +54,28 @@ public class RecruitmentService {
     }
 
     /* 간병인의 공고 지원하기 */
-    public Integer applyRecruitment(String login_id, Long recruitment_id) {
+    public Integer applyToRecruitment(String login_id, Long recruitment_id) {
+        String role = "M";
+
         if(!isPresentResume(login_id)) {
             return 0;
         }
 
-        if(!isPresentApplicant(login_id, recruitment_id)) {
-            return recruitmentMapper.applyRecruitment(login_id, recruitment_id);
+        if(!isPresentApplicant(login_id, recruitment_id, role)) {
+            return recruitmentMapper.applyToRecruitment(login_id, recruitment_id);
         }
 
         return 2;
+    }
+
+    public Integer applyToMate(ApplyToMateRequestDTO applyToMateRequestDTO) {
+        String role = "F";
+        
+        if(!isPresentApplicant(applyToMateRequestDTO.getMate_id(), applyToMateRequestDTO.getRecruitment_id(), role)) {
+            return recruitmentMapper.applyToMate(applyToMateRequestDTO);
+        }
+        
+        return 2; // 이미 신청한 간병인인 경우
     }
 
     /* 간병인 이력서 유무 확인 */
@@ -72,8 +84,8 @@ public class RecruitmentService {
     }
 
     /* 간병 지원 여부 */
-    public boolean isPresentApplicant(String login_id, Long recruitment_id) { // 지원 여부
-        return recruitmentMapper.isPresentApplicant(login_id, recruitment_id) != 0;
+    public boolean isPresentApplicant(String login_id, Long recruitment_id, String role) { // 지원 여부
+        return recruitmentMapper.isPresentApplicant(login_id, recruitment_id, role) != 0;
     }
 
     /* 로그인 아이디에 따른 예약 확정되지 않은 공고 목록 */
@@ -85,4 +97,6 @@ public class RecruitmentService {
     public List<AppliedRecruitmentDTO> getAppliedRecruitmentListById(String login_id) {
         return recruitmentMapper.getAppliedRecruitmentListById(login_id);
     }
+
+
 }
