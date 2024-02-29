@@ -71,8 +71,7 @@ public class MateResumeService {
     public void updateResume(String login_id, ResumeDTO resumeDTO) {
 
         /* 이력서 기본 정보 업데이트 */
-        MateResumeDTO mateResumeDTO = resumeDTO.getMateResume();
-        mateResumeMapper.updateMateResume(login_id, mateResumeDTO);
+        if (resumeDTO.getMateResume() != null) mateResumeMapper.updateMateResume(login_id, resumeDTO.getMateResume());
 
         /* 이력서 상세 정보 업데이트 */
         updateDtoElement(login_id, resumeDTO.getCareerList(), careerMapper::insertCareer, careerMapper::updateCareer);
