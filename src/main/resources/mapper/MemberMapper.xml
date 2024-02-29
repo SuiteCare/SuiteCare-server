@@ -21,7 +21,7 @@
     </select>
 
     <select id="getMypageById">
-        select * from suitemember where id = #{id};
+        select * from suitemember where id = #{login_id};
     </select>
 
     <!--회원 정보 수정-->
@@ -38,24 +38,24 @@
                 email = #{updateMemberRequestDTO.email},
             </if>
         </set>
-        where id = #{id}
+        where id = #{login_id}
     </update>
 
     <select id="getPasswordById">
-        select password from suitemember where id = #{id};
+        select password from suitemember where id = #{login_id};
     </select>
 
     <!--비밀번호 변경-->
     <update id="changePassword">
         update SuiteMember
         set password = #{newPassword}
-        where id = #{id};
+        where id = #{login_id};
     </update>
 
     <update id="updateRole">
         UPDATE suitemember
         SET role = 'A'
-        WHERE id = #{id};
+        WHERE id = #{login_id};
     </update>
 
 </mapper>

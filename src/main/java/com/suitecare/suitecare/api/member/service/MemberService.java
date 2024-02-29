@@ -49,27 +49,27 @@ public class MemberService {
         return loginDTO;
     }
 
-    public MypageResponseDTO findMypageById(String id) {
-        return memberMapper.getMypageById(id);
+    public MypageResponseDTO getMypageById(String login_id) {
+        return memberMapper.getMypageById(login_id);
     }
 
-    public Integer changePassword(String id, ChangePasswordRequestDTO changePasswordRequestDTO) {
-        String dbPassword = memberMapper.getPasswordById(id);
+    public Integer changePassword(String login_id, ChangePasswordRequestDTO changePasswordRequestDTO) {
+        String dbPassword = memberMapper.getPasswordById(login_id);
         if(passwordEncoder.matches(changePasswordRequestDTO.getOriginPassword(), dbPassword)) {
             if(changePasswordRequestDTO.getNewPassword().equals(changePasswordRequestDTO.getNewPasswordCheck())) {
                 String newPassword = passwordEncoder.encode(changePasswordRequestDTO.getNewPassword());
-                return memberMapper.changePassword(id, newPassword);
+                return memberMapper.changePassword(login_id, newPassword);
             }
         }
 
         return 0;
     }
 
-    public Integer updateMember(String id, UpdateMemberRequestDTO updateMemberRequestDTO) {
-        return memberMapper.updateMember(id, updateMemberRequestDTO);
+    public Integer updateMember(String login_id, UpdateMemberRequestDTO updateMemberRequestDTO) {
+        return memberMapper.updateMember(login_id, updateMemberRequestDTO);
     }
 
-    public Integer updateRole(String id) {
-        return memberMapper.updateRole(id);
+    public Integer updateRole(String login_id) {
+        return memberMapper.updateRole(login_id);
     }
 }
