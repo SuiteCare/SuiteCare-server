@@ -1,11 +1,16 @@
 package com.suitecare.suitecare.api.mate_resume.service;
 
+import com.suitecare.suitecare.api.custom.ifc.DTO;
 import com.suitecare.suitecare.api.mate_resume.dto.*;
 import com.suitecare.suitecare.api.mate_resume.mapper.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 @Slf4j
 @Service
@@ -69,53 +74,33 @@ public class MateResumeService {
         MateResumeDTO mateResumeDTO = resumeDTO.getMateResume();
         mateResumeMapper.updateMateResume(login_id, mateResumeDTO);
 
-        /* 경력 업데이트 */
-        if(resumeDTO.getCareerList() != null) {
-            for (CareerDTO careerDTO : resumeDTO.getCareerList()) {
-                // id 가 null 인 경우 신규
-                if (careerDTO.getId() == null) {
-                    careerMapper.insertCareer(login_id, careerDTO);
-                } else {
-                    careerMapper.updateCareer(careerDTO);
-                }
-            }
-        }
+        /* 이력서 상세 정보 업데이트 */
+        updateDtoElement(login_id, resumeDTO.getCareerList(), careerMapper::insertCareer, careerMapper::updateCareer);
+        updateDtoElement(login_id, resumeDTO.getCertificateList(), certificateMapper::insertCertificate, certificateMapper::updateCertificate);
+        updateDtoElement(login_id, resumeDTO.getLocationList(), locationMapper::insertLocation, locationMapper::updateLocation);
+        updateDtoElement(login_id, resumeDTO.getMainServiceList(), mainSeviceMapper::insertMainService, mainSeviceMapper::updateMainService);
 
-        /* 자격증 업데이트 */
-        if(resumeDTO.getCertificateList() != null) {
-            for(CertificateDTO certificateDTO : resumeDTO.getCertificateList()) {
-                // id 가 null 인 경우 신규
-                if(certificateDTO.getId() == null) {
-                    certificateMapper.insertCertificate(login_id, certificateDTO);
-                }else {
-                    certificateMapper.updateCertificate(certificateDTO);
-                }
-            }
-        }
-
-        /* 지역 업데이트 */
-        for(LocationDTO locationDTO : resumeDTO.getLocationList()) {
-            // id 가 null 인 경우 신규
-            if(locationDTO.getId() == null) {
-                locationMapper.insertLocation(login_id, locationDTO);
-            }else {
-                locationMapper.updateLocation(locationDTO);
-            }
-        }
-
-        /* 대표 서비스 업데이트 */
-        for(MainServiceDTO mainServiceDTO : resumeDTO.getMainServiceList()) {
-            // id 가 null 인 경우 신규
-            if(mainServiceDTO.getId() == null) {
-                mainSeviceMapper.insertMainService(login_id, mainServiceDTO);
-            }else {
-                mainSeviceMapper.updateMainService(mainServiceDTO);
-            }
-        }
     }
+
     /*
     public List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO) {
         return mateResumeMapper.getSearchedMate(searchedMateRequestDTO);
     }
     */
+
+    /* DTO 요소 업데이트를 위한 메소드 */
+    public static <T extends DTO> void updateDtoElement(String login_id, List<T> elements, BiConsumer<String, T> insertMethod, Consumer<T> updateMethod) {
+
+        if (elements == null) return;
+
+        elements.forEach(element -> {
+            if (element.getId() == null) {
+                insertMethod.accept(login_id, element);
+            } else {
+                updateMethod.accept(element);
+            }
+        });
+
+    }
+
 }
