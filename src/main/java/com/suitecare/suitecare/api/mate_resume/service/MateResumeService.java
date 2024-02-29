@@ -70,22 +70,26 @@ public class MateResumeService {
         mateResumeMapper.updateMateResume(login_id, mateResumeDTO);
 
         /* 경력 업데이트 */
-        for(CareerDTO careerDTO : resumeDTO.getCareerList()) {
-            // id 가 null 인 경우 신규
-            if(careerDTO.getId() == null) {
-                careerMapper.insertCareer(login_id, careerDTO);
-            }else {
-                careerMapper.updateCareer(careerDTO);
+        if(resumeDTO.getCareerList() != null) {
+            for (CareerDTO careerDTO : resumeDTO.getCareerList()) {
+                // id 가 null 인 경우 신규
+                if (careerDTO.getId() == null) {
+                    careerMapper.insertCareer(login_id, careerDTO);
+                } else {
+                    careerMapper.updateCareer(careerDTO);
+                }
             }
         }
 
         /* 자격증 업데이트 */
-        for(CertificateDTO certificateDTO : resumeDTO.getCertificateList()) {
-            // id 가 null 인 경우 신규
-            if(certificateDTO.getId() == null) {
-                certificateMapper.insertCertificate(login_id, certificateDTO);
-            }else {
-                certificateMapper.updateCertificate(certificateDTO);
+        if(resumeDTO.getCertificateList() != null) {
+            for(CertificateDTO certificateDTO : resumeDTO.getCertificateList()) {
+                // id 가 null 인 경우 신규
+                if(certificateDTO.getId() == null) {
+                    certificateMapper.insertCertificate(login_id, certificateDTO);
+                }else {
+                    certificateMapper.updateCertificate(certificateDTO);
+                }
             }
         }
 
