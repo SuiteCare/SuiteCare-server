@@ -117,11 +117,28 @@
         SELECT count(recruitment_id) FROM applicants WHERE recruitment_id = #{recruitment_id} AND mate_resume_id = #{login_id}
     </select>
 
-    <!-- 로그인ID에 따른 패밀리의 대기중인 공고리스트 불러오기 -->
+    <!-- 로그인ID(F)에 따른 패밀리의 대기중인 공고리스트 불러오기 -->
     <select id="getRecruitmentListById">
         SELECT id, patient_name, patient_diagnosis_name, start_date, end_date FROM recruitment
         WHERE member_id = #{login_id}
         AND status = 'P'
         AND expire_at >= now();
+    </select>
+
+    <!-- 로그인ID(M)에 따른 내가 지원한 공고 리스트 불러오기 -->
+    <select id="getAppliedRecruitmentListById">
+        WITH recruitment AS (
+            SELECT r.id, member_id, tel, patient_gender, patient_birthday, patient_diagnosis_name, location, SUBSTRING_INDEX(road_address, ' ', 2) AS road_address,
+            wage, start_date, end_date, start_time, end_time, expire_at,
+            group_concat(day) AS day
+            FROM recruitment r
+            JOIN dayofreservation d ON d.recruitment_id = r.id
+            JOIN suitemember s ON s.id = r.member_id
+            GROUP BY r.id, member_id, tel, patient_gender, patient_diagnosis_name, location, road_address, wage, start_date, end_date, start_time, end_time, expire_at
+        )
+
+        SELECT * FROM recruitment
+        JOIN applicants ON applicants.recruitment_id = recruitment.id
+        WHERE applicants.mate_resume_id = #{login_id};
     </select>
 </mapper>

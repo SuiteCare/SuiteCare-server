@@ -61,4 +61,11 @@ public class RecruitmentController {
         String login_id = (String)request.getAttribute("id");
         return recruitmentService.getRecruitmentListById(login_id);
     }
+
+    /* 로그인ID(M)에 따른 내가 지원한 공고 리스트 불러오기 */
+    @GetMapping("/appliedRecruitment")
+    public List<AppliedRecruitmentDTO> getAppliedRecruitmentListById(HttpServletRequest request) {
+        String login_id = (String)request.getAttribute("id");
+        return recruitmentService.getAppliedRecruitmentListById(login_id);
+    }
 }
