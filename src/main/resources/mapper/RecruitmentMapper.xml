@@ -4,6 +4,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.suitecare.suitecare.api.recruitment.mapper.RecruitmentMapper">
 
+    <!-- 공고 등록 -->
     <insert id="createRecruitment" useGeneratedKeys="true" keyProperty="recruitmentRequestDTO.id">
         INSERT INTO
             recruitment (member_id, location, postcode, road_address, jibun_address, address_detail, wage, start_date, end_date, start_time, end_time, create_at, expire_at, status, patient_name, patient_gender, patient_birthday, patient_diagnosis_name, patient_height, patient_weight, patient_consciousness_state, patient_meal_care_state, patient_toilet_care_state, patient_paralysis_state, patient_behavioral_state, patient_is_bedsore, patient_need_suction, patient_need_outpatient, patient_need_night_care, patient_notice)
@@ -16,6 +17,7 @@
         WHERE patient.id = #{recruitmentRequestDTO.patient_id}
     </insert>
 
+    <!-- 공고 등록(요일) -->
     <insert id="createDayOfReservation">
         INSERT INTO DayOfReservation (recruitment_id, day)
         VALUES
@@ -24,6 +26,7 @@
         </foreach>
     </insert>
 
+    <!-- 공고ID에 따른 공고상세정보 불러오기 -->
     <select id="getRecruitmentById">
         SELECT location, road_address, address_detail, wage, start_time, end_time, GROUP_CONCAT(day) as weekday
         FROM recruitment r
@@ -31,10 +34,34 @@
         WHERE r.id = #{recruitment_id};
     </select>
 
+    <!-- 공고ID에 따른 환자 정보 불러오기 -->
     <select id="getRecruitmentPatientById">
         SELECT * FROM recruitment WHERE id = #{recruitment_id};
     </select>
 
+    <!-- 공고ID에 따른 지원자 리스트 불러오기 -->
+    <select id="getApplicantListById">
+        WITH resume	AS (
+            SELECT r.id, s.name, s.gender, s.birthday, s.email, s.tel, r.profile_picture_filename, r.introduction, r.contact_time_start, r.contact_time_end, r.desired_wage,
+            group_concat(distinct loc.name) as location,
+            group_concat(distinct service.name) as mainservice
+            FROM materesume r
+            JOIN suitemember s ON s.id = r.id
+            LEFT JOIN location loc ON loc.mate_resume_id = r.id
+            LEFT JOIN mainservice service ON service.mate_resume_id = r.id
+            GROUP BY r.id, s.name, s.gender, s.birthday, s.email, s.tel, r.profile_picture_filename, r.introduction, r.contact_time_start, r.contact_time_end, r.desired_wage
+        )
+
+        SELECT *
+        FROM resume
+        WHERE resume.id IN (
+            SELECT mate_resume_id FROM applicants
+            WHERE recruitment_id = #{recruitment_id}
+            AND status = 'P' AND request_by = 'M'
+        );
+    </select>
+
+    <!-- 검색 조건에 따른 공고 불러오기 -->
     <select id="getSearchedRecruitment">
         SELECT r.id, member_id, tel, patient_gender, patient_birthday, patient_diagnosis_name, location, SUBSTRING_INDEX(road_address, ' ', 2) AS road_address, wage, start_date, end_date, start_time, end_time, expire_at, group_concat(day) AS day
         FROM recruitment r
@@ -79,19 +106,39 @@
         ;
     </select>
 
+    <!-- 간병인의 공고 지원 -->
     <insert id="applyRecruitment">
         INSERT INTO applicants (recruitment_id, mate_resume_id, status, request_by, create_at)
         VALUES (#{recruitment_id}, #{login_id}, 'P', 'M', sysdate());
     </insert>
 
+    <!-- 공고ID와 간병인ID의 따른 지원여부 확인 -->
     <select id="isPresentApplicant">
         SELECT count(recruitment_id) FROM applicants WHERE recruitment_id = #{recruitment_id} AND mate_resume_id = #{login_id}
     </select>
 
+    <!-- 로그인ID(F)에 따른 패밀리의 대기중인 공고리스트 불러오기 -->
     <select id="getRecruitmentListById">
         SELECT id, patient_name, patient_diagnosis_name, start_date, end_date FROM recruitment
         WHERE member_id = #{login_id}
         AND status = 'P'
         AND expire_at >= now();
+    </select>
+
+    <!-- 로그인ID(M)에 따른 내가 지원한 공고 리스트 불러오기 -->
+    <select id="getAppliedRecruitmentListById">
+        WITH recruitment AS (
+            SELECT r.id, member_id, tel, patient_gender, patient_birthday, patient_diagnosis_name, location, SUBSTRING_INDEX(road_address, ' ', 2) AS road_address,
+            wage, start_date, end_date, start_time, end_time, expire_at,
+            group_concat(day) AS day
+            FROM recruitment r
+            JOIN dayofreservation d ON d.recruitment_id = r.id
+            JOIN suitemember s ON s.id = r.member_id
+            GROUP BY r.id, member_id, tel, patient_gender, patient_diagnosis_name, location, road_address, wage, start_date, end_date, start_time, end_time, expire_at
+        )
+
+        SELECT * FROM recruitment
+        JOIN applicants ON applicants.recruitment_id = recruitment.id
+        WHERE applicants.mate_resume_id = #{login_id};
     </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.recruitment.service;
 
+import com.suitecare.suitecare.api.mate_resume.dto.SearchedMateResponseDTO;
 import com.suitecare.suitecare.api.mate_resume.mapper.MateResumeMapper;
 import com.suitecare.suitecare.api.recruitment.dto.*;
 import com.suitecare.suitecare.api.recruitment.mapper.RecruitmentMapper;
@@ -34,6 +35,10 @@ public class RecruitmentService {
 
     public RecruitmentPatientResponseDTO getRecruitmentPatientById(Long recruitment_id) {
         return recruitmentMapper.getRecruitmentPatientById(recruitment_id);
+    }
+
+    public List<SearchedMateResponseDTO> getApplicantListById(Long recruitment_id) {
+        return recruitmentMapper.getApplicantListById(recruitment_id);
     }
 
     /* 간병 공고 검색 */
@@ -74,5 +79,10 @@ public class RecruitmentService {
     /* 로그인 아이디에 따른 예약 확정되지 않은 공고 목록 */
     public List<PendingRecruitmentResponseDTO> getRecruitmentListById(String login_id) {
         return recruitmentMapper.getRecruitmentListById(login_id);
+    }
+
+    /* 로그인ID(M)에 따른 내가 지원한 공고 리스트 불러오기 */
+    public List<AppliedRecruitmentDTO> getAppliedRecruitmentListById(String login_id) {
+        return recruitmentMapper.getAppliedRecruitmentListById(login_id);
     }
 }
