@@ -48,17 +48,10 @@ public class RecruitmentController {
         return recruitmentService.getSearchedRecruitment(requestDTO);
     }
 
-    /* 간병인의 공고 지원하기 */
-    @PostMapping("mate/apply")
-    public Integer applyToRecruitment(HttpServletRequest request, @RequestParam Long recruitment_id) {
-        String login_id = (String) request.getAttribute("id");
-        return recruitmentService.applyToRecruitment(login_id, recruitment_id);
-    }
-
-    /* 보호자의 간병인 신청하기 */
-    @PostMapping("family/apply")
-    public Integer applyToMate(@RequestBody ApplyToMateRequestDTO applyToMateRequestDTO) {
-        return recruitmentService.applyToMate(applyToMateRequestDTO);
+    /* 공고 지원, 신청하기 */
+    @PostMapping("apply")
+    public Integer apply(@RequestBody ApplyInfoRequestDTO applyInfoRequestDTO) {
+        return recruitmentService.apply(applyInfoRequestDTO);
     }
 
     /* 로그인ID에 따른 패밀리의 대기중인 공고리스트 불러오기 */
@@ -74,4 +67,5 @@ public class RecruitmentController {
         String login_id = (String)request.getAttribute("id");
         return recruitmentService.getAppliedRecruitmentListById(login_id);
     }
+
 }
