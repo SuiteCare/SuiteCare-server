@@ -137,7 +137,7 @@
 
         SELECT * FROM recruitment
         JOIN applicants ON applicants.recruitment_id = recruitment.id
-        WHERE applicants.mate_resume_id = #{login_id} AND request_by = 'M';
+        WHERE applicants.mate_resume_id = #{login_id} AND request_by = 'M' AND stauts <![CDATA[<>]]> 'C';
     </select>
 
     <!-- [간병인] 로그인ID에 따른 나에게 들어온 공고 불러오기 -->
@@ -156,4 +156,13 @@
         JOIN applicants ON applicants.recruitment_id = recruitment.id
         WHERE applicants.mate_resume_id = #{login_id} AND request_by = 'F' AND expire_at <![CDATA[>]]> now();
     </select>
+
+    <!-- [간병인] 지원 취소하기 -->
+    <delete id="deleteApplicant">
+        DELETE FROM applicants
+        WHERE
+            recruitment_id = #{recruitment_id}
+            AND mate_resume_id = #{login_id}
+            AND request_by = 'M';
+    </delete>
 </mapper>

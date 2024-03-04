@@ -93,4 +93,9 @@ public class RecruitmentService {
         return recruitmentMapper.getOfferedRecruitmentListById(login_id);
     }
 
+    /* [간병인] 지원 취소하기 */
+    public Integer deleteApplicant(String login_id, Long recruitment_id) {
+        return recruitmentMapper.deleteApplicant(login_id, recruitment_id);
+    }
+
 }

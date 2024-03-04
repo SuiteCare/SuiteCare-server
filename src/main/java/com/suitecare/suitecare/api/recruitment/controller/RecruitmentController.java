@@ -74,5 +74,10 @@ public class RecruitmentController {
         return recruitmentService.getOfferedRecruitmentListById(login_id);
     }
 
-
+    /* [간병인] 지원 취소하기 */
+    @DeleteMapping("/applicant/{recruitment_id}")
+    public Integer deleteApplicant(HttpServletRequest request, @PathVariable Long recruitment_id) {
+        String login_id = (String)request.getAttribute("id");
+        return recruitmentService.deleteApplicant(login_id, recruitment_id);
+    }
 }

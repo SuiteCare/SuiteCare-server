@@ -19,4 +19,5 @@ public interface RecruitmentMapper {
     List<PendingRecruitmentResponseDTO> getRecruitmentListById(String login_id);
     List<AppliedRecruitmentDTO> getAppliedRecruitmentListById(String login_id);
     List<AppliedRecruitmentDTO> getOfferedRecruitmentListById(String login_id);
+    Integer deleteApplicant(@Param("login_id") String login_id, @Param("recruitment_id") Long recruitment_id);
 }
