@@ -39,10 +39,10 @@
         SELECT * FROM recruitment WHERE id = #{recruitment_id};
     </select>
 
-    <!-- 공고ID에 따른 지원자 리스트 불러오기 -->
+    <!-- 공고ID에 따른 간병인 리스트 불러오기 -->
     <select id="getApplicantListById">
         WITH resume	AS (
-            SELECT r.id, s.name, s.gender, s.birthday, s.email, s.tel, r.profile_picture_filename, r.introduction, r.contact_time_start, r.contact_time_end, r.desired_wage,
+            SELECT r.id AS mate_resume_id, s.name, s.gender, s.birthday, s.email, s.tel, r.profile_picture_filename, r.introduction, r.contact_time_start, r.contact_time_end, r.desired_wage,
             group_concat(distinct loc.name) as location,
             group_concat(distinct service.name) as mainservice
             FROM materesume r
@@ -52,13 +52,10 @@
             GROUP BY r.id, s.name, s.gender, s.birthday, s.email, s.tel, r.profile_picture_filename, r.introduction, r.contact_time_start, r.contact_time_end, r.desired_wage
         )
 
-        SELECT *
+        SELECT resume.*, status
         FROM resume
-        WHERE resume.id IN (
-            SELECT mate_resume_id FROM applicants
-            WHERE recruitment_id = #{recruitment_id}
-            AND status = 'P' AND request_by = 'M'
-        );
+        JOIN applicants ON applicants.mate_resume_id = resume.mate_resume_id
+        WHERE recruitment_id = #{recruitment_id} AND request_by = #{request_by};
     </select>
 
     <!-- 검색 조건에 따른 공고 불러오기 -->
@@ -106,15 +103,16 @@
         ;
     </select>
 
-    <!-- 간병인의 공고 지원 -->
-    <insert id="applyRecruitment">
+    <!-- 공고 지원, 간병 신청 -->
+    <insert id="apply">
         INSERT INTO applicants (recruitment_id, mate_resume_id, status, request_by, create_at)
-        VALUES (#{recruitment_id}, #{login_id}, 'P', 'M', sysdate());
+        VALUES (#{recruitment_id}, #{mate_id}, 'P', #{request_by}, sysdate());
     </insert>
 
     <!-- 공고ID와 간병인ID의 따른 지원여부 확인 -->
     <select id="isPresentApplicant">
-        SELECT count(recruitment_id) FROM applicants WHERE recruitment_id = #{recruitment_id} AND mate_resume_id = #{login_id}
+        SELECT count(recruitment_id) FROM applicants
+        WHERE recruitment_id = #{recruitment_id} AND mate_resume_id = #{mate_id} AND request_by = #{request_by}
     </select>
 
     <!-- 로그인ID(F)에 따른 패밀리의 대기중인 공고리스트 불러오기 -->
@@ -125,7 +123,7 @@
         AND expire_at >= now();
     </select>
 
-    <!-- 로그인ID(M)에 따른 내가 지원한 공고 리스트 불러오기 -->
+    <!-- [간병인] 로그인ID에 따른 내가 지원한 공고 리스트 불러오기 -->
     <select id="getAppliedRecruitmentListById">
         WITH recruitment AS (
             SELECT r.id, member_id, tel, patient_gender, patient_birthday, patient_diagnosis_name, location, SUBSTRING_INDEX(road_address, ' ', 2) AS road_address,
@@ -139,6 +137,32 @@
 
         SELECT * FROM recruitment
         JOIN applicants ON applicants.recruitment_id = recruitment.id
-        WHERE applicants.mate_resume_id = #{login_id};
+        WHERE applicants.mate_resume_id = #{login_id} AND request_by = 'M' AND status <![CDATA[<>]]> 'C';
     </select>
+
+    <!-- [간병인] 로그인ID에 따른 나에게 들어온 공고 불러오기 -->
+    <select id="getOfferedRecruitmentListById">
+        WITH recruitment AS (
+        SELECT r.id, member_id, tel, patient_gender, patient_birthday, patient_diagnosis_name, location, SUBSTRING_INDEX(road_address, ' ', 2) AS road_address,
+        wage, start_date, end_date, start_time, end_time, expire_at,
+        group_concat(day) AS day
+        FROM recruitment r
+        JOIN dayofreservation d ON d.recruitment_id = r.id
+        JOIN suitemember s ON s.id = r.member_id
+        GROUP BY r.id, member_id, tel, patient_gender, patient_diagnosis_name, location, road_address, wage, start_date, end_date, start_time, end_time, expire_at
+        )
+
+        SELECT * FROM recruitment
+        JOIN applicants ON applicants.recruitment_id = recruitment.id
+        WHERE applicants.mate_resume_id = #{login_id} AND request_by = 'F' AND expire_at <![CDATA[>]]> now();
+    </select>
+
+    <!-- [간병인] 지원 취소하기 -->
+    <delete id="deleteApplicant">
+        DELETE FROM applicants
+        WHERE
+            recruitment_id = #{recruitment_id}
+            AND mate_resume_id = #{login_id}
+            AND request_by = 'M';
+    </delete>
 </mapper>
