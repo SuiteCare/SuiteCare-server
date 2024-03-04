@@ -18,5 +18,6 @@ public interface RecruitmentMapper {
     Integer isPresentApplicant(ApplyInfoRequestDTO applyInfoRequestDTO);
     Integer apply(ApplyInfoRequestDTO applyInfoRequestDTO);
     List<PendingRecruitmentResponseDTO> getRecruitmentListById(String login_id);
-    List<AppliedRecruitmentDTO> getAppliedRecruitmentListById(@Param("login_id") String login_id, @Param("request_by") String request_by);
+    List<AppliedRecruitmentDTO> getAppliedRecruitmentListById(String login_id);
+    List<AppliedRecruitmentDTO> getOfferedRecruitmentListById(String login_id);
 }
