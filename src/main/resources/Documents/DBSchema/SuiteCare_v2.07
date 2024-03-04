@@ -1,0 +1,229 @@
+drop database suitecare;
+create database suitecare;
+use suitecare;
+
+CREATE TABLE SuiteMember (
+ id					VARCHAR(20) primary key,
+ password 			VARCHAR(60) NOT NULL,
+ name 				VARCHAR(30) NOT NULL,
+ gender 			ENUM('F', 'M') NULL,
+ birthday 			DATE NULL,
+ email 				VARCHAR(45) NULL,
+ tel 				VARCHAR(13) NOT NULL,
+ role 				ENUM('F', 'M', 'A') NOT NULL,
+ create_at 			TIMESTAMP NOT NULL,
+ update_at 			TIMESTAMP NOT NULL
+);
+
+CREATE TABLE MateResume (
+ id 						VARCHAR(20) primary key,
+ profile_picture_filename 	VARCHAR(35) NOT NULL,
+ introduction 				VARCHAR(200) NOT NULL,
+ contact_time_start 		VARCHAR(20) NOT NULL,
+ contact_time_end 			VARCHAR(20) NOT NULL,
+ desired_wage 				INTEGER NOT NULL
+);
+
+CREATE TABLE Patient (
+ id 				BIGINT primary key auto_increment,
+ member_id 			VARCHAR(20) NOT NULL,
+ name 				VARCHAR(30) NOT NULL,
+ gender 			ENUM('F', 'M') NOT NULL,
+ birthday 			DATE NOT NULL,
+ diagnosis_name 	VARCHAR(45) NOT NULL,
+ height 			VARCHAR(5) NOT NULL,
+ weight 			VARCHAR(5) NOT NULL,
+ create_at 			TIMESTAMP NOT NULL,
+ update_at 			TIMESTAMP NOT NULL
+);
+
+CREATE TABLE PatientDetail (
+ id 					BIGINT primary key,
+ consciousness_state 	VARCHAR(45) NOT NULL,
+ meal_care_state 		VARCHAR(45) NOT NULL,
+ toilet_care_state 		VARCHAR(45) NOT NULL,
+ paralysis_state 		VARCHAR(45) NOT NULL,
+ behavioral_state 		VARCHAR(45) NOT NULL,
+ is_bedsore 			ENUM('Y', 'N') NOT NULL,
+ need_suction 			ENUM('Y', 'N') NOT NULL,
+ need_outpatient 		ENUM('Y', 'N') NOT NULL,
+ need_night_care 		ENUM('Y', 'N') NOT NULL,
+ notice 				VARCHAR(200) NOT NULL
+);
+
+CREATE TABLE Career (
+ id 			BIGINT primary key auto_increment,
+ mate_resume_id VARCHAR(20) NOT NULL,
+ name 			VARCHAR(50) NOT NULL,
+ job_name 		VARCHAR(20) NOT NULL,
+ date_start 	DATE NOT NULL,
+ date_end 		DATE NOT NULL
+);
+
+CREATE TABLE Recruitment (
+ id 				BIGINT primary key auto_increment,
+ member_id 			VARCHAR(20) NULL,
+ location  			VARCHAR(10)  NOT NULL,
+ postcode  			VARCHAR(5)  NOT NULL,
+ road_address 		VARCHAR(100) NOT NULL,
+ jibun_address 		VARCHAR(100) NOT NULL,
+ address_detail  	VARCHAR(100)  NOT NULL,
+ wage 				INTEGER NOT NULL,
+ start_date 		DATE NOT NULL,
+ end_date 			DATE NOT NULL,
+ start_time			TIME NOT NULL,
+ end_time			TIME NOT NULL,
+ create_at 			TIMESTAMP NOT NULL,
+ expire_at 			TIMESTAMP NOT NULL,
+ status 			ENUM('P', 'E') NOT NULL,
+ patient_name  VARCHAR(30) NOT NULL,
+ patient_gender  ENUM('F', 'M') NOT NULL,
+ patient_birthday  DATE NOT NULL,
+ patient_diagnosis_name  VARCHAR(45) NOT NULL,
+ patient_height  VARCHAR(5) NOT NULL,
+ patient_weight  VARCHAR(5) NOT NULL,
+ patient_consciousness_state  VARCHAR(45) NOT NULL,
+ patient_meal_care_state  VARCHAR(45) NOT NULL,
+ patient_toilet_care_state  VARCHAR(45) NOT NULL,
+ patient_paralysis_state  VARCHAR(45) NOT NULL,
+ patient_behavioral_state  VARCHAR(45) NOT NULL,
+ patient_is_bedsore  ENUM('Y', 'N') NOT NULL,
+ patient_need_suction  ENUM('Y', 'N') NOT NULL,
+ patient_need_outpatient  ENUM('Y', 'N') NOT NULL,
+ patient_need_night_care  ENUM('Y', 'N') NOT NULL,
+ patient_notice  VARCHAR(200) NOT NULL
+);
+
+CREATE TABLE Applicants (
+ id 				BIGINT primary key auto_increment,
+ recruitment_id 	BIGINT NOT NULL,
+ mate_resume_id 	VARCHAR(20) NOT NULL,
+ status				ENUM('P', 'C', 'R') NOT NULL,
+ request_by			ENUM('F', 'M') NOT NULL,
+ create_at 			TIMESTAMP NOT NULL
+);
+
+create table Reservation(
+ id					BIGINT primary key auto_increment,
+ recruitment_id 	BIGINT NOT NULL,
+ mate_resume_id 	VARCHAR(20) NOT NULL,
+ confirm_at			TIMESTAMP NOT NULL
+);
+
+CREATE TABLE Certificate (
+ id 				BIGINT primary key auto_increment,
+ mate_resume_id 	VARCHAR(20) NOT NULL,
+ name 	VARCHAR(30) NOT NULL,
+ code 	VARCHAR(30) NOT NULL,
+ qualification_date DATE NOT NULL,
+ expired_date 		DATE NOT NULL
+);
+
+CREATE TABLE MainService (
+ id 				BIGINT primary key auto_increment,
+ mate_resume_id 	VARCHAR(20) NOT NULL,
+ name 				VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE DayOfReservation (
+ id 				BIGINT primary key auto_increment,
+ recruitment_id 	BIGINT	NOT NULL,
+ day 				TINYINT NOT NULL
+);
+
+CREATE TABLE Location (
+ id 				BIGINT primary key auto_increment,
+ mate_resume_id 	VARCHAR(20) NOT NULL,
+ name 				VARCHAR(10) NOT NULL
+);
+
+ALTER TABLE MateResume ADD CONSTRAINT FK_SuiteMember_TO_MateResume_1 FOREIGN KEY (
+ id
+)
+REFERENCES SuiteMember (
+ id
+)on delete cascade;
+
+ALTER TABLE Patient ADD CONSTRAINT FK_SuiteMember_TO_Patient_1 FOREIGN KEY (
+ member_id
+)
+REFERENCES SuiteMember (
+ id
+);
+
+ALTER TABLE Recruitment ADD CONSTRAINT FK_SuiteMember_TO_Recruitment_1 FOREIGN KEY (
+ member_id
+)
+REFERENCES SuiteMember (
+ id
+);
+
+ALTER TABLE PatientDetail ADD CONSTRAINT FK_Patient_TO_PatientDetail_1 FOREIGN KEY (
+ id
+)
+REFERENCES Patient (
+ id
+)ON DELETE CASCADE;
+
+ALTER TABLE Career ADD CONSTRAINT FK_MateResume_TO_Career_1 FOREIGN KEY (
+ mate_resume_id
+)
+REFERENCES MateResume (
+ id
+)on delete cascade;
+
+ALTER TABLE Certificate ADD CONSTRAINT FK_MateResume_TO_Certificate_1 FOREIGN KEY (
+ mate_resume_id
+)
+REFERENCES MateResume (
+ id
+)on delete cascade;
+
+ALTER TABLE Location ADD CONSTRAINT FK_MateResume_TO_Location_1 FOREIGN KEY (
+ mate_resume_id
+)
+REFERENCES MateResume (
+ id
+)on delete cascade;
+
+ALTER TABLE MainService ADD CONSTRAINT FK_MateResume_TO_MainService_1 FOREIGN KEY (
+ mate_resume_id
+)
+REFERENCES MateResume (
+ id
+)on delete cascade;
+
+ALTER TABLE DayOfReservation ADD CONSTRAINT FK_Recruitment_TO_DayOfReservation_1 FOREIGN KEY (
+ recruitment_id
+)
+REFERENCES Recruitment (
+ id
+);
+
+ALTER TABLE Applicants ADD CONSTRAINT FK_Recruitment_TO_Applicants_1 FOREIGN KEY (
+ recruitment_id
+)
+REFERENCES Recruitment (
+ id
+);
+
+ALTER TABLE Applicants ADD CONSTRAINT FK_MateResume_TO_Applicants_1 FOREIGN KEY (
+ mate_resume_id
+)
+REFERENCES MateResume (
+ id
+);
+
+ALTER TABLE Reservation ADD CONSTRAINT FK_Recruitment_TO_Reservation_1 FOREIGN KEY (
+ recruitment_id
+)
+REFERENCES Recruitment (
+ id
+);
+
+ALTER TABLE Reservation ADD CONSTRAINT FK_MateResume_TO_Reservation_1 FOREIGN KEY (
+ mate_resume_id
+)
+REFERENCES MateResume (
+ id
+);
