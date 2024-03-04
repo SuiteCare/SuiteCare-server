@@ -57,7 +57,7 @@ public class RecruitmentService {
     public Integer apply(ApplyInfoRequestDTO applyRequestDTO) {
 
         /* 신청자 Mate인 경우, 이력서 여부 확인 */
-        if(applyRequestDTO.getRequested_by().equals("M") && !isPresentResume(applyRequestDTO.getMate_id())) {
+        if(applyRequestDTO.getRequest_by().equals("M") && !isPresentResume(applyRequestDTO.getMate_id())) {
             return 0;
         }
 

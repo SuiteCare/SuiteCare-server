@@ -109,13 +109,13 @@
     <!-- 공고 지원, 간병 신청 -->
     <insert id="apply">
         INSERT INTO applicants (recruitment_id, mate_resume_id, status, request_by, create_at)
-        VALUES (#{recruitment_id}, #{mate_id}, 'P', #{requested_by}, sysdate());
+        VALUES (#{recruitment_id}, #{mate_id}, 'P', #{request_by}, sysdate());
     </insert>
 
     <!-- 공고ID와 간병인ID의 따른 지원여부 확인 -->
     <select id="isPresentApplicant">
         SELECT count(recruitment_id) FROM applicants
-        WHERE recruitment_id = #{recruitment_id} AND mate_resume_id = #{mate_id} AND request_by = #{requested_by}
+        WHERE recruitment_id = #{recruitment_id} AND mate_resume_id = #{mate_id} AND request_by = #{request_by}
     </select>
 
     <!-- 로그인ID(F)에 따른 패밀리의 대기중인 공고리스트 불러오기 -->

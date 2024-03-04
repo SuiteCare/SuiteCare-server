@@ -6,5 +6,5 @@ import lombok.Data;
 public class ApplyInfoRequestDTO {
     private Long recruitment_id;
     private String mate_id;
-    private String requested_by;
+    private String request_by;
 }
