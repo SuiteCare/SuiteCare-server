@@ -1,6 +1,5 @@
 package com.suitecare.suitecare.api.recruitment.service;
 
-import com.suitecare.suitecare.api.mate_resume.dto.SearchedMateResponseDTO;
 import com.suitecare.suitecare.api.mate_resume.mapper.MateResumeMapper;
 import com.suitecare.suitecare.api.recruitment.dto.*;
 import com.suitecare.suitecare.api.recruitment.mapper.RecruitmentMapper;
@@ -37,8 +36,8 @@ public class RecruitmentService {
         return recruitmentMapper.getRecruitmentPatientById(recruitment_id);
     }
 
-    public List<SearchedMateResponseDTO> getApplicantListById(Long recruitment_id) {
-        return recruitmentMapper.getApplicantListById(recruitment_id);
+    public List<ApplicantsMateDTO> getApplicantListById(Long recruitment_id, String request_by) {
+        return recruitmentMapper.getApplicantListById(recruitment_id, request_by);
     }
 
     /* 간병 공고 검색 */

@@ -39,10 +39,10 @@
         SELECT * FROM recruitment WHERE id = #{recruitment_id};
     </select>
 
-    <!-- 공고ID에 따른 지원자 리스트 불러오기 -->
+    <!-- 공고ID에 따른 간병인 리스트 불러오기 -->
     <select id="getApplicantListById">
         WITH resume	AS (
-            SELECT r.id, s.name, s.gender, s.birthday, s.email, s.tel, r.profile_picture_filename, r.introduction, r.contact_time_start, r.contact_time_end, r.desired_wage,
+            SELECT r.id AS mate_resume_id, s.name, s.gender, s.birthday, s.email, s.tel, r.profile_picture_filename, r.introduction, r.contact_time_start, r.contact_time_end, r.desired_wage,
             group_concat(distinct loc.name) as location,
             group_concat(distinct service.name) as mainservice
             FROM materesume r
@@ -52,13 +52,10 @@
             GROUP BY r.id, s.name, s.gender, s.birthday, s.email, s.tel, r.profile_picture_filename, r.introduction, r.contact_time_start, r.contact_time_end, r.desired_wage
         )
 
-        SELECT *
+        SELECT resume.*, status
         FROM resume
-        WHERE resume.id IN (
-            SELECT mate_resume_id FROM applicants
-            WHERE recruitment_id = #{recruitment_id}
-            AND status = 'P' AND request_by = 'M'
-        );
+        JOIN applicants ON applicants.mate_resume_id = resume.mate_resume_id
+        WHERE recruitment_id = #{recruitment_id} AND request_by = #{request_by};
     </select>
 
     <!-- 검색 조건에 따른 공고 불러오기 -->

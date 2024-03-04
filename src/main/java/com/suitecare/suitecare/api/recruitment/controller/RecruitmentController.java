@@ -1,6 +1,5 @@
 package com.suitecare.suitecare.api.recruitment.controller;
 
-import com.suitecare.suitecare.api.mate_resume.dto.SearchedMateResponseDTO;
 import com.suitecare.suitecare.api.recruitment.dto.*;
 import com.suitecare.suitecare.api.recruitment.service.RecruitmentService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,10 +35,10 @@ public class RecruitmentController {
         return recruitmentService.getRecruitmentPatientById(recruitment_id);
     }
 
-    /* 공고에 대한 지원자 리스트 불러오기 */
-    @GetMapping("/recruitment/{recruitment_id}/applicants")
-    public List<SearchedMateResponseDTO> getApplicantListById(@PathVariable Long recruitment_id) {
-        return recruitmentService.getApplicantListById(recruitment_id);
+    /* 공고에 대한 간병인 리스트 불러오기 */
+    @GetMapping("/recruitment/{recruitment_id}/{request_by}")
+    public List<ApplicantsMateDTO> getApplicantListById(@PathVariable Long recruitment_id, @PathVariable String request_by) {
+        return recruitmentService.getApplicantListById(recruitment_id, request_by);
     }
 
     /* 검색 조건에 따른 공고 검색 */
@@ -74,4 +73,6 @@ public class RecruitmentController {
         String login_id = (String)request.getAttribute("id");
         return recruitmentService.getOfferedRecruitmentListById(login_id);
     }
+
+
 }
