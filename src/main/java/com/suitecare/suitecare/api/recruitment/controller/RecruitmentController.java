@@ -61,11 +61,10 @@ public class RecruitmentController {
         return recruitmentService.getRecruitmentListById(login_id);
     }
 
-    /* 로그인ID(M)에 따른 내가 지원한 공고 리스트 불러오기 */
-    @GetMapping("/appliedRecruitment")
-    public List<AppliedRecruitmentDTO> getAppliedRecruitmentListById(HttpServletRequest request) {
+    /* [간병인] 로그인ID에 따른 내가 지원한 공고 리스트, 나에게 들어온 불러오기 */
+    @GetMapping("/recruitment-list/{request_by}")
+    public List<AppliedRecruitmentDTO> getAppliedRecruitmentListById(HttpServletRequest request, @PathVariable String request_by) {
         String login_id = (String)request.getAttribute("id");
-        return recruitmentService.getAppliedRecruitmentListById(login_id);
+        return recruitmentService.getAppliedRecruitmentListById(login_id, request_by);
     }
-
 }

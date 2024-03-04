@@ -85,9 +85,8 @@ public class RecruitmentService {
     }
 
     /* 로그인ID(M)에 따른 내가 지원한 공고 리스트 불러오기 */
-    public List<AppliedRecruitmentDTO> getAppliedRecruitmentListById(String login_id) {
-        return recruitmentMapper.getAppliedRecruitmentListById(login_id);
+    public List<AppliedRecruitmentDTO> getAppliedRecruitmentListById(String login_id, String request_by) {
+        return recruitmentMapper.getAppliedRecruitmentListById(login_id, request_by);
     }
-
 
 }
