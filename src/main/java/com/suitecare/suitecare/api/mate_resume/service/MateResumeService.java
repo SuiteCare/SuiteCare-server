@@ -102,4 +102,7 @@ public class MateResumeService {
 
     }
 
+    public Integer deleteResume(String login_id) {
+        return mateResumeMapper.deleteMateResume(login_id);
+    }
 }
