@@ -33,8 +33,6 @@ public class MateResumeController {
     /* 간병인 검색결과 조회 */
     @GetMapping("/search/mate")
     public List<SearchedMateResponseDTO> getSearchedMate(@RequestBody SearchedMateRequestDTO searchedMateRequestDTO) {
-        log.debug("dto: {}", searchedMateRequestDTO);
-
         return mateResumeService.getSearchedMate(searchedMateRequestDTO);
     }
 
@@ -58,8 +56,6 @@ public class MateResumeController {
         String login_id = (String) request.getAttribute("id");
 
         Integer resultValue = mateResumeService.deleteResume(login_id);
-
-        log.debug("resultValue: {}", resultValue);
 
         if(resultValue == 1) {
             responseForm = ResponseForm.builder()
