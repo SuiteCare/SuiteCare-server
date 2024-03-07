@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.reservation.service;
 
+import com.suitecare.suitecare.api.recruitment.dto.ApplyInfoRequestDTO;
 import com.suitecare.suitecare.api.reservation.dto.FamilyReservationResponseDTO;
 import com.suitecare.suitecare.api.reservation.dto.MateReservationResponseDTO;
 import com.suitecare.suitecare.api.reservation.dto.ReservationRequestDTO;
@@ -24,6 +25,10 @@ public class ReservationService {
         }
 
         return result;
+    }
+
+    public Integer updateStatusToReject(ApplyInfoRequestDTO applyInfoRequestDTO) {
+        return reservationMapper.updateStatusToReject(applyInfoRequestDTO);
     }
 
     public List<FamilyReservationResponseDTO> getFamilyReservationListById(String login_id) {

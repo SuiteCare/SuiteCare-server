@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.reservation.controller;
 
+import com.suitecare.suitecare.api.recruitment.dto.ApplyInfoRequestDTO;
 import com.suitecare.suitecare.api.reservation.dto.FamilyReservationResponseDTO;
 import com.suitecare.suitecare.api.reservation.dto.MateReservationResponseDTO;
 import com.suitecare.suitecare.api.reservation.dto.ReservationRequestDTO;
@@ -24,6 +25,12 @@ public class ReservationController {
         return reservationService.createReservation(reservationRequestDTO);
     }
 
+    /* 간병 거절하기 */
+    @PatchMapping("/reject")
+    public Integer updateStatusToReject(@RequestBody ApplyInfoRequestDTO applyInfoRequestDTO) {
+        return reservationService.updateStatusToReject(applyInfoRequestDTO);
+    }
+    
     @GetMapping("/reservation/family")
     public List<FamilyReservationResponseDTO> getFamilyReservationListById(HttpServletRequest request) {
         String login_id = (String) request.getAttribute("id");
