@@ -12,6 +12,11 @@
         </foreach>
     </insert>
 
+    <insert id="insertCertificate">
+        INSERT INTO certificate(mate_resume_id, name, code, qualification_date, expired_date)
+        VALUES (#{mate_resume_id}, #{certificateDTO.name}, #{certificateDTO.code}, #{certificateDTO.qualification_date}, #{certificateDTO.expired_date})
+    </insert>
+
     <select id="findCertificateById" resultType="CertificateDTO">
         SELECT c.id, name, code, qualification_date, expired_date
         FROM certificate c

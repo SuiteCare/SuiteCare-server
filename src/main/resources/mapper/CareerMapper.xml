@@ -14,8 +14,7 @@
 
     <insert id="insertCareer">
         INSERT INTO career(mate_resume_id, name, job_name, date_start, date_end)
-        VALUES
-            (#{mate_resume_id}, #{careerDTO.name}, #{careerDTO.job_name}, #{careerDTO.date_start}, #{careerDTO.date_end})
+        VALUES (#{mate_resume_id}, #{careerDTO.name}, #{careerDTO.job_name}, #{careerDTO.date_start}, #{careerDTO.date_end})
     </insert>
 
     <select id="findCareerById" resultType="CareerDTO">

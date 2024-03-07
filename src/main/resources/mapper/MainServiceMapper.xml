@@ -4,6 +4,13 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.suitecare.suitecare.api.mate_resume.mapper.MainServiceMapper">
 
+    <select id="findMainServiceById" resultType="MainServiceDTO">
+        SELECT s.id, name
+        FROM mainservice s
+        JOIN materesume m ON m.id = s.mate_resume_id
+        WHERE m.id = #{id};
+    </select>
+
     <insert id="createMainService">
         INSERT INTO mainService(mate_resume_id, name)
         VALUES
@@ -12,12 +19,11 @@
         </foreach>
     </insert>
 
-    <select id="findMainServiceById" resultType="MainServiceDTO">
-        SELECT s.id, name
-        FROM mainservice s
-        JOIN materesume m ON m.id = s.mate_resume_id
-        WHERE m.id = #{id};
-    </select>
+    <insert id="insertMainService">
+        INSERT INTO mainService(mate_resume_id, name)
+        VALUES
+        (#{mate_resume_id}, #{mainServiceDTO.name})
+    </insert>
 
     <update id="updateMainService">
         UPDATE mainservice

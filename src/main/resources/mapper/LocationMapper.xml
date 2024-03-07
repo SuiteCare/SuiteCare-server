@@ -12,6 +12,12 @@
         </foreach>
     </insert>
 
+    <insert id="insertLocation">
+        INSERT INTO location(mate_resume_id, name)
+        VALUES
+        (#{mate_resume_id}, #{locationDTO.name})
+    </insert>
+
     <select id="findLocationById" resultType="LocationDTO">
         SELECT l.id, name
         FROM location l
