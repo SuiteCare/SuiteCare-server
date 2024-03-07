@@ -9,11 +9,11 @@ import java.util.List;
 @Mapper
 public interface MainServiceMapper {
     List<MainServiceDTO> findMainServiceById(String id);
+
     void createMainService(@Param("mate_resume_id") String mate_resume_id, @Param("mainServiceList") List<MainServiceDTO> mainServiceList);
 
-    /* 단건 Insert */
-    void insertMainService(String login_id, MainServiceDTO mainServiceDTO);
+    /* 단 건 insert (patch 로직에 사용) */
+    void insertMainService(@Param("mate_resume_id") String mate_resume_id, @Param("mainServiceDTO") MainServiceDTO mainServiceDTO);
 
-    /* 단건 Update */
     void updateMainService(MainServiceDTO mainServiceDTO);
 }

@@ -11,9 +11,8 @@ public interface CertificateMapper {
     List<CertificateDTO> findCertificateById(String id);
     void createCertificate(@Param("mate_resume_id") String mate_resume_id, @Param("certificateList") List<CertificateDTO> certificateList);
 
-    /* 단건 Insert */
-    void insertCertificate(String login_id, CertificateDTO certificateDTO);
+    /* 단 건 insert (patch 로직에 사용) */
+    void insertCertificate(@Param("mate_resume_id") String mate_resume_id, @Param("certificateDTO") CertificateDTO certificateDTO);
 
-    /* 단건 Update */
     void updateCertificate(CertificateDTO certificateDTO);
 }

@@ -26,6 +26,28 @@ public class MateResumeService {
     @Autowired
     MainServiceMapper mainSeviceMapper;
 
+    /* 이력서 조회 */
+    public ResumeDTO findMateResumeById(String login_id) {
+
+        MateResumeDTO mateResumeDTO = mateResumeMapper.findResumeById(login_id);
+        String mate_resume_id = mateResumeDTO.getId();
+
+        return ResumeDTO.builder()
+                .mateResume(mateResumeDTO)
+                .careerList(careerMapper.findCareerById(mate_resume_id))
+                .certificateList(certificateMapper.findCertificateById(mate_resume_id))
+                .locationList(locationMapper.findLocationById(mate_resume_id))
+                .mainServiceList(mainSeviceMapper.findMainServiceById(mate_resume_id))
+                .build();
+
+    }
+
+    /*
+    public List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO) {
+        return mateResumeMapper.getSearchedMate(searchedMateRequestDTO);
+    }
+    */
+
     /* 간병인 이력서 등록 */
     @Transactional
     public int createResume(String login_id, ResumeDTO resume_dto) {
@@ -50,22 +72,6 @@ public class MateResumeService {
 
     }
 
-    /* 이력서 조회 */
-    public ResumeDTO findMateResumeById(String login_id) {
-
-        MateResumeDTO mateResumeDTO = mateResumeMapper.findResumeById(login_id);
-        String mate_resume_id = mateResumeDTO.getId();
-
-        return ResumeDTO.builder()
-                .mateResume(mateResumeDTO)
-                .careerList(careerMapper.findCareerById(mate_resume_id))
-                .certificateList(certificateMapper.findCertificateById(mate_resume_id))
-                .locationList(locationMapper.findLocationById(mate_resume_id))
-                .mainServiceList(mainSeviceMapper.findMainServiceById(mate_resume_id))
-                .build();
-
-    }
-
     /* 이력서 업데이트 */
     @Transactional
     public void updateResume(String login_id, ResumeDTO resumeDTO) {
@@ -80,12 +86,6 @@ public class MateResumeService {
         updateDtoElement(login_id, resumeDTO.getMainServiceList(), mainSeviceMapper::insertMainService, mainSeviceMapper::updateMainService);
 
     }
-
-    /*
-    public List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO) {
-        return mateResumeMapper.getSearchedMate(searchedMateRequestDTO);
-    }
-    */
 
     /* DTO 요소 업데이트를 위한 메소드 */
     public static <T extends DTO> void updateDtoElement(String login_id, List<T> elements, BiConsumer<String, T> insertMethod, Consumer<T> updateMethod) {

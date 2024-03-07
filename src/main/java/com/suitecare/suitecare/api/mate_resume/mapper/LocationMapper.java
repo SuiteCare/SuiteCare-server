@@ -9,11 +9,11 @@ import java.util.List;
 @Mapper
 public interface LocationMapper {
     List<LocationDTO> findLocationById(String id);
+
     void createLocation(@Param("mate_resume_id") String mate_resume_id, @Param("locationList") List<LocationDTO> locationList);
 
-    /* 단건 Insert */
-    void insertLocation(String login_id, LocationDTO locationDTO);
+    /* 단 건 insert (patch 로직에 사용) */
+    void insertLocation(@Param("mate_resume_id") String mate_resume_id, @Param("locationDTO") LocationDTO locationDTO);
 
-    /* 단건 Update */
     void updateLocation(LocationDTO locationDTO);
 }
