@@ -2,6 +2,8 @@ package com.suitecare.suitecare.api.mate_resume.controller;
 
 import com.suitecare.suitecare.api.custom.format.ResponseForm;
 import com.suitecare.suitecare.api.mate_resume.dto.ResumeDTO;
+import com.suitecare.suitecare.api.mate_resume.dto.SearchedMateRequestDTO;
+import com.suitecare.suitecare.api.mate_resume.dto.SearchedMateResponseDTO;
 import com.suitecare.suitecare.api.mate_resume.service.MateResumeService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1")
@@ -27,12 +30,11 @@ public class MateResumeController {
         return mateResumeService.findMateResumeById(login_id);
     }
 
-    /*
+    /* 간병인 검색결과 조회 */
     @GetMapping("/search/mate")
-    public List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO) {
+    public List<SearchedMateResponseDTO> getSearchedMate(@RequestBody SearchedMateRequestDTO searchedMateRequestDTO) {
         return mateResumeService.getSearchedMate(searchedMateRequestDTO);
     }
-    */
 
     /* 간병인 이력서 등록 */
     @PostMapping("/mate/resume")
@@ -54,8 +56,6 @@ public class MateResumeController {
         String login_id = (String) request.getAttribute("id");
 
         Integer resultValue = mateResumeService.deleteResume(login_id);
-
-        log.debug("resultValue: {}", resultValue);
 
         if(resultValue == 1) {
             responseForm = ResponseForm.builder()
