@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.SQLSyntaxErrorException;
 import java.util.List;
 
 @ControllerAdvice
@@ -40,6 +41,22 @@ public class GlobalExceptionHandler {
                                                 .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
                                                 .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
                                                 .msg("DB 제약조건 위반 Error 가 발생했습니다.")
+                                                .count(1)
+                                                .result(List.of(e.getMessage()))
+                                                .build();
+
+        return new ResponseEntity<>(responseForm, responseForm.getHttpStatus());
+    }
+
+    @ExceptionHandler(SQLSyntaxErrorException.class)
+    public ResponseEntity<ResponseForm> handleSQLSyntaxErrorException(SQLSyntaxErrorException e) {
+        log.info("SQLSyntaxErrorException 발생");
+
+        // 예외 처리 로직
+        ResponseForm responseForm = ResponseForm.builder()
+                                                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                                                .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                                                .msg("SQL 문법 Error 가 발생했습니다.")
                                                 .count(1)
                                                 .result(List.of(e.getMessage()))
                                                 .build();
