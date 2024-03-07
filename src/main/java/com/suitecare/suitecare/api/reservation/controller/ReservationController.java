@@ -20,15 +20,8 @@ public class ReservationController {
 
     /* 간병 확정하기 */
     @PostMapping("/reservation")
-    public Integer createReservation(@RequestBody ReservationRequestDTO reservationRequestDTO) { // 수정 필요
-        int result = 0;
-        try {
-            result  = reservationService.createReservation(reservationRequestDTO);
-        } catch (Exception e) {
-            result = 100;
-        }
-
-        return result;
+    public Integer createReservation(@RequestBody ReservationRequestDTO reservationRequestDTO) {
+        return reservationService.createReservation(reservationRequestDTO);
     }
 
     @GetMapping("/reservation/family")

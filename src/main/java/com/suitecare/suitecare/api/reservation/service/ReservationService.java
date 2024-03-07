@@ -15,13 +15,13 @@ public class ReservationService {
     @Autowired
     ReservationMapper reservationMapper;
 
-    @Transactional(rollbackFor = Exception.class)
-    public Integer createReservation(ReservationRequestDTO reservationRequestDTO) throws Exception { // 수정 필요
+    @Transactional
+    public Integer createReservation(ReservationRequestDTO reservationRequestDTO) {
         Integer result = reservationMapper.createReservation(reservationRequestDTO);
 
-        if(reservationMapper.updateStatus(reservationRequestDTO) == 0) {
-            throw new Exception("update 오류");
-        };
+        if(result == 1) {
+            reservationMapper.updateStatus(reservationRequestDTO);
+        }
 
         return result;
     }
