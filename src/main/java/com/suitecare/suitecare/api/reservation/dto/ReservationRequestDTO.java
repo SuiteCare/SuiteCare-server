@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ReservationRequestDTO {
     private Long recruitment_id;
-    private String mate_resume_id;
+    private String mate_id;
 }

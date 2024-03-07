@@ -6,20 +6,20 @@
 
     <insert id="createReservation">
         INSERT INTO reservation (recruitment_id, mate_resume_id, confirm_at)
-        VALUES (#{recruitment_id}, #{mate_resume_id}, sysdate());
+        VALUES (#{recruitment_id}, #{mate_id}, sysdate());
     </insert>
 
     <update id="updateStatus">
         UPDATE recruitment r, applicants a
         SET r.status = 'E',
-            a.status = CASE mate_resume_id WHEN #{mate_resume_id} THEN 'C' ELSE 'R' END
-        WHERE r.id = #{recruitment_id} AND a.recruitment_id = #{recruitment_id} AND status = 'P';
+            a.status = CASE mate_resume_id WHEN #{mate_id} THEN 'C' ELSE 'R' END
+        WHERE r.id = #{recruitment_id} AND a.recruitment_id = #{recruitment_id} AND a.status = 'P';
     </update>
 
     <update id="updateStatusToReject">
         UPDATE applicants
-        SET status = 'R',
-        WHERE recruitment_id = #{recruitment_id} AND mate_resume_id = #{mate_resume_id} AND request_by = #{request_by}
+        SET status = 'R'
+        WHERE recruitment_id = #{recruitment_id} AND mate_resume_id = #{mate_id} AND request_by = #{request_by}
     </update>
 
 <!--    <update id="updateRecruitmentStatus">-->
