@@ -1,11 +1,16 @@
 package com.suitecare.suitecare.api.mate_resume.controller;
 
+import com.suitecare.suitecare.api.custom.format.ResponseForm;
 import com.suitecare.suitecare.api.mate_resume.dto.ResumeDTO;
 import com.suitecare.suitecare.api.mate_resume.service.MateResumeService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
 
 @RestController
 @RequestMapping(path = "/api/v1")
@@ -22,6 +27,13 @@ public class MateResumeController {
         return mateResumeService.findMateResumeById(login_id);
     }
 
+    /*
+    @GetMapping("/search/mate")
+    public List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO) {
+        return mateResumeService.getSearchedMate(searchedMateRequestDTO);
+    }
+    */
+
     /* 간병인 이력서 등록 */
     @PostMapping("/mate/resume")
     public int createResume(HttpServletRequest request, @RequestBody ResumeDTO resumeDTO) {
@@ -35,10 +47,36 @@ public class MateResumeController {
         mateResumeService.updateResume(login_id, resumeDTO);
     }
 
-    /*
-    @GetMapping("/search/mate")
-    public List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO) {
-        return mateResumeService.getSearchedMate(searchedMateRequestDTO);
+    /* 간병인 이력서 삭제 */
+    @DeleteMapping("/mate/resume")
+    public ResponseEntity<ResponseForm> deleteResume(HttpServletRequest request) {
+        ResponseForm responseForm;
+        String login_id = (String) request.getAttribute("id");
+
+        Integer resultValue = mateResumeService.deleteResume(login_id);
+
+        log.debug("resultValue: {}", resultValue);
+
+        if(resultValue == 1) {
+            responseForm = ResponseForm.builder()
+                                    .code(HttpStatus.OK.value())
+                                    .httpStatus(HttpStatus.OK)
+                                    .msg("사용자의 이력서가 성공적으로 삭제되었습니다.")
+                                    .count(0)
+                                    .result(Collections.emptyList())
+                                    .build();
+        }else {
+            responseForm = ResponseForm.builder()
+                                    .code(HttpStatus.BAD_REQUEST.value())
+                                    .httpStatus(HttpStatus.BAD_REQUEST)
+                                    .msg("요청한 사용자의 이력서가 조회되지 않습니다.")
+                                    .count(0)
+                                    .result(Collections.emptyList())
+                                    .build();
+        }
+
+        return new ResponseEntity<>(responseForm, responseForm.getHttpStatus());
+
     }
-    */
+
 }

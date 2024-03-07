@@ -114,4 +114,9 @@
     <select id="isPresentResume">
         SELECT count(id) FROM materesume WHERE id = #{login_id}
     </select>
+
+    <delete id="deleteMateResume">
+        DELETE FROM materesume WHERE id = #{mate_resume_id}
+    </delete>
+
 </mapper>
