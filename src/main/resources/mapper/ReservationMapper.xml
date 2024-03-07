@@ -4,85 +4,82 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.suitecare.suitecare.api.reservation.mapper.ReservationMapper">
 
-    <!-- 예약 등록 프론트url=(/family/reservation) -->
-    <insert id="createReservation" parameterType="ReservationRequestDTO" useGeneratedKeys="true" keyProperty="id">
-        insert into Reservation (patient_id, location, postcode, road_address, jibun_address, address_detail, status, start_date, end_date, start_time, end_time, wage, create_at, update_at)
-        values (#{patient_id}, #{location}, #{postcode}, #{road_address}, #{jibun_address}, #{address_detail}, "P", #{start_date}, #{end_date}, #{start_time}, #{end_time}, #{wage}, sysdate(), sysdate())
+    <insert id="createReservation">
+        INSERT INTO reservation (recruitment_id, mate_resume_id, confirm_at)
+        VALUES (#{recruitment_id}, #{mate_id}, sysdate());
     </insert>
 
-    <!-- 예약 등록(요일) 프론트url=(/family/reservation) -->
-    <insert id="createDayOfReservation" parameterType="com.suitecare.suitecare.api.reservation.domain.DayOfReservation">
-        insert into DayOfReservation (reservation_id, day)
-        values (#{reservation_id}, #{day})
-    </insert>
+    <update id="updateStatus">
+        UPDATE recruitment r, applicants a
+        SET r.status = 'E',
+            a.status = CASE mate_resume_id WHEN #{mate_id} THEN 'C' ELSE 'R' END
+        WHERE r.id = #{recruitment_id} AND a.recruitment_id = #{recruitment_id} AND a.status = 'P';
+    </update>
 
-    <select id="getSearchedReservation" parameterType="SearchedReservationRequestDTO" resultType="SearchedReservationResponseDTO">
-        SELECT r.id, patient_id, s.tel, p.gender, p.birthday, p.diagnosis_name, r.location,
-            substring_index(r.road_address, " ", 2) as road_address,
-            r.wage, r.start_date, r.end_date, r.start_time, r.end_time, GROUP_CONCAT(day) as day
-        FROM reservation AS r
-        JOIN dayofreservation AS d ON d.reservation_id = r.id
-        JOIN patient AS p ON p.id = r.patient_id
-        JOIN suitemember AS s ON p.member_id = s.id
+    <update id="updateStatusToReject">
+        UPDATE applicants
+        SET status = 'R'
+        WHERE recruitment_id = #{recruitment_id} AND mate_resume_id = #{mate_id} AND request_by = #{request_by}
+    </update>
 
-        WHERE status = 'P' AND start_date > current_date()
+<!--    <update id="updateRecruitmentStatus">-->
+<!--        UPDATE applicants SET status = 'E'-->
+<!--        WHERE recruitment_id = #{recruitment_id};-->
+<!--    </update>-->
 
-        AND wage between
-        <foreach collection="wage" item="it" separator="and">
-            #{it}
-        </foreach>
-        <if test="search_input neq ''">
-            AND diagnosis_name like '%${search_input}%'
-        </if>
-        <if test="location != null">
-            AND SUBSTRING(r.road_address, 4, 3) in
-            <foreach collection="location" item="it" open="(" close=")" separator=",">
-                #{it}
-            </foreach>
-        </if>
-        <if test="gender != null and gender.length == 1">
-            AND p.gender =
-            <foreach collection="gender" item="it">
-                #{it}
-            </foreach>
-        </if>
-        GROUP BY r.id, s.tel;
-    </select>
-    
-    <insert id="applyReservation" parameterType="ApplyReservationRequestDTO">
-        insert into applicantofreservation (reservation_id, mate_id)
-        values(#{reservation_id}, #{id});
-    </insert>
+<!--    <select id="getReservationInfoById" resultType="ReservationDetailResponseDTO">-->
+<!--        SELECT location, road_address, address_detail, wage, start_time, end_time, group_concat(day) weekday-->
+<!--        FROM reservation r, dayofreservation d-->
+<!--        WHERE r.id = #{reservation_id} AND d.reservation_id = r.id-->
+<!--        GROUP BY d.reservation_id;-->
+<!--    </select>-->
 
-    <select id="isPresentApplicant" parameterType="ApplyReservationRequestDTO">
-        SELECT count(reservation_id) FROM applicantofreservation WHERE reservation_id = #{reservation_id} AND mate_id = #{id}
+    <resultMap id="familyResultMap" type="com.suitecare.suitecare.api.reservation.dto.FamilyReservationResponseDTO">
+        <id property="id" column="id"/>
+        <result property="recruitment_id" column="recruitment_id"/>
+        <result property="mate_resume_id" column="mate_resume_id"/>
+        <result property="mate_name" column="mate_name"/>
+        <result property="confirm_at" column="confirm_at"/>
+        <result property="start_date" column="start_date"/>
+        <result property="end_date" column="end_date"/>
+        <result property="start_time" column="start_time"/>
+        <result property="end_time" column="end_time"/>
+        <collection property="weekdays" select="getWeekdaysById" column="recruitment_id"/>
+    </resultMap>
+
+    <!-- 보호자 로그인ID로 예약 내역 불러오기-->
+    <select id="getFamilyReservationListById" resultMap="familyResultMap">
+        SELECT r.*, name as mate_name, start_date, end_date, start_time, end_time
+        FROM reservation r
+        JOIN recruitment c ON recruitment_id = c.id AND c.member_id = #{login_id}
+        JOIN suitemember s ON s.id = r.mate_resume_id;
     </select>
 
-    <select id="getReservationListById" resultType="PendingReservationResponseDTO">
-        SELECT r.id reservation_id, patient_id, start_date, end_date
-        FROM reservation r, patient p
-        WHERE member_id = #{id} AND r.patient_id = p.id AND now() <![CDATA[<]]> start_date AND status = 'p';
+    <!-- 공고ID로 근무 요일 -->
+    <select id="getWeekdaysById" resultType="java.lang.Integer">
+        SELECT day FROM dayofreservation WHERE recruitment_id = #{recruitment_id}
     </select>
 
-    <select id="getReservationInfoById" resultType="ReservationDetailResponseDTO">
-        SELECT location, road_address, address_detail, wage, start_time, end_time, group_concat(day) weekday
-        FROM reservation r, dayofreservation d
-        WHERE r.id = #{reservation_id} AND d.reservation_id = r.id
-        GROUP BY d.reservation_id;
-    </select>
+    <resultMap id="mateResultMap" type="com.suitecare.suitecare.api.reservation.dto.MateReservationResponseDTO">
+        <id property="id" column="id"/>
+        <result property="recruitment_id" column="recruitment_id"/>
+        <result property="family_id" column="family_id"/>
+        <result property="family_name" column="family_name"/>
+        <result property="confirm_at" column="confirm_at"/>
+        <result property="start_date" column="start_date"/>
+        <result property="end_date" column="end_date"/>
+        <result property="start_time" column="start_time"/>
+        <result property="end_time" column="end_time"/>
+        <collection property="weekdays" select="getWeekdaysById" column="recruitment_id"/>
+    </resultMap>
 
-    <select id="getApplicantList" resultType="ApplicantInfoResponseDTO">
-        select s.name, birthday, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage, group_concat(distinct m.name) mainservice, group_concat(distinct l.name) location
-        from suitemember s, materesume r, mainservice m, location l
-        where r.member_id in (select mate_id from applicantofreservation where reservation_id = #{reservation_id})
-        and s.id = r.member_id and r.member_id = m.member_id and r.member_id = l.member_id
-        group by id, s.name, birthday, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage;
-    </select>
-
-    <!-- family ID로 예약 내역 검색 -->
-    <select id="getReservationList">
-        select id, patient_id, mate_id, status, start_date, end_date, create_at, payment_at from reservation
-        where patient_id in (select id from patient where member_id = #{member_id})
+    <!-- 간병인 로그인ID로 예약 내역 불러오기-->
+    <select id="getMateReservationListById" resultMap="mateResultMap">
+        SELECT reservation.*, member_id AS family_id, name AS family_name, start_date, end_date, start_time, end_time
+        FROM reservation
+        JOIN recruitment ON recruitment_id = recruitment.id
+        JOIN suitemember ON suitemember.id = recruitment.member_id
+        WHERE mate_resume_id = #{login_id};
     </select>
 
 </mapper>
