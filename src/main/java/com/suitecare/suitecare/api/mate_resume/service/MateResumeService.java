@@ -42,11 +42,9 @@ public class MateResumeService {
 
     }
 
-    /*
     public List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO) {
         return mateResumeMapper.getSearchedMate(searchedMateRequestDTO);
     }
-    */
 
     /* 간병인 이력서 등록 */
     @Transactional
