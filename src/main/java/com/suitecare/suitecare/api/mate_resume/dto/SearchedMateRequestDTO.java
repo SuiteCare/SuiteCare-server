@@ -5,8 +5,9 @@ import lombok.Data;
 @Data
 public class SearchedMateRequestDTO {
     private String search_name;
-    private String[] gender;
+    private String search_diagnosis;
     private String[] location;
+    private String[] gender;
     private String[] service;
     private String[] age;
     private Integer[] wage;
