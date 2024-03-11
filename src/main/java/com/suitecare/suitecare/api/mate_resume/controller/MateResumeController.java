@@ -32,7 +32,7 @@ public class MateResumeController {
 
     /* 간병인 검색결과 조회 */
     @GetMapping("/search/mate")
-    public List<SearchedMateResponseDTO> getSearchedMate(@RequestBody SearchedMateRequestDTO searchedMateRequestDTO) {
+    public List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO) {
         return mateResumeService.getSearchedMate(searchedMateRequestDTO);
     }
 
