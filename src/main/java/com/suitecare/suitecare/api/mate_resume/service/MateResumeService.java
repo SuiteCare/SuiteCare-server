@@ -42,8 +42,8 @@ public class MateResumeService {
 
     }
 
-    public List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO) {
-        return mateResumeMapper.getSearchedMate(searchedMateRequestDTO);
+    public List<SearchedMateResponseDTO> getSearchedMate(String login_id, SearchedMateRequestDTO searchedMateRequestDTO) {
+        return mateResumeMapper.getSearchedMate(login_id, searchedMateRequestDTO);
     }
 
     /* 간병인 이력서 등록 */

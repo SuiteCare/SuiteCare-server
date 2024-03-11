@@ -12,7 +12,7 @@ import java.util.List;
 public interface MateResumeMapper {
     MateResumeDTO findResumeById(String login_id);
 
-    List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO);
+    List<SearchedMateResponseDTO> getSearchedMate(@Param("login_id") String login_id, @Param("searchedDTO") SearchedMateRequestDTO searchedMateRequestDTO);
 
     Integer isPresentResume(String login_id);
 
