@@ -37,4 +37,7 @@
         WHERE id = #{id}
     </update>
 
+    <delete id="deleteMainService">
+        DELETE FROM mainservice WHERE mate_resume_id = #{login_id}
+    </delete>
 </mapper>

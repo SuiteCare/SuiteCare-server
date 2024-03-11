@@ -80,9 +80,16 @@ public class MateResumeService {
         /* 이력서 상세 정보 업데이트 */
         updateDtoElement(login_id, resumeDTO.getCareerList(), careerMapper::insertCareer, careerMapper::updateCareer);
         updateDtoElement(login_id, resumeDTO.getCertificateList(), certificateMapper::insertCertificate, certificateMapper::updateCertificate);
-        updateDtoElement(login_id, resumeDTO.getLocationList(), locationMapper::insertLocation, locationMapper::updateLocation);
-        updateDtoElement(login_id, resumeDTO.getMainServiceList(), mainSeviceMapper::insertMainService, mainSeviceMapper::updateMainService);
 
+        if(resumeDTO.getLocationList() != null) {
+            locationMapper.deleteLocation(login_id);
+            locationMapper.createLocation(login_id, resumeDTO.getLocationList());
+        }
+
+        if(resumeDTO.getMainServiceList() != null) {
+            mainSeviceMapper.deleteMainService(login_id);
+            mainSeviceMapper.createMainService(login_id, resumeDTO.getMainServiceList());
+        }
     }
 
     /* DTO 요소 업데이트를 위한 메소드 */

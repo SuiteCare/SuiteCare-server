@@ -16,4 +16,5 @@ public interface MainServiceMapper {
     void insertMainService(@Param("mate_resume_id") String mate_resume_id, @Param("mainServiceDTO") MainServiceDTO mainServiceDTO);
 
     void updateMainService(MainServiceDTO mainServiceDTO);
+    void deleteMainService(String login_id);
 }
