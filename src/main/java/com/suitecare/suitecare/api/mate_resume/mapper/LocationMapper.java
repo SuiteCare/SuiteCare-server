@@ -16,4 +16,5 @@ public interface LocationMapper {
     void insertLocation(@Param("mate_resume_id") String mate_resume_id, @Param("locationDTO") LocationDTO locationDTO);
 
     void updateLocation(LocationDTO locationDTO);
+    void deleteLocation(String login_id);
 }

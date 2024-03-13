@@ -55,49 +55,50 @@
             FROM materesume r
             JOIN location loc ON r.id = loc.mate_resume_id
             JOIN mainservice service ON r.id = service.mate_resume_id
+            WHERE r.id <![CDATA[<>]]> #{login_id}
             GROUP BY r.id, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage
         )
 
-        SELECT r.id, profile_picture_filename, introduction, contact_time_start, contact_time_end, desired_wage, location, mainservice, name, gender, birthday
+        SELECT r.*, name, gender, birthday, tel, email
         FROM resume r
         JOIN suitemember sm ON r.id = sm.id
 
         WHERE 1=1
-        <if test="wage != null">
+        <if test="searchedDTO.wage != null">
             AND desired_wage BETWEEN
-            <foreach collection="wage" item="it" separator="and">
+            <foreach collection="searchedDTO.wage" item="it" separator="and">
                 #{it}
             </foreach>
         </if>
 
-        <if test="search_name != null">
-            AND name LIKE CONCAT('%', #{search_name}, '%')
+        <if test="searchedDTO.search_name != null">
+            AND name LIKE CONCAT('%', #{searchedDTO.search_name}, '%')
         </if>
 
-        <if test="gender != null and gender.length == 1">
+        <if test="searchedDTO.gender != null and searchedDTO.gender.length == 1">
             AND gender =
-            <foreach collection="gender" item="it">
+            <foreach collection="searchedDTO.gender" item="it">
                 #{it}
             </foreach>
         </if>
 
-        <if test = "age != null">
+        <if test = "searchedDTO.age != null">
             AND TRUNCATE((to_days(NOW()) - to_days(birthday)) / 365, -1) IN
-                <foreach collection="age" item="it" separator="," open="(" close=")">
+                <foreach collection="searchedDTO.age" item="it" separator="," open="(" close=")">
                     #{it}
                 </foreach>
         </if>
 
-        <if test="location != null">
+        <if test="searchedDTO.location != null">
             AND
-            <foreach collection="location" item="it" index="idx" separator="or" open="(" close=")">
+            <foreach collection="searchedDTO.location" item="it" index="idx" separator="or" open="(" close=")">
                 location LIKE CONCAT('%', #{it}, '%')
             </foreach>
         </if>
 
-        <if test="service != null">
+        <if test="searchedDTO.service != null">
             AND
-            <foreach collection="service" item="it" index="idx" separator="or" open="(" close=")">
+            <foreach collection="searchedDTO.service" item="it" index="idx" separator="or" open="(" close=")">
                 mainservice LIKE CONCAT('%', #{it}, '%')
             </foreach>
         </if>

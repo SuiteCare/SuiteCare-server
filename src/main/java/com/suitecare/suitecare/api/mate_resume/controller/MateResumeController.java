@@ -32,8 +32,9 @@ public class MateResumeController {
 
     /* 간병인 검색결과 조회 */
     @GetMapping("/search/mate")
-    public List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO) {
-        return mateResumeService.getSearchedMate(searchedMateRequestDTO);
+    public List<SearchedMateResponseDTO> getSearchedMate(HttpServletRequest request, SearchedMateRequestDTO searchedMateRequestDTO) {
+        String login_id = (String) request.getAttribute("id");
+        return mateResumeService.getSearchedMate(login_id, searchedMateRequestDTO);
     }
 
     /* 간병인 이력서 등록 */
