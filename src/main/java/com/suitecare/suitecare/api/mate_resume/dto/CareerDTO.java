@@ -19,4 +19,5 @@ public class CareerDTO implements DTO {
     private LocalDate date_start;
     @JsonProperty("date_end")
     private LocalDate date_end;
+    private Boolean deleted;
 }

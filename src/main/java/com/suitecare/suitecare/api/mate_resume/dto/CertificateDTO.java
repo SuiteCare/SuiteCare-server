@@ -11,11 +11,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CertificateDTO implements DTO {
-    Long id;
-    String name;
-    String code;
+    private Long id;
+    private String name;
+    private String code;
     @JsonProperty("qualification_date")
-    LocalDate qualification_date;
+    private LocalDate qualification_date;
     @JsonProperty("expired_date")
-    LocalDate expired_date;
+    private LocalDate expired_date;
+    private Boolean deleted;
 }
