@@ -16,9 +16,11 @@
                 introduction,
                 contact_time_start,
                 contact_time_end,
-                desired_wage
-        FROM materesume
-        WHERE id = #{login_id};
+                desired_wage,
+                tel,
+                email
+        FROM materesume, suitemember
+        WHERE id = #{login_id} AND materesume.id = suitemember.id;
     </select>
 
     <update id="updateMateResume">

@@ -18,4 +18,8 @@ public class MateResumeDTO {
     private String introduction;
     @JsonProperty("desired_wage")
     private Integer desired_wage;
+    @JsonProperty("tel")
+    private String tel;
+    @JsonProperty("email")
+    private String email;
 }
