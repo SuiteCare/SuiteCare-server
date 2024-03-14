@@ -11,7 +11,7 @@
     </insert>
     
     <select id="findResumeById" resultType="MateResumeDTO">
-        SELECT  id,
+        SELECT  materesume.id,
                 profile_picture_filename,
                 introduction,
                 contact_time_start,
@@ -20,7 +20,7 @@
                 tel,
                 email
         FROM materesume, suitemember
-        WHERE id = #{login_id} AND materesume.id = suitemember.id;
+        WHERE materesume.id = #{login_id} AND materesume.id = suitemember.id;
     </select>
 
     <update id="updateMateResume">
