@@ -28,13 +28,13 @@
     <update id="updateMember">
         update SuiteMember
         <set>
-            <if test="updateMemberRequestDTO.tel != null">
+            <if test='updateMemberRequestDTO.tel != null and updateMemberRequestDTO.tel neq ""'>
                 tel = #{updateMemberRequestDTO.tel},
             </if>
-            <if test="updateMemberRequestDTO.gender != null">
+            <if test='updateMemberRequestDTO.gender != null and updateMemberRequestDTO.gender neq ""'>
                 gender = #{updateMemberRequestDTO.gender},
             </if>
-            <if test="updateMemberRequestDTO.email != null">
+            <if test='updateMemberRequestDTO.email != null and updateMemberRequestDTO.email neq ""'>
                 email = #{updateMemberRequestDTO.email},
             </if>
         </set>
