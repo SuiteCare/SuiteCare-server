@@ -55,11 +55,20 @@ public class MemberService {
 
     public Integer changePassword(String login_id, ChangePasswordRequestDTO changePasswordRequestDTO) {
         String dbPassword = memberMapper.getPasswordById(login_id);
+
+        // 현재 비밀번호 일치하는지 확인
         if(passwordEncoder.matches(changePasswordRequestDTO.getOriginPassword(), dbPassword)) {
-            if(changePasswordRequestDTO.getNewPassword().equals(changePasswordRequestDTO.getNewPasswordCheck())) {
+            // 기존 비밀번호와 변경 비밀번호가 동일한 경우
+            if(changePasswordRequestDTO.getOriginPassword().equals(changePasswordRequestDTO.getNewPassword())) {
+                return 409;
+            }
+
+            if(changePasswordRequestDTO.getNewPassword().equals(changePasswordRequestDTO.getNewPasswordCheck())) { // 새 비밀번호 두개 일치하는지 여부 확인
                 String newPassword = passwordEncoder.encode(changePasswordRequestDTO.getNewPassword());
                 return memberMapper.changePassword(login_id, newPassword);
             }
+        } else {
+            return 401;
         }
 
         return 0;
