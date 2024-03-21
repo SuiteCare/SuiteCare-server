@@ -12,11 +12,11 @@ import java.util.List;
 public interface MateResumeMapper {
     MateResumeDTO findResumeById(String login_id);
 
-    List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO);
+    List<SearchedMateResponseDTO> getSearchedMate(@Param("login_id") String login_id, @Param("searchedDTO") SearchedMateRequestDTO searchedMateRequestDTO);
 
     Integer isPresentResume(String login_id);
 
-    Integer createMateResume(@Param("login_id") String login_id, @Param("mateResumeDTO") MateResumeDTO mateResumeDTO);
+    Integer createMateResume(@Param("login_id") String login_id, @Param("mateResumeDTO") MateResumeDTO mateResumeDTO, @Param("profile_picture_filename") String fileName);
 
     void updateMateResume(@Param("login_id") String login_id, @Param("mateResumeDTO") MateResumeDTO mateResumeDTO);
 

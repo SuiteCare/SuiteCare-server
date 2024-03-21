@@ -21,7 +21,7 @@ public class FamilyReservationResponseDTO {
     private LocalDate confirm_at; // 예약 확정일
     private LocalDate start_date; // 간병 시작일
     private LocalDate end_date; // 간병 종료일
-    private LocalTime start_time; // 간병 종료일
-    private LocalTime end_time; // 간병 종료일
+    private LocalTime start_time; // 간병 시작 시간
+    private LocalTime end_time; // 간병 종료 시간
     private List<Integer> weekdays;
 }

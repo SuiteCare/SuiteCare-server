@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.member.service;
 
+import com.suitecare.suitecare.api.custom.exception.UserException;
 import com.suitecare.suitecare.api.member.dto.*;
 import com.suitecare.suitecare.api.member.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,11 +56,20 @@ public class MemberService {
 
     public Integer changePassword(String login_id, ChangePasswordRequestDTO changePasswordRequestDTO) {
         String dbPassword = memberMapper.getPasswordById(login_id);
+
+        // 현재 비밀번호 일치하는지 확인
         if(passwordEncoder.matches(changePasswordRequestDTO.getOriginPassword(), dbPassword)) {
-            if(changePasswordRequestDTO.getNewPassword().equals(changePasswordRequestDTO.getNewPasswordCheck())) {
+            // 기존 비밀번호와 변경 비밀번호가 동일한 경우
+            if(changePasswordRequestDTO.getOriginPassword().equals(changePasswordRequestDTO.getNewPassword())) {
+                throw new UserException.SamePasswordException("현재 사용 중인 비밀번호는 사용할 수 없습니다.");
+            }
+
+            if(changePasswordRequestDTO.getNewPassword().equals(changePasswordRequestDTO.getNewPasswordCheck())) { // 새 비밀번호 두개 일치하는지 여부 확인
                 String newPassword = passwordEncoder.encode(changePasswordRequestDTO.getNewPassword());
                 return memberMapper.changePassword(login_id, newPassword);
             }
+        } else {
+            throw new UserException.NotMatchPasswordException("현재 비밀번호가 일치하지 않습니다.");
         }
 
         return 0;

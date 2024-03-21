@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 @Data
 public class RecruitmentPatientResponseDTO {
+    private String patient_name;
     private String patient_gender;
     private LocalDate patient_birthday;
     private String patient_diagnosis_name;

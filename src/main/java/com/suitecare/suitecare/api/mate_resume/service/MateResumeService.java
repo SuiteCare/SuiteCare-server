@@ -1,14 +1,21 @@
 package com.suitecare.suitecare.api.mate_resume.service;
 
 import com.suitecare.suitecare.api.custom.ifc.DTO;
-import com.suitecare.suitecare.api.mate_resume.dto.*;
+import com.suitecare.suitecare.api.mate_resume.dto.MateResumeDTO;
+import com.suitecare.suitecare.api.mate_resume.dto.ResumeDTO;
+import com.suitecare.suitecare.api.mate_resume.dto.SearchedMateRequestDTO;
+import com.suitecare.suitecare.api.mate_resume.dto.SearchedMateResponseDTO;
 import com.suitecare.suitecare.api.mate_resume.mapper.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -42,16 +49,28 @@ public class MateResumeService {
 
     }
 
-    public List<SearchedMateResponseDTO> getSearchedMate(SearchedMateRequestDTO searchedMateRequestDTO) {
-        return mateResumeMapper.getSearchedMate(searchedMateRequestDTO);
+    public List<SearchedMateResponseDTO> getSearchedMate(String login_id, SearchedMateRequestDTO searchedMateRequestDTO) {
+        return mateResumeMapper.getSearchedMate(login_id, searchedMateRequestDTO);
     }
 
     /* 간병인 이력서 등록 */
     @Transactional
-    public int createResume(String login_id, ResumeDTO resume_dto) {
+    public int createResume(String login_id, ResumeDTO resume_dto, MultipartFile file) throws IOException {
+        String path = "C:/resources/";
+
+        File dir = new File(path);
+
+        if(!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        String originalFileName = file.getOriginalFilename();
+        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+        String fileName = UUID.randomUUID() + fileExtension; // 고유한 파일 이름 생성
+        file.transferTo(new File(path + fileName));
 
         // 이력서 Insert
-        mateResumeMapper.createMateResume(login_id, resume_dto.getMateResume());
+        mateResumeMapper.createMateResume(login_id, resume_dto.getMateResume(), fileName);
 
         // 경력 Insert
         if(resume_dto.getCareerList() != null) {
@@ -80,9 +99,16 @@ public class MateResumeService {
         /* 이력서 상세 정보 업데이트 */
         updateDtoElement(login_id, resumeDTO.getCareerList(), careerMapper::insertCareer, careerMapper::updateCareer);
         updateDtoElement(login_id, resumeDTO.getCertificateList(), certificateMapper::insertCertificate, certificateMapper::updateCertificate);
-        updateDtoElement(login_id, resumeDTO.getLocationList(), locationMapper::insertLocation, locationMapper::updateLocation);
-        updateDtoElement(login_id, resumeDTO.getMainServiceList(), mainSeviceMapper::insertMainService, mainSeviceMapper::updateMainService);
 
+        if(resumeDTO.getLocationList() != null) {
+            locationMapper.deleteLocation(login_id);
+            locationMapper.createLocation(login_id, resumeDTO.getLocationList());
+        }
+
+        if(resumeDTO.getMainServiceList() != null) {
+            mainSeviceMapper.deleteMainService(login_id);
+            mainSeviceMapper.createMainService(login_id, resumeDTO.getMainServiceList());
+        }
     }
 
     /* DTO 요소 업데이트를 위한 메소드 */
