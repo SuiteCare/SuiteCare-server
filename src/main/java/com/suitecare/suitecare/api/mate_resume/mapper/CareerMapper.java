@@ -17,4 +17,6 @@ public interface CareerMapper {
     void insertCareer(@Param("mate_resume_id") String mate_resume_id, @Param("careerDTO") CareerDTO careerDTO);
 
     void updateCareer(CareerDTO careerDTO);
+
+    void deleteCareer(Long id);
 }
