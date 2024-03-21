@@ -16,7 +16,7 @@ public interface MateResumeMapper {
 
     Integer isPresentResume(String login_id);
 
-    Integer createMateResume(@Param("login_id") String login_id, @Param("mateResumeDTO") MateResumeDTO mateResumeDTO);
+    Integer createMateResume(@Param("login_id") String login_id, @Param("mateResumeDTO") MateResumeDTO mateResumeDTO, @Param("profile_picture_filename") String fileName);
 
     void updateMateResume(@Param("login_id") String login_id, @Param("mateResumeDTO") MateResumeDTO mateResumeDTO);
 

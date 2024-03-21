@@ -60,7 +60,7 @@ public class MemberController {
                     .count(1)
                     .result(Collections.singletonList(resultData))
                     .build();
-        }else {
+        } else {
             responseForm = ResponseForm.builder()
                     .code(HttpStatus.NO_CONTENT.value())
                     .httpStatus(HttpStatus.NO_CONTENT)
