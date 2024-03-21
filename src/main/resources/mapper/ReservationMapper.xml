@@ -75,7 +75,7 @@
 
     <!-- 간병인 로그인ID로 예약 내역 불러오기-->
     <select id="getMateReservationListById" resultMap="mateResultMap">
-        SELECT reservation.*, member_id AS family_id, name AS family_name, start_date, end_date, start_time, end_time
+        SELECT reservation.*, member_id AS family_id, name AS family_name, tel AS family_tel, email AS family_email, start_date, end_date, start_time, end_time
         FROM reservation
         JOIN recruitment ON recruitment_id = recruitment.id
         JOIN suitemember ON suitemember.id = recruitment.member_id
