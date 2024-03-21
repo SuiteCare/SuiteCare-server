@@ -1,6 +1,6 @@
 package com.suitecare.suitecare.api.mate_resume.dto;
 
-import com.suitecare.suitecare.api.custom.ifc.DTO;
+import com.suitecare.suitecare.api.custom.ifc.HasIdNDeletable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,11 +12,11 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CareerDTO implements DTO {
+public class CareerDTO implements HasIdNDeletable {
     private Long id;
     private String name;
     private String job_name;
     private LocalDate date_start;
     private LocalDate date_end;
-    private Boolean deleted;
+    private Boolean isDeleted;
 }
