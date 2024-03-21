@@ -88,22 +88,6 @@ public class MemberController {
                     .count(0)
                     .result(Collections.emptyList())
                     .build();
-        } else if(resultValue == 401) {
-            responseForm = ResponseForm.builder()
-                    .code(HttpStatus.UNAUTHORIZED.value())
-                    .httpStatus(HttpStatus.UNAUTHORIZED)
-                    .msg("현재 비밀번호가 일치하지 않습니다.")
-                    .count(0)
-                    .result(Collections.emptyList())
-                    .build();
-        } else if(resultValue == 409) {
-            responseForm = ResponseForm.builder()
-                    .code(HttpStatus.CONFLICT.value())
-                    .httpStatus(HttpStatus.CONFLICT)
-                    .msg("현재 사용 중인 비밀번호는 사용할 수 없습니다.")
-                    .count(0)
-                    .result(Collections.emptyList())
-                    .build();
         } else {
             responseForm = ResponseForm.builder()
                     .code(HttpStatus.BAD_REQUEST.value())

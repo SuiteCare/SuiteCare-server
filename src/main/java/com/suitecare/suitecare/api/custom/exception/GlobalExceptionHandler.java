@@ -63,4 +63,31 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(responseForm, responseForm.getHttpStatus());
     }
+
+    @ExceptionHandler(UserException.SamePasswordException.class)
+    public ResponseEntity<ResponseForm> handleSamePasswordException(UserException.SamePasswordException e) {
+        ResponseForm responseForm = ResponseForm.builder()
+                                                .code(HttpStatus.CONFLICT.value())
+                                                .httpStatus(HttpStatus.CONFLICT)
+                                                .msg(e.getMessage())
+                                                .count(0)
+                                                .result(List.of(e.getMessage()))
+                                                .build();
+
+        return new ResponseEntity<>(responseForm, responseForm.getHttpStatus());
+    }
+
+    @ExceptionHandler(UserException.NotMatchPasswordException.class)
+    public ResponseEntity<ResponseForm> handleNotMatchPasswordException(UserException.NotMatchPasswordException e) {
+        ResponseForm responseForm = ResponseForm.builder()
+                .code(HttpStatus.UNAUTHORIZED.value())
+                .httpStatus(HttpStatus.UNAUTHORIZED)
+                .msg(e.getMessage())
+                .count(0)
+                .result(List.of(e.getMessage()))
+                .build();
+
+
+        return new ResponseEntity<>(responseForm, responseForm.getHttpStatus());
+    }
 }
