@@ -18,6 +18,8 @@ public class MateReservationResponseDTO {
     private Long recruitment_id; // 공고 ID
     private String family_id; // 예약 체결된 보호자 ID
     private String family_name; // 예약 체결된 보호자 ID
+    private String family_tel;
+    private String family_email;
     private LocalDate confirm_at; // 예약 확정일
     private LocalDate start_date; // 간병 시작일
     private LocalDate end_date; // 간병 종료일
