@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,11 +39,11 @@ public class MateResumeController {
         return mateResumeService.getSearchedMate(login_id, searchedMateRequestDTO);
     }
 
-    /* 간병인 이력서 등록 */
     @PostMapping("/mate/resume")
-    public int createResume(HttpServletRequest request, @RequestBody ResumeDTO resumeDTO) {
+    public Integer uploadResume(HttpServletRequest request, @RequestPart("file") MultipartFile file,
+                                          @RequestPart("resumeData") ResumeDTO resumeData) throws IOException {
         String login_id = (String) request.getAttribute("id");
-        return mateResumeService.createResume(login_id, resumeDTO);
+        return mateResumeService.createResume(login_id, resumeData, file);
     }
 
     @PatchMapping("/mate/resume")
