@@ -1,5 +1,5 @@
 package com.suitecare.suitecare.api.custom.ifc;
 
-public interface DTO {
+public interface HasId {
     Long getId();
 }
