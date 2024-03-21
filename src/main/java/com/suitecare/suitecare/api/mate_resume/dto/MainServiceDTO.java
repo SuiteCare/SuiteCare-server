@@ -1,13 +1,15 @@
 package com.suitecare.suitecare.api.mate_resume.dto;
 
-import com.suitecare.suitecare.api.custom.ifc.DTO;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MainServiceDTO implements DTO {
+public class MainServiceDTO {
     private Long id;
     private String name;
 }

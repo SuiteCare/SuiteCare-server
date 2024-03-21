@@ -48,4 +48,8 @@
         WHERE id = #{id}
     </update>
 
+    <delete id="deleteCertificate">
+        DELETE FROM certificate WHERE id = #{id}
+    </delete>
+
 </mapper>

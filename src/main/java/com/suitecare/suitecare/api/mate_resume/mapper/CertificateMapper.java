@@ -15,4 +15,6 @@ public interface CertificateMapper {
     void insertCertificate(@Param("mate_resume_id") String mate_resume_id, @Param("certificateDTO") CertificateDTO certificateDTO);
 
     void updateCertificate(CertificateDTO certificateDTO);
+
+    void deleteCertificate(Long id);
 }

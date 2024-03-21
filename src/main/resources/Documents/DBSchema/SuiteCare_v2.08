@@ -17,7 +17,7 @@ CREATE TABLE SuiteMember (
 
 CREATE TABLE MateResume (
  id 						VARCHAR(20) primary key,
- profile_picture_filename 	VARCHAR(35) NOT NULL,
+ profile_picture_filename 	VARCHAR(64) NOT NULL,
  introduction 				VARCHAR(200) NOT NULL,
  contact_time_start 		VARCHAR(20) NOT NULL,
  contact_time_end 			VARCHAR(20) NOT NULL,
