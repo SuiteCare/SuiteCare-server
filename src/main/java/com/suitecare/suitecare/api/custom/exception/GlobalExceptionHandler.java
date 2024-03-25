@@ -3,6 +3,7 @@ package com.suitecare.suitecare.api.custom.exception;
 import com.suitecare.suitecare.api.custom.format.ResponseForm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.exceptions.PersistenceException;
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -87,6 +88,22 @@ public class GlobalExceptionHandler {
                 .result(List.of(e.getMessage()))
                 .build();
 
+
+        return new ResponseEntity<>(responseForm, responseForm.getHttpStatus());
+    }
+
+    @ExceptionHandler(FileSizeLimitExceededException.class)
+    public ResponseEntity<ResponseForm> handleFileSizeLimitExceededException(FileSizeLimitExceededException e) {
+        log.info("FileSizeLimitExceededException 발생");
+
+        // 예외 처리 로직
+        ResponseForm responseForm = ResponseForm.builder()
+                .code(HttpStatus.BAD_REQUEST.value())
+                .httpStatus(HttpStatus.BAD_REQUEST)
+                .msg("사진 용량이 너무 큼")
+                .count(1)
+                .result(List.of(e.getMessage()))
+                .build();
 
         return new ResponseEntity<>(responseForm, responseForm.getHttpStatus());
     }

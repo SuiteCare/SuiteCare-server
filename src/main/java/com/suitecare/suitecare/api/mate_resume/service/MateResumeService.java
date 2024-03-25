@@ -57,17 +57,21 @@ public class MateResumeService {
     @Transactional
     public int createResume(String login_id, ResumeDTO resume_dto, MultipartFile file) throws IOException {
         String path = "C:/resources/";
+        String fileName = "default_profile.jpg";
 
-        File dir = new File(path);
+        if(file != null) {
 
-        if(!dir.exists()) {
-            dir.mkdirs();
+            File dir = new File(path);
+
+            if(!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            String originalFileName = file.getOriginalFilename();
+            String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+            fileName = UUID.randomUUID() + fileExtension; // 고유한 파일 이름 생성
+            file.transferTo(new File(path + fileName));
         }
-
-        String originalFileName = file.getOriginalFilename();
-        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
-        String fileName = UUID.randomUUID() + fileExtension; // 고유한 파일 이름 생성
-        file.transferTo(new File(path + fileName));
 
         // 이력서 Insert
         mateResumeMapper.createMateResume(login_id, resume_dto.getMateResume(), fileName);
