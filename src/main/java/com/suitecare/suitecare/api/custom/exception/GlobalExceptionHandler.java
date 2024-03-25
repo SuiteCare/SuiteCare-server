@@ -90,4 +90,46 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(responseForm, responseForm.getHttpStatus());
     }
+
+    /* 간병인의 이력서가 없는 경우 */
+    public static class ResumeNotFoundException extends RuntimeException {
+        public ResumeNotFoundException (String message) {
+            super(message);
+        }
+    }
+
+    @ExceptionHandler(ResumeNotFoundException.class)
+    public ResponseEntity<ResponseForm> handleResumeNotFoundException(ResumeNotFoundException e) {
+        ResponseForm responseForm = ResponseForm.builder()
+                .code(HttpStatus.NOT_FOUND.value())
+                .httpStatus(HttpStatus.NOT_FOUND)
+                .msg(e.getMessage())
+                .count(0)
+                .result(List.of(e.getMessage()))
+                .build();
+
+
+        return new ResponseEntity<>(responseForm, responseForm.getHttpStatus());
+    }
+
+    /* 이미 지원한 공고인 경우 */
+    public static class AlreadyAppliedException  extends RuntimeException {
+        public AlreadyAppliedException (String message) {
+            super(message);
+        }
+    }
+
+    @ExceptionHandler(AlreadyAppliedException.class)
+    public ResponseEntity<ResponseForm> handleAlreadyAppliedException(AlreadyAppliedException e) {
+        ResponseForm responseForm = ResponseForm.builder()
+                .code(HttpStatus.CONFLICT.value())
+                .httpStatus(HttpStatus.CONFLICT)
+                .msg(e.getMessage())
+                .count(0)
+                .result(List.of(e.getMessage()))
+                .build();
+
+
+        return new ResponseEntity<>(responseForm, responseForm.getHttpStatus());
+    }
 }
