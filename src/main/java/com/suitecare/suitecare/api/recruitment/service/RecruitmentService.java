@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.recruitment.service;
 
+import com.suitecare.suitecare.api.custom.exception.GlobalExceptionHandler;
 import com.suitecare.suitecare.api.mate_resume.mapper.MateResumeMapper;
 import com.suitecare.suitecare.api.recruitment.dto.*;
 import com.suitecare.suitecare.api.recruitment.mapper.RecruitmentMapper;
@@ -57,14 +58,16 @@ public class RecruitmentService {
 
         /* 신청자 Mate인 경우, 이력서 여부 확인 */
         if(applyRequestDTO.getRequest_by().equals("M") && !isPresentResume(applyRequestDTO.getMate_id())) {
-            return 0;
+           /* 이력서 없는 경우 */
+            throw new GlobalExceptionHandler.ResumeNotFoundException("Resume Not Found");
         }
 
         if(!isPresentApplicant(applyRequestDTO)) { // 해당 공고 지원 여부
             return recruitmentMapper.apply(applyRequestDTO);
         }
 
-        return 2;
+        /* 이미 지원한 공고 */
+        throw new GlobalExceptionHandler.AlreadyAppliedException("Already applied");
 
     }
 
