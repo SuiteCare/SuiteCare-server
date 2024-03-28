@@ -17,7 +17,7 @@ CREATE TABLE SuiteMember (
 
 CREATE TABLE MateResume (
  id 						VARCHAR(20) primary key,
- profile_picture_filename 	VARCHAR(64) NOT NULL,
+ profile_picture_filename 	VARCHAR(64) NULL,
  introduction 				VARCHAR(200) NOT NULL,
  contact_time_start 		VARCHAR(20) NOT NULL,
  contact_time_end 			VARCHAR(20) NOT NULL,
@@ -137,6 +137,44 @@ CREATE TABLE Location (
  name 				VARCHAR(10) NOT NULL
 );
 
+CREATE TABLE Review (
+ id					BIGINT primary key auto_increment,
+ member_id			VARCHAR(20) NOT NULL,
+ mate_resume_id 	VARCHAR(20) NOT NULL,
+ recruitment_id		BIGINT NOT NULL,
+ reservation_id		BIGINT NOT NULL,
+ comment			VARCHAR(50) NOT NULL,
+ rate				INT	NOT NULL
+);
+
+ALTER TABLE Review ADD CONSTRAINT FK_SuiteMember_TO_Review_1 FOREIGN KEY (
+ member_id
+)
+REFERENCES SuiteMember (
+ id
+);
+
+ALTER TABLE Review ADD CONSTRAINT FK_MateResume_TO_Review_1 FOREIGN KEY (
+ mate_resume_id
+)
+REFERENCES MateResume (
+ id
+)on delete cascade;
+
+ALTER TABLE Review ADD CONSTRAINT FK_Recruitment_TO_Review_1 FOREIGN KEY (
+ recruitment_id
+)
+REFERENCES Recruitment (
+ id
+);
+
+ALTER TABLE Review ADD CONSTRAINT FK_Reservation_TO_Review_1 FOREIGN KEY (
+ reservation_id
+)
+REFERENCES Reservation (
+ id
+);
+
 ALTER TABLE MateResume ADD CONSTRAINT FK_SuiteMember_TO_MateResume_1 FOREIGN KEY (
  id
 )
@@ -170,28 +208,28 @@ ALTER TABLE Career ADD CONSTRAINT FK_MateResume_TO_Career_1 FOREIGN KEY (
 )
 REFERENCES MateResume (
  id
-)on delete cascade;
+)ON DELETE CASCADE;
 
 ALTER TABLE Certificate ADD CONSTRAINT FK_MateResume_TO_Certificate_1 FOREIGN KEY (
  mate_resume_id
 )
 REFERENCES MateResume (
  id
-)on delete cascade;
+)ON DELETE CASCADE;
 
 ALTER TABLE Location ADD CONSTRAINT FK_MateResume_TO_Location_1 FOREIGN KEY (
  mate_resume_id
 )
 REFERENCES MateResume (
  id
-)on delete cascade;
+)ON DELETE CASCADE;
 
 ALTER TABLE MainService ADD CONSTRAINT FK_MateResume_TO_MainService_1 FOREIGN KEY (
  mate_resume_id
 )
 REFERENCES MateResume (
  id
-)on delete cascade;
+)ON DELETE CASCADE;
 
 ALTER TABLE DayOfReservation ADD CONSTRAINT FK_Recruitment_TO_DayOfReservation_1 FOREIGN KEY (
  recruitment_id
