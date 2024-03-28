@@ -40,7 +40,7 @@ public class MateResumeController {
     }
 
     @PostMapping("/mate/resume")
-    public Integer uploadResume(HttpServletRequest request, @RequestPart("file") MultipartFile file,
+    public Integer uploadResume(HttpServletRequest request, @RequestPart(value = "file", required = false) MultipartFile file,
                                           @RequestPart("resumeData") ResumeDTO resumeData) throws IOException {
         String login_id = (String) request.getAttribute("id");
         return mateResumeService.createResume(login_id, resumeData, file);
