@@ -22,18 +22,6 @@
         WHERE recruitment_id = #{recruitment_id} AND mate_resume_id = #{mate_id} AND request_by = #{request_by}
     </update>
 
-<!--    <update id="updateRecruitmentStatus">-->
-<!--        UPDATE applicants SET status = 'E'-->
-<!--        WHERE recruitment_id = #{recruitment_id};-->
-<!--    </update>-->
-
-<!--    <select id="getReservationInfoById" resultType="ReservationDetailResponseDTO">-->
-<!--        SELECT location, road_address, address_detail, wage, start_time, end_time, group_concat(day) weekday-->
-<!--        FROM reservation r, dayofreservation d-->
-<!--        WHERE r.id = #{reservation_id} AND d.reservation_id = r.id-->
-<!--        GROUP BY d.reservation_id;-->
-<!--    </select>-->
-
     <resultMap id="familyResultMap" type="com.suitecare.suitecare.api.reservation.dto.FamilyReservationResponseDTO">
         <id property="id" column="id"/>
         <result property="recruitment_id" column="recruitment_id"/>
@@ -82,4 +70,8 @@
         WHERE mate_resume_id = #{login_id};
     </select>
 
+    <select id="isPresentReservation">
+        SELECT count(*) FROM reservation
+        WHERE recruitment_id = #{recruitment_id};
+    </select>
 </mapper>

@@ -11,7 +11,7 @@ public interface ReservationMapper {
     Integer createReservation(ReservationRequestDTO reservationRequestDTO);
     Integer updateStatus(ReservationRequestDTO reservationRequestDTO);
     Integer updateStatusToReject(ApplyInfoRequestDTO applyInfoRequestDTO);
-    ReservationDetailResponseDTO getReservationInfoById(Long reservation_id);
     List<FamilyReservationResponseDTO> getFamilyReservationListById(String login_id);
     List<MateReservationResponseDTO> getMateReservationListById(String login_id);
+    Integer isPresentReservation(ReservationRequestDTO reservationRequestDTO);
 }

@@ -132,4 +132,25 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(responseForm, responseForm.getHttpStatus());
     }
+
+    /* 이미 확정된 공고 */
+    public static class AlreadyReservedException  extends RuntimeException {
+        public AlreadyReservedException (String message) {
+            super(message);
+        }
+    }
+
+    @ExceptionHandler(AlreadyReservedException.class)
+    public ResponseEntity<ResponseForm> handleAlreadyReservedException(AlreadyReservedException e) {
+        ResponseForm responseForm = ResponseForm.builder()
+                .code(HttpStatus.CONFLICT.value())
+                .httpStatus(HttpStatus.CONFLICT)
+                .msg(e.getMessage())
+                .count(0)
+                .result(List.of(e.getMessage()))
+                .build();
+
+
+        return new ResponseEntity<>(responseForm, responseForm.getHttpStatus());
+    }
 }
