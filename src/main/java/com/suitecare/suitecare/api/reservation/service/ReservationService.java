@@ -1,5 +1,6 @@
 package com.suitecare.suitecare.api.reservation.service;
 
+import com.suitecare.suitecare.api.custom.exception.GlobalExceptionHandler;
 import com.suitecare.suitecare.api.recruitment.dto.ApplyInfoRequestDTO;
 import com.suitecare.suitecare.api.reservation.dto.FamilyReservationResponseDTO;
 import com.suitecare.suitecare.api.reservation.dto.MateReservationResponseDTO;
@@ -18,13 +19,28 @@ public class ReservationService {
 
     @Transactional
     public Integer createReservation(ReservationRequestDTO reservationRequestDTO) {
+
+        if(reservationMapper.isPresentReservation(reservationRequestDTO) == 1) {
+            throw new GlobalExceptionHandler.AlreadyReservedException("Already Reserved");
+        }
+
+        if(reservationMapper.isPresentApplicant(reservationRequestDTO) == 0) {
+            throw new GlobalExceptionHandler.ApplicantNotFoundException("Not Found Applicant");
+        }
+
         Integer result = reservationMapper.createReservation(reservationRequestDTO);
 
         if(result == 1) {
-            reservationMapper.updateStatus(reservationRequestDTO);
+            if(updateStatus(reservationRequestDTO) == 0) {
+                throw new GlobalExceptionHandler.UpdateStatusException("Not Update Status");
+            }
         }
 
         return result;
+    }
+
+    public Integer updateStatus(ReservationRequestDTO reservationRequestDTO) {
+        return reservationMapper.updateStatus(reservationRequestDTO);
     }
 
     public Integer updateStatusToReject(ApplyInfoRequestDTO applyInfoRequestDTO) {
@@ -38,12 +54,5 @@ public class ReservationService {
     public List<MateReservationResponseDTO> getMateReservationListById(String login_id) {
         return reservationMapper.getMateReservationListById(login_id);
     }
-
-//    public ReservationDetailResponseDTO getReservationInfoById(Long reservation_id) {
-//        return reservationMapper.getReservationInfoById(reservation_id);
-//    }
-//
-//    public List<ReservationResponseDTO> getReservationList(String id) {
-//        return reservationMapper.getReservationList(id);}
 }
 

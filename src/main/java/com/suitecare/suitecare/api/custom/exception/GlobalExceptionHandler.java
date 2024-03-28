@@ -113,7 +113,7 @@ public class GlobalExceptionHandler {
     }
 
     /* 이미 지원한 공고인 경우 */
-    public static class AlreadyAppliedException  extends RuntimeException {
+    public static class AlreadyAppliedException extends RuntimeException {
         public AlreadyAppliedException (String message) {
             super(message);
         }
@@ -124,6 +124,69 @@ public class GlobalExceptionHandler {
         ResponseForm responseForm = ResponseForm.builder()
                 .code(HttpStatus.CONFLICT.value())
                 .httpStatus(HttpStatus.CONFLICT)
+                .msg(e.getMessage())
+                .count(0)
+                .result(List.of(e.getMessage()))
+                .build();
+
+
+        return new ResponseEntity<>(responseForm, responseForm.getHttpStatus());
+    }
+
+    /* 이미 확정된 공고 */
+    public static class AlreadyReservedException extends RuntimeException {
+        public AlreadyReservedException (String message) {
+            super(message);
+        }
+    }
+
+    @ExceptionHandler(AlreadyReservedException.class)
+    public ResponseEntity<ResponseForm> handleAlreadyReservedException(AlreadyReservedException e) {
+        ResponseForm responseForm = ResponseForm.builder()
+                .code(HttpStatus.CONFLICT.value())
+                .httpStatus(HttpStatus.CONFLICT)
+                .msg(e.getMessage())
+                .count(0)
+                .result(List.of(e.getMessage()))
+                .build();
+
+
+        return new ResponseEntity<>(responseForm, responseForm.getHttpStatus());
+    }
+
+    /* status에 대한 업데이트 결과가 없는 경우 */
+    public static class UpdateStatusException extends RuntimeException {
+        public UpdateStatusException (String message) {
+            super(message);
+        }
+    }
+
+    @ExceptionHandler(UpdateStatusException.class)
+    public ResponseEntity<ResponseForm> handleUpdateStatusException(UpdateStatusException e) {
+        ResponseForm responseForm = ResponseForm.builder()
+                .code(HttpStatus.BAD_REQUEST.value())
+                .httpStatus(HttpStatus.BAD_REQUEST)
+                .msg(e.getMessage())
+                .count(0)
+                .result(List.of(e.getMessage()))
+                .build();
+
+
+        return new ResponseEntity<>(responseForm, responseForm.getHttpStatus());
+    }
+
+    /* 지원자 목록에 없는 경우 */
+    public static class ApplicantNotFoundException extends RuntimeException {
+        public ApplicantNotFoundException (String message) {
+            super(message);
+        }
+    }
+
+    @ExceptionHandler(ApplicantNotFoundException.class)
+    public ResponseEntity<ResponseForm> handleApplicantNotFoundException(ApplicantNotFoundException e) {
+        ResponseForm responseForm = ResponseForm.builder()
+                .code(HttpStatus.BAD_REQUEST.value())
+                .httpStatus(HttpStatus.BAD_REQUEST)
                 .msg(e.getMessage())
                 .count(0)
                 .result(List.of(e.getMessage()))
