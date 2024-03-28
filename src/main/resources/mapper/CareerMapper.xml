@@ -48,4 +48,8 @@
         WHERE id = #{id}
     </update>
 
+    <delete id="deleteCareer">
+        DELETE FROM career WHERE id = #{id}
+    </delete>
+
 </mapper>

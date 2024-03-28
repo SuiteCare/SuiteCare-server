@@ -1,10 +1,7 @@
 package com.suitecare.suitecare.api.mate_resume.service;
 
-import com.suitecare.suitecare.api.custom.ifc.DTO;
-import com.suitecare.suitecare.api.mate_resume.dto.MateResumeDTO;
-import com.suitecare.suitecare.api.mate_resume.dto.ResumeDTO;
-import com.suitecare.suitecare.api.mate_resume.dto.SearchedMateRequestDTO;
-import com.suitecare.suitecare.api.mate_resume.dto.SearchedMateResponseDTO;
+import com.suitecare.suitecare.api.custom.ifc.HasIdNDeletable;
+import com.suitecare.suitecare.api.mate_resume.dto.*;
 import com.suitecare.suitecare.api.mate_resume.mapper.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,8 +98,49 @@ public class MateResumeService {
         if (resumeDTO.getMateResume() != null) mateResumeMapper.updateMateResume(login_id, resumeDTO.getMateResume());
 
         /* 이력서 상세 정보 업데이트 */
-        updateDtoElement(login_id, resumeDTO.getCareerList(), careerMapper::insertCareer, careerMapper::updateCareer);
-        updateDtoElement(login_id, resumeDTO.getCertificateList(), certificateMapper::insertCertificate, certificateMapper::updateCertificate);
+        updateDtoElement(login_id, resumeDTO.getCareerList(), careerMapper::insertCareer, careerMapper::updateCareer, careerMapper::deleteCareer);
+        updateDtoElement(login_id, resumeDTO.getCertificateList(), certificateMapper::insertCertificate, certificateMapper::updateCertificate, certificateMapper::deleteCertificate);
+
+        /*if(resumeDTO.getCareerList() != null) {
+            // 모든 Career 순회
+            for(Career careerDTO : resumeDTO.getCareerList()) {
+
+                // Career id 없는 경우 신규 생성
+                if(careerDTO.getId() == null) {
+                    careerMapper.insertCareer(login_id, careerDTO);
+                    continue;
+                }
+
+                // Career id 삭제 대상인 경우
+                if(careerDTO.getIsDeleted()) {
+                    careerMapper.deleteCareer(careerDTO.getId());
+                    continue;
+                }
+
+                // Career 업데이트
+                careerMapper.updateCareer(careerDTO);
+            }
+        }
+
+        if(resumeDTO.getCertificateList() != null) {
+            for(Certificate certificateDTO : resumeDTO.getCertificateList()) {
+
+                // Career id 없는 경우 신규 생성
+                if(certificateDTO.getId() == null) {
+                    certificateMapper.insertCertificate(login_id, certificateDTO);
+                    continue;
+                }
+
+                // Career id 삭제 대상인 경우
+                if(certificateDTO.getIsDeleted()) {
+                    certificateMapper.deleteCertificate(certificateDTO.getId());
+                    continue;
+                }
+
+                // Career 업데이트
+                certificateMapper.updateCertificate(certificateDTO);
+            }
+        }*/
 
         if(resumeDTO.getLocationList() != null) {
             locationMapper.deleteLocation(login_id);
@@ -116,16 +154,23 @@ public class MateResumeService {
     }
 
     /* DTO 요소 업데이트를 위한 메소드 */
-    public static <T extends DTO> void updateDtoElement(String login_id, List<T> elements, BiConsumer<String, T> insertMethod, Consumer<T> updateMethod) {
+    public <T extends HasIdNDeletable> void updateDtoElement(String login_id, List<T> elements, BiConsumer<String, T> insertMethod, Consumer<T> updateMethod, Consumer<Long> deleteMethod) {
 
         if (elements == null) return;
 
         elements.forEach(element -> {
             if (element.getId() == null) {
                 insertMethod.accept(login_id, element);
-            } else {
-                updateMethod.accept(element);
+                return;
             }
+
+            if(element.getIsDeleted()) {
+                deleteMethod.accept(element.getId());
+                return;
+            }
+
+            updateMethod.accept(element);
+
         });
 
     }
