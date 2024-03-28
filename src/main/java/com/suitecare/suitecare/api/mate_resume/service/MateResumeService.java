@@ -60,7 +60,7 @@ public class MateResumeService {
 
     /* 간병인 이력서 등록 */
     @Transactional
-    public int createResume(String login_id, ResumeDTO resume_dto, MultipartFile profileImageFile) throws IOException {
+    public void createResume(String login_id, ResumeDTO resume_dto, MultipartFile profileImageFile) throws IOException {
         /* 이미지 파일 경로 초기화 */
         String path = "C:/resources/";
         String fileName = null;
@@ -96,8 +96,6 @@ public class MateResumeService {
         locationMapper.createLocation(login_id, resume_dto.getLocationList());
         // 대표서비스 Insert
         mainSeviceMapper.createMainService(login_id, resume_dto.getMainServiceList());
-
-        return 1;
 
     }
 
