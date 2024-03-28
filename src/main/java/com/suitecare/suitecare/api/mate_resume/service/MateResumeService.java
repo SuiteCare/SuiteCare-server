@@ -1,7 +1,10 @@
 package com.suitecare.suitecare.api.mate_resume.service;
 
 import com.suitecare.suitecare.api.custom.ifc.HasIdNDeletable;
-import com.suitecare.suitecare.api.mate_resume.dto.*;
+import com.suitecare.suitecare.api.mate_resume.dto.MateResumeDTO;
+import com.suitecare.suitecare.api.mate_resume.dto.ResumeDTO;
+import com.suitecare.suitecare.api.mate_resume.dto.SearchedMateRequestDTO;
+import com.suitecare.suitecare.api.mate_resume.dto.SearchedMateResponseDTO;
 import com.suitecare.suitecare.api.mate_resume.mapper.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,11 @@ public class MateResumeService {
     public ResumeDTO findMateResumeById(String login_id) {
 
         MateResumeDTO mateResumeDTO = mateResumeMapper.findResumeById(login_id);
+
+        if(mateResumeDTO == null) {
+            return null;
+        }
+
         String mate_resume_id = mateResumeDTO.getId();
 
         return ResumeDTO.builder()
@@ -53,14 +61,15 @@ public class MateResumeService {
     /* 간병인 이력서 등록 */
     @Transactional
     public int createResume(String login_id, ResumeDTO resume_dto, MultipartFile file) throws IOException {
+        /* 이미지 파일 경로 초기화 */
         String path = "C:/resources/";
-        String fileName = "default_profile.jpg";
+        String fileName = null;
 
-        if(!file.isEmpty()) {
-
+        /* 이미지 파일 업로드 로직 */
+        if (file != null && !file.isEmpty()) {
             File dir = new File(path);
 
-            if(!dir.exists()) {
+            if (!dir.exists()) {
                 dir.mkdirs();
             }
 
@@ -68,17 +77,19 @@ public class MateResumeService {
             String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
             fileName = UUID.randomUUID() + fileExtension; // 고유한 파일 이름 생성
             file.transferTo(new File(path + fileName));
+
         }
 
+        /* 이력서 생성 로직 */
         // 이력서 Insert
         mateResumeMapper.createMateResume(login_id, resume_dto.getMateResume(), fileName);
 
         // 경력 Insert
-        if(resume_dto.getCareerList() != null) {
+        if (resume_dto.getCareerList() != null) {
             careerMapper.createCareer(login_id, resume_dto.getCareerList());
         }
         // 자격증 Insert
-        if(resume_dto.getCertificateList() != null) {
+        if (resume_dto.getCertificateList() != null) {
             certificateMapper.createCertificate(login_id, resume_dto.getCertificateList());
         }
         // 지역 Insert
@@ -101,53 +112,12 @@ public class MateResumeService {
         updateDtoElement(login_id, resumeDTO.getCareerList(), careerMapper::insertCareer, careerMapper::updateCareer, careerMapper::deleteCareer);
         updateDtoElement(login_id, resumeDTO.getCertificateList(), certificateMapper::insertCertificate, certificateMapper::updateCertificate, certificateMapper::deleteCertificate);
 
-        /*if(resumeDTO.getCareerList() != null) {
-            // 모든 Career 순회
-            for(Career careerDTO : resumeDTO.getCareerList()) {
-
-                // Career id 없는 경우 신규 생성
-                if(careerDTO.getId() == null) {
-                    careerMapper.insertCareer(login_id, careerDTO);
-                    continue;
-                }
-
-                // Career id 삭제 대상인 경우
-                if(careerDTO.getIsDeleted()) {
-                    careerMapper.deleteCareer(careerDTO.getId());
-                    continue;
-                }
-
-                // Career 업데이트
-                careerMapper.updateCareer(careerDTO);
-            }
-        }
-
-        if(resumeDTO.getCertificateList() != null) {
-            for(Certificate certificateDTO : resumeDTO.getCertificateList()) {
-
-                // Career id 없는 경우 신규 생성
-                if(certificateDTO.getId() == null) {
-                    certificateMapper.insertCertificate(login_id, certificateDTO);
-                    continue;
-                }
-
-                // Career id 삭제 대상인 경우
-                if(certificateDTO.getIsDeleted()) {
-                    certificateMapper.deleteCertificate(certificateDTO.getId());
-                    continue;
-                }
-
-                // Career 업데이트
-                certificateMapper.updateCertificate(certificateDTO);
-            }
-        }*/
-
-        if(resumeDTO.getLocationList() != null) {
+        if (resumeDTO.getLocationList() != null) {
             locationMapper.deleteLocation(login_id);
             locationMapper.createLocation(login_id, resumeDTO.getLocationList());
         }
 
-        if(resumeDTO.getMainServiceList() != null) {
+        if (resumeDTO.getMainServiceList() != null) {
             mainSeviceMapper.deleteMainService(login_id);
             mainSeviceMapper.createMainService(login_id, resumeDTO.getMainServiceList());
         }
@@ -164,7 +134,7 @@ public class MateResumeService {
                 return;
             }
 
-            if(element.getIsDeleted()) {
+            if (element.getIsDeleted()) {
                 deleteMethod.accept(element.getId());
                 return;
             }

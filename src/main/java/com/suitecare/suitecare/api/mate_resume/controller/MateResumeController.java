@@ -28,8 +28,29 @@ public class MateResumeController {
 
     /* 간병인 이력서 조회 */
     @GetMapping("/mate/resume/{login_id}")
-    public ResumeDTO getResume(@PathVariable String login_id) {
-        return mateResumeService.findMateResumeById(login_id);
+    public ResponseEntity<ResponseForm> getResume(@PathVariable String login_id) {
+        ResponseForm responseForm;
+        ResumeDTO resumeDTO = mateResumeService.findMateResumeById(login_id);
+
+        if(resumeDTO != null) {
+            responseForm = ResponseForm.builder()
+                    .code(HttpStatus.OK.value())
+                    .httpStatus(HttpStatus.OK)
+                    .msg("이력서를 성공적으로 조회했습니다.")
+                    .count(0)
+                    .result(List.of(resumeDTO))
+                    .build();
+        }else {
+            responseForm = ResponseForm.builder()
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .httpStatus(HttpStatus.BAD_REQUEST)
+                    .msg("사용자의 이력서가 존재하지 않습니다.")
+                    .count(0)
+                    .result(Collections.emptyList())
+                    .build();
+        }
+
+        return new ResponseEntity<>(responseForm, responseForm.getHttpStatus());
     }
 
     /* 간병인 검색결과 조회 */
