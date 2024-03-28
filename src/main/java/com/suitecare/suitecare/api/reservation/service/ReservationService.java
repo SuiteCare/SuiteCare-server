@@ -24,13 +24,23 @@ public class ReservationService {
             throw new GlobalExceptionHandler.AlreadyReservedException("Already Reserved");
         }
 
+        if(reservationMapper.isPresentApplicant(reservationRequestDTO) == 0) {
+            throw new GlobalExceptionHandler.ApplicantNotFoundException("Not Found Applicant");
+        }
+
         Integer result = reservationMapper.createReservation(reservationRequestDTO);
 
         if(result == 1) {
-            reservationMapper.updateStatus(reservationRequestDTO);
+            if(updateStatus(reservationRequestDTO) == 0) {
+                throw new GlobalExceptionHandler.UpdateStatusException("Not Update Status");
+            }
         }
 
         return result;
+    }
+
+    public Integer updateStatus(ReservationRequestDTO reservationRequestDTO) {
+        return reservationMapper.updateStatus(reservationRequestDTO);
     }
 
     public Integer updateStatusToReject(ApplyInfoRequestDTO applyInfoRequestDTO) {

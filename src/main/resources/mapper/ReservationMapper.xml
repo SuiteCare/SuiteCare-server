@@ -74,4 +74,9 @@
         SELECT count(*) FROM reservation
         WHERE recruitment_id = #{recruitment_id};
     </select>
+
+    <select id="isPresentApplicant">
+        SELECT count(*) FROM applicants
+        WHERE recruitment_id = #{recruitment_id} AND mate_resume_id = #{mate_id};
+    </select>
 </mapper>

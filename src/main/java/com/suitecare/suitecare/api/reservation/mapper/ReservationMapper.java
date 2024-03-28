@@ -14,4 +14,5 @@ public interface ReservationMapper {
     List<FamilyReservationResponseDTO> getFamilyReservationListById(String login_id);
     List<MateReservationResponseDTO> getMateReservationListById(String login_id);
     Integer isPresentReservation(ReservationRequestDTO reservationRequestDTO);
+    Integer isPresentApplicant(ReservationRequestDTO reservationRequestDTO);
 }
