@@ -107,7 +107,8 @@ create table Reservation(
  id					BIGINT primary key auto_increment,
  recruitment_id 	BIGINT NOT NULL,
  mate_resume_id 	VARCHAR(20) NOT NULL,
- confirm_at			TIMESTAMP NOT NULL
+ confirm_at			TIMESTAMP NOT NULL,
+ pay_at             TIMESTAMP NOT NULL
 );
 
 CREATE TABLE Certificate (
