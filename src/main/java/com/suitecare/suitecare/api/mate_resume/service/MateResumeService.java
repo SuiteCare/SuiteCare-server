@@ -60,23 +60,23 @@ public class MateResumeService {
 
     /* 간병인 이력서 등록 */
     @Transactional
-    public int createResume(String login_id, ResumeDTO resume_dto, MultipartFile file) throws IOException {
+    public int createResume(String login_id, ResumeDTO resume_dto, MultipartFile profileImageFile) throws IOException {
         /* 이미지 파일 경로 초기화 */
         String path = "C:/resources/";
         String fileName = null;
 
         /* 이미지 파일 업로드 로직 */
-        if (file != null && !file.isEmpty()) {
+        if (profileImageFile != null) {
             File dir = new File(path);
 
             if (!dir.exists()) {
                 dir.mkdirs();
             }
 
-            String originalFileName = file.getOriginalFilename();
+            String originalFileName = profileImageFile.getOriginalFilename();
             String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
             fileName = UUID.randomUUID() + fileExtension; // 고유한 파일 이름 생성
-            file.transferTo(new File(path + fileName));
+            profileImageFile.transferTo(new File(path + fileName));
 
         }
 
@@ -103,10 +103,37 @@ public class MateResumeService {
 
     /* 이력서 업데이트 */
     @Transactional
-    public void updateResume(String login_id, ResumeDTO resumeDTO) {
+    public void updateResume(String login_id, ResumeDTO resumeDTO, MultipartFile profileImageFile) throws IOException {
+
+        /* 이력서 프로필 사진 업데이트 */
+        if(profileImageFile != null) {
+
+            /* 기존 이미지 삭제 로직 */
+            String path = "C:/resources/";
+            String fileName = mateResumeMapper.getProfileImageFilename(login_id);
+            File deleteFile = new File (path + fileName);
+
+            if(deleteFile.delete()) {
+                System.out.println("삭제성공");
+            }else {
+                System.out.println("삭제실패");
+            }
+
+            /* 신규 이미지 추가 로직 */
+            String originalFileName = profileImageFile.getOriginalFilename();
+            String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+            fileName = UUID.randomUUID() + fileExtension;
+            profileImageFile.transferTo(new File(path + fileName));
+
+            /* 이력서 업데이트 정보에 profile_image_filename 업데이트 */
+            resumeDTO.getMateResume().setProfile_picture_filename(fileName);
+
+        }
 
         /* 이력서 기본 정보 업데이트 */
-        if (resumeDTO.getMateResume() != null) mateResumeMapper.updateMateResume(login_id, resumeDTO.getMateResume());
+        if (resumeDTO.getMateResume() != null) {
+            mateResumeMapper.updateMateResume(login_id, resumeDTO.getMateResume());
+        }
 
         /* 이력서 상세 정보 업데이트 */
         updateDtoElement(login_id, resumeDTO.getCareerList(), careerMapper::insertCareer, careerMapper::updateCareer, careerMapper::deleteCareer);

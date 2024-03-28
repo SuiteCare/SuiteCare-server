@@ -61,16 +61,17 @@ public class MateResumeController {
     }
 
     @PostMapping("/mate/resume")
-    public Integer uploadResume(HttpServletRequest request, @RequestPart(value = "file", required = false) MultipartFile file,
-                                          @RequestPart("resumeData") ResumeDTO resumeData) throws IOException {
+    public Integer uploadResume(HttpServletRequest request, @RequestPart(value = "file", required = false) MultipartFile profileImageFile,
+                                @RequestPart("resumeData") ResumeDTO resumeDTO) throws IOException {
         String login_id = (String) request.getAttribute("id");
-        return mateResumeService.createResume(login_id, resumeData, file);
+        return mateResumeService.createResume(login_id, resumeDTO, profileImageFile);
     }
 
     @PatchMapping("/mate/resume")
-    public void updateResume(HttpServletRequest request, @RequestBody ResumeDTO resumeDTO) {
+    public void updateResume(HttpServletRequest request, @RequestPart(value = "file", required = false) MultipartFile profileImageFile,
+                             @RequestPart("resumeData") ResumeDTO resumeDTO) throws IOException {
         String login_id = (String) request.getAttribute("id");
-        mateResumeService.updateResume(login_id, resumeDTO);
+        mateResumeService.updateResume(login_id, resumeDTO, profileImageFile);
     }
 
     /* 간병인 이력서 삭제 */
