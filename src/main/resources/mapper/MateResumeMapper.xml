@@ -26,11 +26,10 @@
     <update id="updateMateResume">
         UPDATE MateResume
         <set>
-<!--
             <if test="mateResumeDTO.profile_picture_filename != null">
                 profile_picture_filename = #{mateResumeDTO.profile_picture_filename},
             </if>
--->
+
             <if test="mateResumeDTO.introduction != null">
                 introduction = #{mateResumeDTO.introduction},
             </if>
@@ -67,7 +66,7 @@
         JOIN suitemember sm ON r.id = sm.id
 
         WHERE 1=1
-        <if test="searchedDTO.wage != null">
+        <if test="searchedDTO.wage.length == 2">
             AND desired_wage BETWEEN
             <foreach collection="searchedDTO.wage" item="it" separator="and">
                 #{it}
@@ -85,21 +84,21 @@
             </foreach>
         </if>
 
-        <if test = "searchedDTO.age != null">
+        <if test = "searchedDTO.age.length != 0">
             AND TRUNCATE((to_days(NOW()) - to_days(birthday)) / 365, -1) IN
                 <foreach collection="searchedDTO.age" item="it" separator="," open="(" close=")">
                     #{it}
                 </foreach>
         </if>
 
-        <if test="searchedDTO.location != null">
+        <if test="searchedDTO.location.length != 0">
             AND
             <foreach collection="searchedDTO.location" item="it" index="idx" separator="or" open="(" close=")">
                 location LIKE CONCAT('%', #{it}, '%')
             </foreach>
         </if>
 
-        <if test="searchedDTO.service != null">
+        <if test="searchedDTO.service.length != 0">
             AND
             <foreach collection="searchedDTO.service" item="it" index="idx" separator="or" open="(" close=")">
                 mainservice LIKE CONCAT('%', #{it}, '%')
@@ -124,5 +123,9 @@
     <delete id="deleteMateResume">
         DELETE FROM materesume WHERE id = #{mate_resume_id}
     </delete>
+
+    <select id="getProfileImageFilename">
+        SELECT profile_picture_filename FROM materesume WHERE id = #{login_id}
+    </select>
 
 </mapper>

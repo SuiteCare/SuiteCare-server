@@ -22,4 +22,5 @@ public interface MateResumeMapper {
 
     Integer deleteMateResume(String mate_resume_id);
 
+    String getProfileImageFilename(String login_id);
 }
