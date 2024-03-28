@@ -59,7 +59,7 @@ public class MateResumeService {
         String path = "C:/resources/";
         String fileName = "default_profile.jpg";
 
-        if(file != null) {
+        if(!file.isEmpty()) {
 
             File dir = new File(path);
 
